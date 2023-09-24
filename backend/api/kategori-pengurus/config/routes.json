@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/kategori-penguruses",
+      "handler": "kategori-pengurus.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/kategori-penguruses/count",
+      "handler": "kategori-pengurus.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/kategori-penguruses/:id",
+      "handler": "kategori-pengurus.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/kategori-penguruses",
+      "handler": "kategori-pengurus.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/kategori-penguruses/:id",
+      "handler": "kategori-pengurus.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/kategori-penguruses/:id",
+      "handler": "kategori-pengurus.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

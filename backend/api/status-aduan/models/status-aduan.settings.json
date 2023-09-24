@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "status_aduans",
+  "info": {
+    "name": "Status Aduan",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "status": {
+      "type": "string",
+      "required": true
+    },
+    "urutan": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}

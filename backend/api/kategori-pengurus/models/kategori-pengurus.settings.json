@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "divisi_pengurus",
+  "info": {
+    "name": "Divisi Pengurus",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

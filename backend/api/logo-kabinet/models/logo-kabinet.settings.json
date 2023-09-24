@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "logo_kabinet",
+  "info": {
+    "name": "Logo Kabinet",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "gambar": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": true,
+      "pluginOptions": {}
+    },
+    "untuk_layar": {
+      "type": "enumeration",
+      "enum": [
+        "mobile",
+        "tablet",
+        "desktop"
+      ],
+      "required": true
+    }
+  }
+}

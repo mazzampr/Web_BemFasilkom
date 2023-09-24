@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "aspirasi_dan_aduans",
+  "info": {
+    "name": "Aspirasi dan Aduan",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "jurusan": {
+      "model": "jurusan"
+    },
+    "pesan": {
+      "type": "text",
+      "required": true
+    },
+    "tipe": {
+      "type": "enumeration",
+      "enum": [
+        "Aduan",
+        "Aspirasi"
+      ],
+      "required": true
+    },
+    "status_aduan": {
+      "model": "status-aduan"
+    }
+  }
+}

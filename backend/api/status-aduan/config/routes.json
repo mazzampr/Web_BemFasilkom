@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/status-aduans",
+      "handler": "status-aduan.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/status-aduans/count",
+      "handler": "status-aduan.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/status-aduans/:id",
+      "handler": "status-aduan.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/status-aduans",
+      "handler": "status-aduan.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/status-aduans/:id",
+      "handler": "status-aduan.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/status-aduans/:id",
+      "handler": "status-aduan.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

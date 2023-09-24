@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/jurusans",
+      "handler": "jurusan.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/jurusans/count",
+      "handler": "jurusan.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/jurusans/:id",
+      "handler": "jurusan.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/jurusans",
+      "handler": "jurusan.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/jurusans/:id",
+      "handler": "jurusan.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/jurusans/:id",
+      "handler": "jurusan.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

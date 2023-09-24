@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/jabatans",
+      "handler": "jabatan.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/jabatans/count",
+      "handler": "jabatan.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/jabatans/:id",
+      "handler": "jabatan.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/jabatans",
+      "handler": "jabatan.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/jabatans/:id",
+      "handler": "jabatan.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/jabatans/:id",
+      "handler": "jabatan.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

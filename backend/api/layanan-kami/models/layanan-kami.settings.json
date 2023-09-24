@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "layanan_kamis",
+  "info": {
+    "name": "Layanan Kami",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama": {
+      "type": "string",
+      "required": true
+    },
+    "icon": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": true,
+      "pluginOptions": {}
+    },
+    "link": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

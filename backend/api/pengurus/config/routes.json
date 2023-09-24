@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/penguruses",
+      "handler": "pengurus.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/penguruses/count",
+      "handler": "pengurus.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/penguruses/:id",
+      "handler": "pengurus.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/penguruses",
+      "handler": "pengurus.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/penguruses/:id",
+      "handler": "pengurus.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/penguruses/:id",
+      "handler": "pengurus.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

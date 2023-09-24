@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "link_status_aduans",
+  "info": {
+    "name": "Link Status Aduan",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "google_sheet_link": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

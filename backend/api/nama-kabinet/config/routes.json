@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/nama-kabinet",
+      "handler": "nama-kabinet.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/nama-kabinet",
+      "handler": "nama-kabinet.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/nama-kabinet",
+      "handler": "nama-kabinet.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/struktur-pengurus",
+      "handler": "struktur-pengurus.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/struktur-pengurus",
+      "handler": "struktur-pengurus.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/struktur-pengurus",
+      "handler": "struktur-pengurus.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/link-status-aduan",
+      "handler": "link-status-aduan.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/link-status-aduan",
+      "handler": "link-status-aduan.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/link-status-aduan",
+      "handler": "link-status-aduan.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

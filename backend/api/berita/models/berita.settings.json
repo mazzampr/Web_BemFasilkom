@@ -1,0 +1,42 @@
+{
+  "kind": "collectionType",
+  "collectionName": "beritas",
+  "info": {
+    "name": "berita",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "judul": {
+      "type": "string",
+      "required": true
+    },
+    "author": {
+      "plugin": "admin",
+      "model": "user"
+    },
+    "cover": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "konten": {
+      "type": "richtext",
+      "required": true
+    },
+    "pratinjau": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jurusans",
+  "info": {
+    "name": "Jurusan",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama": {
+      "type": "string",
+      "required": true
+    },
+    "kode_jurusan": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

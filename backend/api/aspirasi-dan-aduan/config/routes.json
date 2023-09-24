@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/aspirasi-dan-aduans",
+      "handler": "aspirasi-dan-aduan.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/aspirasi-dan-aduans/count",
+      "handler": "aspirasi-dan-aduan.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/aspirasi-dan-aduans/:id",
+      "handler": "aspirasi-dan-aduan.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/aspirasi-dan-aduans",
+      "handler": "aspirasi-dan-aduan.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/aspirasi-dan-aduans/:id",
+      "handler": "aspirasi-dan-aduan.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/aspirasi-dan-aduans/:id",
+      "handler": "aspirasi-dan-aduan.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

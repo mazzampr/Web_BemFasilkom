@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "penguruses",
+  "info": {
+    "name": "pengurus",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama": {
+      "type": "string",
+      "required": true
+    },
+    "angkatan": {
+      "type": "integer",
+      "required": true
+    },
+    "instagram": {
+      "type": "string"
+    },
+    "foto": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": true,
+      "pluginOptions": {}
+    },
+    "divisi": {
+      "model": "kategori-pengurus"
+    },
+    "jurusan": {
+      "model": "jurusan"
+    },
+    "jabatan": {
+      "columnName": "jabatan",
+      "model": "jabatan"
+    }
+  }
+}

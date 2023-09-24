@@ -1,0 +1,19 @@
+{
+  "kind": "collectionType",
+  "collectionName": "jabatans",
+  "info": {
+    "name": "Jabatan"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

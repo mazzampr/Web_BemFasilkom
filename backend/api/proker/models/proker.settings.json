@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "prokers",
+  "info": {
+    "name": "proker",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama": {
+      "type": "string"
+    },
+    "tautan": {
+      "type": "string"
+    }
+  }
+}

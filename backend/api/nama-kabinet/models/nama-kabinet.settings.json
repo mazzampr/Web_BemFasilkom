@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "nama_kabinets",
+  "info": {
+    "name": "Nama Kabinet"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nama": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

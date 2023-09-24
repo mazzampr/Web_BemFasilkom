@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/visi",
+      "handler": "visi.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/visi",
+      "handler": "visi.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/visi",
+      "handler": "visi.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

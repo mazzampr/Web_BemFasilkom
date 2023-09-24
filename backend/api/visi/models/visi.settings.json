@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "visis",
+  "info": {
+    "name": "visi",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "teks": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

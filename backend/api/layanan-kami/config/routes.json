@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/layanan-kamis",
+      "handler": "layanan-kami.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/layanan-kamis/count",
+      "handler": "layanan-kami.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/layanan-kamis/:id",
+      "handler": "layanan-kami.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/layanan-kamis",
+      "handler": "layanan-kami.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/layanan-kamis/:id",
+      "handler": "layanan-kami.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/layanan-kamis/:id",
+      "handler": "layanan-kami.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
