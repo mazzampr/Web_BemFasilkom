@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Poppins', sans-serif;
+  }
+}
+
+@layer components {
+  .submenu {
+    @apply text-typedBlue relative after:content-[""] after:h-[3px] after:bg-tangerine after:absolute after:rounded-xl ;
+  }
+  .text-outline{
+    @apply bg-gradient-cust-orange1 bg-clip-text text-transparent ;
+  }
+  .shadow-outline{
+    @apply after:text-3xl after:tracking-wide after:font-bold after:text-white after:drop-shadow-cust-1 after:absolute after:left-0;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+
+a {
+  text-decoration: none;
+}

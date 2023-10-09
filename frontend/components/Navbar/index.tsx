@@ -1,36 +1,56 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Image from 'next/image'
 import styles from "./styles.module.scss";
 import { SELF_URL } from "../../constants";
 import { NavbarBackgroundContext } from "../../contexts/navbar-background";
 import Color from "color";
+import ButtonOutline from "../Assets/ButtonOutline";
 
-type NavLink = {
+interface NavLink {
   text: string;
   link: string;
 };
 
-const navLinks: NavLink[] = [
+interface profileLinks {
+  text:string;
+  links:{
+    text:string;
+    link:string;
+  }[];
+}
+
+const navLinks: (NavLink | profileLinks)[] = [
   {
-    text: "Home",
-    link: "/",
+    text: "Profile",
+    links:[
+      {
+        text: "Struktur Organisasi",
+        link: "/struktur-organisasi",
+      },
+      {
+        text: 'Kabinet',
+        link: '/kabinet'
+      }
+    ],
   },
   {
-    text: "Berita",
+    text: "Fasilkom News",
     link: "/berita",
   },
   {
-    text: "Profile",
-    link: "/visi-misi",
-  },
-  {
-    text: "Struktur Organisasi",
-    link: "/struktur-organisasi",
-  },
-  {
-    text: "Aduan dan Aspirasi",
-    link: "/aduan-dan-aspirasi",
+    text: "Our Services",
+    links: [
+      {
+        text:'Aduan dan Aspirasi',
+        link:'/aduan-dan-aspirasi'
+      },
+      {
+        text:'Bisnis Mitra',
+        link:'/bisnis-mitra'
+      }
+    ],
   },
 ];
 
@@ -39,110 +59,74 @@ export const Navbar = () => {
   const { navbarBackgroundColor } = useContext(NavbarBackgroundContext);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+
+    // just trigger this so that the initial state 
+    // is updated as soon as the component is mounted
+    // related: https://stackoverflow.com/a/63408216
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll);
+    console.log(scrollY)
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  
   return (
-    <div className={styles.navbar}>
-      <div className={styles.navbar_mobile}>
-        <div className={styles.navbar_mobile_branding}>
-          <Link href="/">
-            <a>
-              <img
-                src={`/bem-fasilkom-logo.png`}
-                alt="Logo BEM Fasilkom UPN 'Veteran' Jawa Timur"
-                className={styles.logo_navbar}
-              />
-            </a>
-          </Link>
-          <p
-            className={styles.navbar_mobile_branding_text}
-            style={{
-              color: Color(navbarBackgroundColor).isDark()
-                ? "white"
-                : "#183149",
-            }}
-          >
-            BEM FASILKOM UPN &quot;Veteran&quot; Jawa Timur
-          </p>
-        </div>
-
-        <div>
-          <img
-            src={
-              Color(navbarBackgroundColor).isDark()
-                ? `/icons/hamburger-white.svg`
-                : `/icons/hamburger.svg`
-            }
-            alt=""
-            className={styles.navbar_mobile_hamburger}
-            onClick={() => setShowMobileMenu(!showMobileMenu)}
-          />
-        </div>
-      </div>
-
-      <nav
-        className={
-          showMobileMenu
-            ? styles.navbar_mobile_menu
-            : styles.navbar_mobile_menu__hidden
-        }
-      >
-        <ul>
-          {navLinks.map((navLink, idx) => {
-            return (
-              <li
-                key={idx}
-                className={`${styles.navlink_mobile} ${
-                  router.pathname === navLink.link
-                    ? styles.navlink_mobile_active
-                    : undefined
-                }`}
-                onClick={() => setShowMobileMenu(false)}
-              >
-                <Link href={navLink.link}>
-                  <a>{navLink.text}</a>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-      <div className={styles.navbar_desktop}>
-        <Link href="/">
-          <a>
-            <img
-              src={`/bem-fasilkom-logo.png`}
-              alt="Logo BEM Fasilkom UPN 'Veteran' Jawa Timur"
-              className={styles.logo_navbar}
-            />
-          </a>
-        </Link>
-
-        <nav className={styles.nav_desktop_container}>
-          <ul>
-            {navLinks.map((navLink, idx) => {
-              return (
-                <li key={idx} className={styles.navlink_container}>
-                  <Link href={navLink.link}>
-                    <a
-                      className={`${styles.navlink} ${
-                        router.pathname === navLink.link
-                          ? styles.navlink_active
-                          : undefined
-                      }`}
-                      style={{
-                        color: Color(navbarBackgroundColor).isDark()
-                          ? "white"
-                          : "#183149",
-                      }}
-                    >
-                      {navLink.text}
-                    </a>
-                  </Link>
-                </li>
-              );
-            })}
-          </ul>
+    <header className={`fixed z-[99] flex items-center justify-around w-[100vw] h-[13vh] ${scrollY>40?'bg-[#FFD7B7]':'bg-transparent'}`}>
+        <section className=''>
+            <Link href="/">
+                <a className="flex items-center ">
+                  <Image
+                      src={`/logo/kabinetArial.svg`}
+                      alt="Logo BEM Fasilkom UPN 'Veteran' Jawa Timur"
+                      className={styles.logo_navbar}
+                      width={50}
+                      height={40}
+                  />
+                  <div className="text-left flex flex-col justify-center">
+                    <h5 className=" font-semibold text-sm tracking-wide">BEM FASILKOM 2023</h5>
+                    <span className=" font-extralight text-xs tracking-wide">{'UPN "VETERAN" Jawa Timur'}</span>
+                  </div>
+                </a>
+            </Link>
+        </section>
+        <nav className='flex justify-between text-sm md:w-[50%] lg:w-[38%] h-[1.5rem] box-content mx-5 '>
+          {navLinks.map((menu,i) => menu.links? (
+            <section className="group relative z-[100] cursor-pointer box-border h-fit">
+              <div className="group-hover:border-b-2 border-b-black flex justify-between w-fit px-3">
+                  <p>{menu.text}</p>
+                  <Image className='group-hover:rotate-180 transition-transform duration-400' src={'/icons/caret.svg'} width={10} height={10} alt="Profile"></Image>
+              </div>
+              <ul className="absolute group invisible group-hover:visible group-focus:visible w-[200px] shadow shadow-slate-400 bg-white  overflow-y-auto  min-h-[fit] max-h-[6rem] rounded-md" key={i}>
+                <li className="invisible group-hover:visible w-full ">
+              {menu.links.map((subMenu,i)=>(
+                <>
+                  <a key={i} className='px-[.5rem] py-1 block text-center h-full hover:bg-tangerine hover:text-typedBlue text-sm font-medium' href={subMenu.link}>{subMenu.text}</a>
+                </>
+                  ))}
+                  </li >
+              </ul>
+            
+        </section>
+          )
+          :(
+            <section key={i}>
+              <Link href={menu.link} className='flex justify-center mx-3'><a className="text-black hover:border-b-2 border-b-black w-fit">{menu.text}</a></Link>
+            </section>
+          ))}
         </nav>
-      </div>
-    </div>
+        <section className="w-[20%]">
+          <ButtonOutline content={'Event'} width={'6.3rem'}/>
+        </section>
+    </header>
   );
 };
+

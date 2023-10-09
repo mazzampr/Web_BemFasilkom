@@ -1,5 +1,5 @@
 import "react-tabs/style/react-tabs.css";
-import "../styles/globals.scss";
+import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Navbar } from "../components/Navbar";
 import { Provider } from "next-auth/client";
