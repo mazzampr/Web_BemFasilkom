@@ -56,7 +56,8 @@ module.exports = {
       },
       animation: {
         wiggle: 'wiggle 3s infinite',
-        custom: 'custom-animation 3s infinite'
+        custom: 'custom-animation 3s infinite',
+        'spin-cust' : 'spin 10s linear infinite',
       }
     },
   },

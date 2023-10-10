@@ -19,6 +19,9 @@
   .shadow-outline{
     @apply after:text-3xl after:tracking-wide after:font-bold after:text-white after:drop-shadow-cust-1 after:absolute after:left-0;
   }
+  .checkbox-div:has(input:checked) {
+    @apply bg-slate-400;
+  }
 }
 
 * {
