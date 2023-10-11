@@ -32,6 +32,10 @@ const navLinks: NavLink[] = [
     text: "Aduan dan Aspirasi",
     link: "/aduan-dan-aspirasi",
   },
+  {
+    text: "Projects",
+    link: "/projects",
+  },
 ];
 
 export const Navbar = () => {

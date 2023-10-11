@@ -1,0 +1,60 @@
+{
+  "kind": "collectionType",
+  "collectionName": "project",
+  "info": {
+    "name": "project",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": false
+    },
+    "user": {
+      "type": "string",
+      "required": true
+    },
+    "deskripsi": {
+      "type": "richtext",
+      "required": true
+    },
+    "registration_deadline": {
+      "type": "datetime",
+      "required": true
+    },
+    "project_deadline": {
+      "type": "datetime",
+      "required": true,
+      "unique": false
+    },
+    "registration_link": {
+      "type": "string",
+      "required": true,
+      "private": false,
+      "unique": false
+    },
+    "project_image": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "files",
+        "images"
+      ],
+      "plugin": "upload",
+      "required": true,
+      "pluginOptions": {}
+    },
+    "users_permissions_user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "project"
+    }
+  }
+}
