@@ -53,6 +53,10 @@ const navLinks: (NavLink | profileLinks)[] = [
       }
     ],
   },
+  {
+    text: "Projects",
+    link: "/projects",
+  },
 ];
 
 export const Navbar = () => {

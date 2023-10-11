@@ -57,6 +57,15 @@ export type DetailBerita = {
   pratinjau: string;
   created_at: string;
 };
+export type DetailProjects = {
+  id: number;
+  judul: string;
+  cover: StrapiImage;
+  author: BeritaAuthor;
+  konten: string;
+  pratinjau: string;
+  created_at: string;
+};
 
 export type DivisiPengurus = {
   nama: string;
