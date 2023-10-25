@@ -1,36 +1,44 @@
-import React, {useEffect} from 'react'
+import React, {useEffect,useRef,useState} from 'react'
 import Image from 'next/image'
 import Carousel from 'react-multi-carousel'
+import 'react-multi-carousel/lib/styles.css';
 import Struktur from '../../components/Assets/StrukturOrganisasi'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import styles from '../../styles/Home.module.css'
 import Card from '../../components/strukturOrganisasi/cardAnggota'
 import Proker from '../../components/Assets/Proker'
 export default function Index() {
-    const responsive = {
-        superLargeDesktop: {
-          // the naming can be any, depends on you.
-          breakpoint: { max: 4000, min: 3000 },
-          items: 5
-        },
-        desktop: {
-          breakpoint: { max: 3000, min: 1024 },
-          items: 3
-        },
-        tablet: {
-          breakpoint: { max: 1024, min: 464 },
-          items: 2
-        },
-        mobile: {
-          breakpoint: { max: 464, min: 0 },
-          items: 1
-        }
-      };
-    useEffect(() => {
-        // You can access the window object inside the useEffect hook
-        let width = window.innerWidth;
-        console.log(width);
-      }, []);
+    const slider= useRef(null);
+    const [xPos , setXPos] = useState(0);
+    // console.log(xPos)
+    // useEffect(() => {
+    //     // You can access the window object inside the useEffect hook
+    //     let width = slider.current.offsetWidth;
+    //     console.log(width);
+    //   }, [slider.current.offsetWidth]);
+    console.log(xPos)
+    // const moveForward =()=>{
+    //     if(xPos === 0){
+    //         const newPosition = xPos - window.innerWidth;
+    //         setXPos(newPosition)
+    //     }
+    //     if(xPos > -(slider.current.offsetWidth)){
+    //         const newPosition = xPos - window.innerWidth;
+    //         setXPos(newPosition);
+    //         slider.current.style.translate=`${xPos}px 0`   
+    //         slider.current.style.transition='500ms'   
+    //     }
+    // }
+    // const moveBackward =()=>{
+    //     if(xPos < slider.current.offsetWidth){
+    //         const newPosition = xPos + window.innerWidth;
+    //         setXPos(newPosition);
+    //         slider.current.style.translate=`${xPos}px 0`   
+    //         slider.current.style.transition='500ms'   
+
+    //     }
+            
+    // }    
   return (
     <section className='mt-[13vh] py-3'>
         <section className='w-full h-fit'>
@@ -53,7 +61,7 @@ export default function Index() {
                 </div>
             </section>
         </section>
-        <section className=' flex flex-col gap-5 px-3 sm:px-10'>
+        <section className='flex flex-col gap-5 px-3 sm:px-10'>
             <div className='flex flex-col gap-1'>
                 <h5 className='text-lg leading-none sm:text-xl md:text-2xl lg:text-3xl font-bold submenu w-fit pr-2 border-r-2 border-tangerine h-fit'>Fungsionaris</h5>
                 <h6 className='text-xs sm:text-sm md:text-base md:leading-3 lg:text-2xl font-black text-outline'>BEM FASILKOM 2023</h6>
@@ -61,14 +69,14 @@ export default function Index() {
             <div className='w-full h-fit overflow-hidden'>
                 <Tabs>
                     <TabList>
-                        <Tab>Title 1</Tab>
-                        <Tab>Title 2</Tab>
-                        <Tab>Title 3</Tab>
-                        <Tab>Title 4</Tab>
-                        <Tab>Title 4</Tab>
-                        <Tab>Title 4</Tab>
-                        {/* <Carousel responsive={responsive}>
-                        </Carousel> */}
+                            <Tab>Title 1</Tab>
+                            <Tab>Title 2</Tab>
+                            <Tab>Title 3</Tab>
+                            <Tab>Title 4</Tab>
+                            <Tab>Title 4</Tab>
+                            <Tab>Title 4</Tab>
+                        {/* <div ref={slider} className='flex flex-row gap-4 w-full overflow-x-scroll'>
+                        </div> */}
                     </TabList>
                     <div className='flex flex-col items-center bg-[#EFEFEF] w-full h-fit px-3 py-10 pb-[7rem]'>
                         <TabPanel>

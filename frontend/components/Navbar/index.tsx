@@ -129,30 +129,28 @@ export const Navbar = () => {
                   </a>
               </Link>
           </section>
-          <nav className={`bg-white lg:bg-transparent justify-evenly text-2xl px-5 lg:px-0 lg:text-base w-screen absolute ${navbarShow ?'top-[13vh]':'-top-[100vh]'} duration-500 -ml-2 md:w-full lg:ml-0 lg:static flex flex-col gap-1 lg:flex-row lg:w-[70%] h-[87vh] max-h-screen lg:max-h-none lg:h-fit box-content mx-5`}>
+          <nav className={`bg-white lg:bg-transparent justify-evenly text-2xl px-5 lg:px-0 lg:text-base w-screen absolute ${navbarShow ?'top-[13vh]':'-top-[100vh]'} duration-500 -ml-2 md:w-full lg:ml-0 lg:static flex flex-col gap-1 lg:flex-row lg:w-[70%] h-screen z-100 lg:z-0 max-h-screen lg:max-h-none lg:h-fit box-content mx-5`}>
             <section className="flex flex-col lg:flex-row justify-around w-fit max-h-[80%] lg:max-h-none lg:w-[70%] h-[60%] lg:h-fit ">
-              {navLinks.map((menu,i:number) => menu.links? (
-                <section className="group relative z-[100] cursor-pointer box-border h-fit" onClick={() => toggleSubmenu(i)}>
+              {navLinks.map((menu:any,i:number) => menu.links? (
+                <section key={`menu-${i}`} className="group relative z-[100] cursor-pointer box-border h-fit" onClick={() => toggleSubmenu(i)} >
                   <div className="group-hover:border-b-2 border-b-black flex justify-between w-fit lg:px-3">
                       <p className={`${linkClicked===menu.text?'text-typedBlue font-bold':'text-black'}`}>{menu.text}</p>
                       <Image className='group-hover:rotate-180 transition-transform duration-400' src={'/icons/caret.svg'} width={10} height={10} alt="Profile"></Image>
                   </div>
-                  <ul className={`mt-2 lg:mt-0 ${submenuVisible[i] ? "block" : "hidden"} lg:block lg:absolute group lg:invisible lg:group-hover:visible w-[200px] lg:shadow lg:shadow-slate-400 bg-white  overflow-y-auto  min-h-[fit] max-h-[6rem] rounded-md`} key={i}>
-                    <li className="lg:invisible lg:group-hover:visible w-full flex flex-col gap-3 lg:gap-0">
-                  {menu.links.map((subMenu:NavLink,i:number)=>(
-                    <>
-                      <Link key={i} href={subMenu.link}>
+                  <ul className={`mt-2 lg:mt-0 ${submenuVisible[i] ? "block" : "hidden"} lg:block lg:absolute group lg:invisible lg:group-hover:visible w-[200px] lg:shadow lg:shadow-slate-400 bg-white  overflow-y-auto  min-h-[fit] max-h-[6rem] rounded-md`}>
+                  {menu.links.map((subMenu:NavLink,subIndex:number)=>(
+                    <li key={`submenu-${subIndex}`} className="lg:invisible lg:group-hover:visible w-full flex flex-col gap-3 lg:gap-0">
+                      <Link href={subMenu.link}>
                         <a onClick={()=>handleClickedNavbar(menu.text)} className={`px-[.5rem] py-1 block lg:text-center h-full hover:bg-tangerine hover:text-typedBlue text-base lg:text-sm font-medium `}>{subMenu.text}</a>
                       </Link>
-                    </>
+                    </li >
                       ))}
-                      </li >
                   </ul>
                 
                 </section>
               )
               :(
-                <section key={i}>
+                <section key={`menu-${i}`}>
                   <Link href={menu.link}><a onClick={()=>handleClickedNavbar(menu.text)} className={`${linkClicked===menu.text?'text-typedBlue font-bold':'text-black'} hover:border-b-2 border-b-black w-fit`}>{menu.text}</a></Link>
                 </section>
               ))}

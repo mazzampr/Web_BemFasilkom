@@ -30,7 +30,7 @@ export const Footer = () => {
           <p className="flex flex-wrap text-center w-[90%]">{'Gedung Giri Santika UPN "Veteran" Jawa Timur.Gn. Anyar, Kec. Gn. Anyar, Surabaya, Jawa Timur 60294'}</p>
           <iframe className='w-[90%] h-[15rem] lg:w-full lg:h-[20rem] border-2 border-black' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1978.5859369772957!2d112.7869155383215!3d-7.334585998168465!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fab8189e09c1%3A0xe23a95446109db9!2sGedung%20Giri%20Santika%20UPN%20Veteran%20Jawa%20Timur!5e0!3m2!1sid!2sid!4v1696789341476!5m2!1sid!2sid" 
           width="450" height="300" allowFullScreen={true} loading="lazy" 
-          referrerpolicy="no-referrer-when-downgrade"></iframe>        
+          referrerPolicy="no-referrer-when-downgrade"></iframe>        
         </article>
         <article className="w-full flex flex-col items-center mt-10 mb-5 lg:items-start lg:mb-0 lg:mt-0 lg:w-[25%]">
           <h5 className="text-2xl font-black">Follow Us!</h5>
