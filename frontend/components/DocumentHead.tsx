@@ -14,8 +14,7 @@ export const DocumentHead = ({ pageTitle }: Props) => {
         type="image/x-icon"
       />
       <title>
-        {pageTitle ? `${pageTitle} | ` : null}BEM FASILKOM UPN "Veteran" Jawa
-        Timur
+        {pageTitle ? `${pageTitle} | ` : null} {'BEM FASILKOM UPN "Veteran" Jawa Timur'}
       </title>
     </Head>
   );

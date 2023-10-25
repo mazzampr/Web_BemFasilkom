@@ -2,6 +2,8 @@ import "react-tabs/style/react-tabs.css";
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Navbar } from "../components/Navbar";
+import { Provider as StoreProvider  } from 'react-redux'
+import store from '../store/store.js'
 import { Provider } from "next-auth/client";
 import { NavbarBackgroundContext } from "../contexts/navbar-background";
 import { useMemo, useState } from "react";
@@ -16,15 +18,17 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 
   return (
     <Provider session={pageProps.session}>
-      <NavbarBackgroundContext.Provider value={value}>
-        <Navbar />
-        <div id="root" className="page-content">
-          <Component {...pageProps} />
-        </div>
-        <div className="footer">
-          <Footer />
-        </div>
-      </NavbarBackgroundContext.Provider>
+      <StoreProvider store={store}>
+        <NavbarBackgroundContext.Provider value={value}>
+          <Navbar />
+          <div id="root" className="page-content">
+            <Component {...pageProps} />
+          </div>
+          <div className="footer">
+            <Footer />
+          </div>
+        </NavbarBackgroundContext.Provider>
+      </StoreProvider>
     </Provider>
   );
 }
