@@ -37,6 +37,9 @@
     "pratinjau": {
       "type": "text",
       "required": true
+    },
+    "category": {
+      "model": "categories"
     }
   }
 }

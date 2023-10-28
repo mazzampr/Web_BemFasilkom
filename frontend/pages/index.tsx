@@ -8,7 +8,7 @@ import { Footer } from '../components/Footer'
 export default function index() {
   return (
     <section className='w-screen box-border'>
-        <section className='px-10'> 
+        <section className='px-10 min-w-[360px]'> 
             <Jumbotron />
             <Sambutan />
             <About />

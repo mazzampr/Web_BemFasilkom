@@ -18,7 +18,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
     <Provider session={pageProps.session}>
       <NavbarBackgroundContext.Provider value={value}>
         <Navbar />
-        <div id="root" className="page-content">
+        <div id="root" className="page-content ">
           <Component {...pageProps} />
         </div>
         <div className="footer">

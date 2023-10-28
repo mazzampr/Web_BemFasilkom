@@ -118,10 +118,10 @@ export const Navbar = () => {
   console.log(showNavbar)
   
   return (
-    <Headroom className="fixed z-[99] " style={{
+    <Headroom className="fixed z-[99] min-w-[100%]   " style={{
       transition: 'all 1s ease-in-out'
     }}>
-      <header className={`flex items-center justify-between lg:justify-evenly w-[100vw] ${scrollY>0?'bg-[#FFD7B7]':'bg-transparent'} h-[13vh]`}  style={{
+      <header className={` flex items-center justify-between lg:justify-evenly min-w-[100vw]  ${scrollY>0?'bg-[#FFD7B7]':'bg-transparent'} h-[13vh]`}  style={{
       transition: 'all 1s ease-in-out'
     }}  >
           <section className='flex w-[60%] lg:w-[20%]'>
@@ -143,7 +143,7 @@ export const Navbar = () => {
           </section>
           <nav className={`bg-white lg:bg-transparent justify-evenly text-2xl px-5 lg:px-0 lg:text-base w-screen absolute ${showNavbar ?'top-[13vh]':'-top-[100vh]'} -ml-2 md:w-[50%] lg:ml-0 lg:static flex flex-col gap-1 lg:flex-row lg:w-[70%] h-[87vh] max-h-screen lg:max-h-none lg:h-fit box-content mx-5`}>
             <section className="flex flex-col lg:flex-row justify-around w-fit max-h-[80%] lg:max-h-none lg:w-[70%] h-[60%] lg:h-fit ">
-              {navLinks.map((menu,i) => menu.links? (
+              {navLinks.map((menu,i) => menu.links ? (
                 <section className="group relative z-[100] cursor-pointer box-border h-fit" onClick={() => toggleSubmenu(i)}>
                   <div className="group-hover:border-b-2 border-b-black flex justify-between w-fit lg:px-3">
                       <p>{menu.text}</p>

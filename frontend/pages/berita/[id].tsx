@@ -11,11 +11,12 @@ import { API_URL } from "../../constants";
 import { useDarkNavLinks } from "../../hooks/useDarkNavLinks";
 import { DocumentHead } from "../../components/DocumentHead";
 import * as dateFns from "date-fns";
+import Link from "next/link";
 
 const NewsPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = (props) => {
-  const { errorCode, detailBerita } = props;
+  const { errorCode, detailBerita,listBerita } = props;
   useDarkNavLinks();
   if (errorCode || !detailBerita) {
     return (
@@ -30,20 +31,26 @@ const NewsPage: NextPage<
     <>
       <DocumentHead pageTitle="Berita" />
       <main className={styles.main}>
+        <div className="w-fit h-fit flex flex-col  lg:flex-row mt-3">
+       <section className="lg:w-[70%]">
         <section className={styles["head-news"]}>
-          <div className={styles["border-shape"]}>
+        <button className="w-[106px] h-[34px] rounded-[10px] bg-[#F2DECE] text-left mt-10 text-center flex items-center justify-center text-[#FA6D01]">
+          <p>{detailBerita.category.category}</p>
+        </button>
+          {/* <div className={styles["border-shape"]}>
             <div className={styles["border-shape-inside"]}></div>
-          </div>
+          </div> */}
 
           <h1 className={styles["news-title"]}>{detailBerita.judul}</h1>
 
           <p className={styles["news-info-date"]}>
-            ~ {dateFns.format(new Date(detailBerita.created_at), "d MMMM yyyy")}{" "}
-            ~
+             {dateFns.format(new Date(detailBerita.created_at), "d MMMM yyyy")}{" "}
+             •
+             By {detailBerita.author.firstname}
           </p>
-          <p className={styles["news-info-author"]}>
-            Oleh: {detailBerita.author.firstname}
-          </p>
+          {/* <p className={styles["news-info-author"]}>
+           
+          </p> */}
         </section>
 
         <div className={styles["img-container"]}>
@@ -55,6 +62,29 @@ const NewsPage: NextPage<
             {detailBerita.konten}
           </ReactMarkdown>
         </article>
+        </section>
+
+        <section className="  mt-10  sm:mt-[4em] lg:mt-9 w-[80%]  mx-auto lg:w-[30%] lg:p-2">
+         <h1 className="font-[700] text-[19px] md:text-[24px] ml-auto md:mb-4 lg:mb-0">Artikel Terbaru</h1>
+         <div className="w-full h-[250px] lg:h-fit overflow-y-scroll lg:overflow-y-visible flex flex-col"> 
+          {listBerita.map((article, i)  => (
+            
+              <>
+              <Link key={i}   href={`/berita/${article.id}`} passHref>
+               <article className="flex    w-[100%] mx-auto mt-3 h-fit cursor-pointer ">
+          <img className="h-[65px] w-[65px] md:h-[120px] md:w-[120px] lg:w-[65px] lg:h-[65px]  bg-slate-100 rounded-[10px] mr-3 " src={`${API_URL}${article.cover.url}`} alt="" />
+          <h2 className="text-[0.9rem] sm:text-[1.1rem]  md:text-[1.65em] lg:text-[14px] mt-1">{article.judul}</h2>
+          </article>
+          </Link>
+              </>
+            
+          ))}
+         
+          
+          
+         </div>
+        </section>
+        </div>
       </main>
     </>
   );
@@ -70,13 +100,26 @@ type URLParams = { id: string };
 export const getServerSideProps: GetServerSideProps<ServerSideData, URLParams> =
   async (context) => {
     const res = await fetch(`${API_URL}/beritas/${context.params?.id}`);
+    // const res1 = await fetch(`${API_URL}/beritas/${context.params?.id}`);
+    const [beritaList, beritaCount] = await Promise.all([
+      await (
+        await fetch(
+          `${API_URL}/beritas?_sort=created_at:DESC&_start=0&_limit=6`
+        )
+      ).json(),
+      await (await fetch(`${API_URL}/beritas/count`)).json(),
+    ]);
+
+
     const errorCode = res.ok ? false : res.status;
     const detailBerita = res.status === 404 ? null : await res.json();
-
+    console.log(beritaList);
     return {
       props: {
         errorCode,
         detailBerita,
+        listBerita: beritaList,
+
       },
     };
   };

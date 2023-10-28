@@ -40,6 +40,7 @@ const AduanDanAspirasi: NextPage<
   const submitHandler: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     setIsSubmitting(true);
+
     const body = {
       nama,
       email,
@@ -53,6 +54,8 @@ const AduanDanAspirasi: NextPage<
       tipe: tipeMasukan,
       status_aduan: 2,
     };
+    console.log('memek')
+    console.log(body)
 
     fetch(`${API_URL}/aspirasi-dan-aduans`, {
       method: "post",

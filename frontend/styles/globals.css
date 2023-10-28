@@ -39,6 +39,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100vw;
+  min-width:360px;
   overflow-x: hidden;
 }
 

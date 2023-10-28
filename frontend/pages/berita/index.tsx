@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState,useEffect } from "react";
 import type {
   GetServerSideProps,
   InferGetServerSidePropsType,
@@ -20,10 +20,13 @@ const Berita: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
     const [isFetchingNewData, setIsFetchingNewData] = useState(false);
     useDarkNavLinks();
 
+    
+
     return (
       <>
         <DocumentHead pageTitle="Berita" />
         <div className={styles.container}>
+          <h1 className={styles.textberita}>Fasilkom News</h1>
           {beritaList.length > 0 ? (
             <>
               <div className={styles.berita_list_container}>
@@ -32,15 +35,24 @@ const Berita: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
                     <Link key={idx} href={`/berita/${berita.id}`}>
                       <a className={styles.news_card}>
                         <div className={styles.news_thumbnail}>
-                          <img src={API_URL + berita.cover.url} alt="berita" />
+                          <img src={berita.cover ? API_URL + berita.cover.url : 'placeholder_image_url'} alt="berita" />
                         </div>
-                        <h3 className={styles.news_title}>{berita.judul}</h3>
+                        <div className="flex w-full h-fit justify-between items-center font-light">
+                        
                         <p className={styles.news_date}>
+                          <img className="inline w-[24px] h-[24px] mr-1 m-auto" width={24} height={24} alt="date" src="icons/date.svg"/>
                           {dateFns.format(
                             new Date(berita.created_at),
                             "d MMMM yyyy"
                           )}
                         </p>
+                        <p className="text-[12px]">
+                        <img className="inline w-[24px] h-[24px] mr-1" width={24} height={24} alt="date" src="icons/user.svg"/>
+                          {berita.author.firstname}
+                        </p>
+                        </div>
+                        <h3 className={styles.news_title}>{berita.judul}</h3>
+              
                         <p className={styles.news_desc}>
                           {berita.pratinjau.length > 200
                             ? berita.pratinjau.slice(0, 200) + "..."
@@ -52,25 +64,37 @@ const Berita: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
                 })}
               </div>
               {beritaList.length < beritaCount ? (
-                <button
-                  className={styles.news_load_more}
-                  disabled={isFetchingNewData}
-                  onClick={() => {
-                    setIsFetchingNewData(true);
-                    fetch(
-                      `${API_URL}/beritas?_sort=created_at:DESC&_start=${paginationStart.current}&_limit=3`
-                    ).then(async (res) => {
-                      res.json().then((newNews) => {
-                        setBeritaList((prevState) => {
-                          return [...prevState, ...newNews];
-                        });
-                        setIsFetchingNewData(false);
-                      });
-                    });
-                  }}
-                >
-                  {isFetchingNewData ? "Mengambil data" : "Lihat lebih banyak"}
-                </button>
+               <button
+               className={styles.news_load_more}
+               disabled={isFetchingNewData}
+               onClick={() => {
+                 setIsFetchingNewData(true);
+                 fetch(`${API_URL}/beritas?_sort=created_at:DESC&_start=${paginationStart.current}&_limit=3`)
+                   .then((res) => {
+                     if (!res.ok) {
+                       throw new Error('Network response was not ok');
+                     }
+                     return res.json();
+                   })
+                   .then((newNews) => {
+                     setBeritaList( [...beritaList, ...newNews]);
+                     console.log('aaaaaa')
+                    console.log(beritaList)
+                    console.log([...beritaList, ...newNews])
+                     setIsFetchingNewData(false);
+                   })
+                   .catch((error) => {
+                     console.error('Error fetching data:', error);
+                     setIsFetchingNewData(false);
+                   });
+               }}
+             >
+               <p className="border border-black">
+                 {isFetchingNewData ? "Mengambil data" : "Lihat lebih banyak"}{' '}
+                 <img className="inline ml-1 mb-1 rotate-[90deg]" width={20} height={20} src="icons/arrowRight.svg" alt="arrow" />
+               </p>
+             </button>
+             
               ) : null}
             </>
           ) : (
@@ -98,6 +122,7 @@ export const getServerSideProps: GetServerSideProps<ServerSideData> =
       ).json(),
       await (await fetch(`${API_URL}/beritas/count`)).json(),
     ]);
+
 
     return {
       props: {
