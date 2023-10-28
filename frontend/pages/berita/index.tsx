@@ -24,7 +24,7 @@ const Berita: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
 
     return (
       <>
-        <DocumentHead pageTitle="Berita" />
+        <DocumentHead pageTitle="Fasilkom News" />
         <div className={styles.container}>
           <h1 className={styles.textberita}>Fasilkom News</h1>
           {beritaList.length > 0 ? (
