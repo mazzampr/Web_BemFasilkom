@@ -7,14 +7,15 @@ import styles from "../styles/StatusAduan.module.scss";
 import Board from "react-trello";
 import { API_URL } from "../constants";
 import { AspirasiDanAduan, StatusAduan } from "../constants/types";
-import { useReducer, useRef } from "react";
+import { useReducer, useRef,useState } from "react";
 import * as dateFns from "date-fns";
 import { DocumentHead } from "../components/DocumentHead";
 
 const StatusAduanPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = (props) => {
-  const { columns } = props;
+  const { columns} = props;
+  const [status,setStatus]= useState(0)
   console.log("columns: ", columns);
 
   const initialLanesOffset: Record<number, number> = {};
@@ -60,6 +61,7 @@ const StatusAduanPage: NextPage<
     return prevStateClone;
   }
 
+
   return (
     <>
       <DocumentHead pageTitle="Status Aduan" />
@@ -72,7 +74,7 @@ const StatusAduanPage: NextPage<
           </p>
         </header>
         <div className={styles.kanban_wrapper}>
-          <Board
+          {/* <Board
             style={{ backgroundColor: "#ddd", padding: 40 }}
             data={listAduan}
             draggable={false}
@@ -103,7 +105,34 @@ const StatusAduanPage: NextPage<
 
               return [];
             }}
-          />
+          /> */}
+        </div>
+        <div className="min-w-[360px] ">
+          <div className="w-full h-fit border-b-2 shadow shadow-gray-400 border-[#FEAB6C]">
+            <ul className="w-full h-full text-center  flex text-[12px] justify-around  py-2">
+              <li className={`text-[#094379] w-[calc(100%/3)]  text-[1.3em] sm:text-[1.5em] md:text-[1.6em]  hover:font-bold cursor-pointer`} onClick={()=>setStatus(0)}><a className={` ${status === 0 ? 'font-bold  text-[#FEAB6C]':null}`}>Belum Dikerjakan</a></li>
+              <li className="text-[#094379] w-[calc(100%/3)]  hover:text-[#FEAB6C] text-[1.3em] sm:text-[1.5em] md:text-[1.6em] active:font-bold hover:font-bold cursor-pointer" onClick={()=>setStatus(1)}><a className={` ${status === 1 ? 'font-bold  text-[#FEAB6C]':null}`}>Dalam Pengerjaan</a></li>
+              <li className="text-[#094379] w-[calc(100%/3)]  hover:text-[#FEAB6C] text-[1.3em] sm:text-[1.5em] md:text-[1.6em] active:font-bold hover:font-bold cursor-pointer" onClick={()=>setStatus(2)}><a className={` ${status === 2 ? 'font-bold  text-[#FEAB6C]':null}`}>Selesai</a></li>
+            </ul>
+          </div>
+          <div className="w-full h-[555px] pt-10 pb-5 overflow-y-scroll lg:grid lg:grid-cols-3 lg:grid-rows-auto">
+            {
+              
+                   columns.lanes[status].cards.map((aduan) => {
+                    return(
+                    <article key={aduan.id} className="w-[90%] mb-5 lg:mb-0 border-2 border-[#FEAB6C] h-fit p-2 rounded-[10px] mx-auto hover:bg-[#FEAB6C] hover:border-none transition-all hover:bg-opacity-[25%] ">
+                    <h1 className="text-[#094379] font-semibold text-[19px] sm:text-[24px] lg:text-[24px]">{`${aduan.title}`}</h1>
+                    <p className="text-[15px] sm:text-[19px] text-gray-500">{aduan.description}</p>
+                   </article>
+                    )
+                  })
+               
+              
+            }
+          
+
+          </div>
+
         </div>
       </div>
     </>
@@ -163,7 +192,7 @@ export const getServerSideProps: GetServerSideProps<ServerSideData> =
       ),
     };
 
-    return { props: { columns } };
+    return { props: { columns,listStatusAduan } };
   };
 
 export default StatusAduanPage;
