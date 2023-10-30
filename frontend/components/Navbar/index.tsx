@@ -131,13 +131,8 @@ export const Navbar = () => {
           </section>
           <nav className={`bg-white lg:bg-transparent justify-evenly text-2xl px-5 lg:px-0 lg:text-base w-screen absolute ${navbarShow ?'top-[13vh]':'-top-[100vh]'} duration-500 -ml-2 md:w-full lg:ml-0 lg:static flex flex-col gap-1 lg:flex-row lg:w-[70%] h-screen z-100 lg:z-0 max-h-screen lg:max-h-none lg:h-fit box-content mx-5`}>
             <section className="flex flex-col lg:flex-row justify-around w-fit max-h-[80%] lg:max-h-none lg:w-[70%] h-[60%] lg:h-fit ">
-<<<<<<< HEAD
-              {navLinks.map((menu,i) => menu.links ? (
-                <section className="group relative z-[100] cursor-pointer box-border h-fit" onClick={() => toggleSubmenu(i)}>
-=======
               {navLinks.map((menu:any,i:number) => menu.links? (
                 <section key={`menu-${i}`} className="group relative z-[100] cursor-pointer box-border h-fit" onClick={() => toggleSubmenu(i)} >
->>>>>>> 1db215ca06f3ecc3b3751dd677c45346eac6a31f
                   <div className="group-hover:border-b-2 border-b-black flex justify-between w-fit lg:px-3">
                       <p className={`${linkClicked===menu.text?'text-typedBlue font-bold':'text-black'}`}>{menu.text}</p>
                       <Image className='group-hover:rotate-180 transition-transform duration-400' src={'/icons/caret.svg'} width={10} height={10} alt="Profile"></Image>

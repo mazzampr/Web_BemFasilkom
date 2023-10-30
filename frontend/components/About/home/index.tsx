@@ -4,7 +4,7 @@ import Jaring from '../../Assets/Jaring'
 import ButtonOutline from '../../Assets/ButtonOutline'
 export default function index() {
   return (
-    <section className='h-fit lg:h-screen box-border justify-between pl-0 lg:pl-20 mt-[13vh] '>
+    <section className='h-fit lg:h-fit box-border justify-between pl-0 lg:pl-20 mt-[5em]  '>
         <div>
             <h3 className='text-3xl font-bold submenu pr-[10rem] w-fit after:top-[50%] after:right-20 after:w-[56px]'>Kenalan Yuk! </h3>
                 <div className="text-3xl relative z-6 tracking-wide font-black text-outline w-[15rem]">

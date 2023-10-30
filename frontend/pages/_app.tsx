@@ -18,17 +18,6 @@ function MyApp({ Component, pageProps, router }: AppProps) {
 
   return (
     <Provider session={pageProps.session}>
-<<<<<<< HEAD
-      <NavbarBackgroundContext.Provider value={value}>
-        <Navbar />
-        <div id="root" className="page-content ">
-          <Component {...pageProps} />
-        </div>
-        <div className="footer">
-          <Footer />
-        </div>
-      </NavbarBackgroundContext.Provider>
-=======
       <StoreProvider store={store}>
         <NavbarBackgroundContext.Provider value={value}>
           <Navbar />
@@ -40,7 +29,6 @@ function MyApp({ Component, pageProps, router }: AppProps) {
           </div>
         </NavbarBackgroundContext.Provider>
       </StoreProvider>
->>>>>>> 1db215ca06f3ecc3b3751dd677c45346eac6a31f
     </Provider>
   );
 }
