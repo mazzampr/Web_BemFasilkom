@@ -4,20 +4,27 @@ import {
   NextPage,
 } from "next";
 import styles from "../styles/StatusAduan.module.scss";
-import Board from "react-trello";
+import {  signOut, getSession } from "next-auth/client";
 import { API_URL } from "../constants";
 import { AspirasiDanAduan, StatusAduan } from "../constants/types";
-import { useReducer, useRef,useState } from "react";
+import { useReducer, useRef,useState,useEffect } from "react";
+import { useRouter } from "next/router";
+import { Session } from "next-auth";
 import * as dateFns from "date-fns";
 import { DocumentHead } from "../components/DocumentHead";
 
 const StatusAduanPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = (props) => {
-  const { columns} = props;
+  const { columns,session } = props;
+  console.log(session)
+  const router = useRouter()
   const [status,setStatus]= useState(0)
-  console.log("columns: ", columns);
-
+  useEffect(()=>{
+    if(!session){
+      router.push('/aduan-dan-aspirasi')
+    }
+  },[])
   const initialLanesOffset: Record<number, number> = {};
 
   columns.lanes.forEach((lane) => {
@@ -65,6 +72,7 @@ const StatusAduanPage: NextPage<
   return (
     <>
       <DocumentHead pageTitle="Status Aduan" />
+      {!session? null : 
       <div className={styles.container}>
         <header className={styles.title}>
           <h1 className={styles.title_main}>Status Aduan</h1>
@@ -106,6 +114,7 @@ const StatusAduanPage: NextPage<
               return [];
             }}
           /> */}
+          {}
         </div>
         <div className="min-w-[360px] ">
           <div className="w-full h-fit border-b-2 shadow shadow-gray-400 border-[#FEAB6C]">
@@ -132,12 +141,24 @@ const StatusAduanPage: NextPage<
           
 
           </div>
+          <button onClick={()=>signOut({
+                callbackUrl: `/aduan-dan-aspirasi`,
+              })} className="h-fit w-fit rounded-full border border-slate-200 text-white bg-red-600 p-2 px-5 shadow shadow-gray-500 hover:bg-white hover:border-red-600 hover:border-2 hover:font-bold hover:scale-[1.02] hover:text-red-600  mx-auto block ">Log-Out</button>
 
         </div>
       </div>
+      }
     </>
   );
 };
+type sessionType = {
+  user:{
+    name:string,
+    email:string,
+    image:string
+  }
+  expires:string
+}
 
 type ServerSideData = {
   listAduan?: AspirasiDanAduan[];
@@ -153,10 +174,14 @@ type ServerSideData = {
       }[];
     }[];
   };
+  session?: Session | null; // Include session property in the type definition
 };
 
+
 export const getServerSideProps: GetServerSideProps<ServerSideData> =
-  async () => {
+  async (context) => {
+    const session = await getSession(context);
+    console.log('session = ',session)
     let listStatusAduan = (await (
       await fetch(`${API_URL}/status-aduans`)
     ).json()) as StatusAduan[];
@@ -192,7 +217,7 @@ export const getServerSideProps: GetServerSideProps<ServerSideData> =
       ),
     };
 
-    return { props: { columns,listStatusAduan } };
+    return { props: { columns,listStatusAduan, session } };
   };
 
 export default StatusAduanPage;

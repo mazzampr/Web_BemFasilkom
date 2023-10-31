@@ -5,7 +5,7 @@ import {
 } from "next";
 import { FormEventHandler, useState } from "react";
 import styles from "../styles/AduanDanAspirasi.module.scss";
-import { signIn } from "next-auth/client";
+import { signIn, signOut } from "next-auth/client";
 import { API_URL } from "../constants";
 import { useDarkNavLinks } from "../hooks/useDarkNavLinks";
 import Head from "next/head";
@@ -248,7 +248,9 @@ const AduanDanAspirasi: NextPage<
             <a className={styles.link_status_aduan}>Lihat Status Aduan</a>
           </Link>
         </div>
+        
       </div>
+      <button onClick={()=>signOut()} className="h-fit w-fit rounded-full border border-slate-200 text-white bg-red-600 p-2 px-5 shadow shadow-gray-500 hover:bg-white hover:border-red-600 hover:border-2 hover:font-bold hover:scale-[1.02] hover:text-red-600  mx-auto block ">Log-Out</button>
     </>
   );
 };
