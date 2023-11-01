@@ -2,11 +2,11 @@ import React from 'react'
 import Image from 'next/image'
 export default function index() {
   return (
-    <section className='mt-[13vh] h-fit lg:h-screen flex flex-col-reverse lg:flex-row py-4 justify-evenly box-border -ml-2 lg:px-10'>
-        <section className='flex h-full w-full lg:w-[30%] '>
-            <section className='mt-8 w-full lg:mt-0 lg:w-fit h-full flex lg:flex-col items-center justify-between '>
-                <figure className='w-[40%] h-[40%] lg:w-fit lg:h-fit flex flex-col items-center'>
-                    <Image className='rounded-full overflow-hidden' src={'/cover.png'} width={200} height={200} alt='avatar'/>
+    <section className='mt-[13vh] h-fit  flex flex-col-reverse lg:flex-row py-4 justify-evenly box-border    lg:h-fit  lg:m-0 lg:p-5   lg:mx-auto lg:px-10'>
+        <section className='flex h-full lg:max-w-[283px] lg:w-[30%]  '>
+            <section className='mt-8 w-full lg:mt-0 lg:w-fit h-full flex lg:flex-col items-center justify-between  '>
+                <figure className='w-[40%] h-[40%] lg:w-fit lg:h-fit flex flex-col items-center lg:mb-10'>
+                    <Image className='rounded-full overflow-hidden ' src={'/cover.png'} width={200} height={200} alt='avatar'/>
                     <figcaption className='text-center mt-2'>
                         <p className='text-xs min-[357px]:text-sm  lg:text-xl'>Daud Arya Putra</p>
                         <p className='text-xs lg:text-xl font-bold text-typedBlue'>Ketua Bem</p>
@@ -22,8 +22,8 @@ export default function index() {
             </section>
         </section>
 
-        <section className='h-full w-full lg:w-[60%] box-border flex '>
-            <section className='h-full w-fit flex flex-col flex-wrap gap-6 lg:gap-12 box-border text-justify lg:px-6 '>
+        <section className='h-full w-full lg:max-w-[703px] lg:w-fit lg:h-fit box-border flex    '>
+            <section className='h-full w-fit flex flex-col flex-wrap  lg:flex-nowrap gap-6 lg:gap-12 box-border text-justify lg:px-6 '>
                 <div className='flex flex-col flex-wrap text-center lg:text-start'>
                     <h2 className='text-4xl lg:text-9xl tracking-[.9rem] font-semibold drop-shadow-cust-1 text-white  '>PERSEPSI</h2>
                     <span className='text-lg lg:text-2xl tracking-[.23rem] font-semibold text-typedBlue'>Ketua & Wakil Badan Eksekutif Mahasiswa</span>

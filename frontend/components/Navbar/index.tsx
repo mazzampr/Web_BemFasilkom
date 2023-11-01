@@ -113,7 +113,7 @@ export const Navbar = () => {
     dispatch(setStateLink({link}))
   }
   return (
-    <Headroom className="fixed z-[99] " style={{
+    <Headroom className="fixed z-[99] min-w-[100%]   " style={{
       transition: 'all 1s ease-in-out'
     }}>
       <header className={`flex items-center justify-between lg:justify-evenly w-[100vw]  ${scrollY>0 && pageVisit!='Bisnis-Mitra' ?'bg-[#FFD7B7]': scrollY>0 && pageVisit==='Bisnis-Mitra'?'bg-orange-500' : 'bg-transparent'} ${pageVisit!='Bisnis-Mitra' ? 'h-[13vh]' : 'pb-2 pt-2 lg:pt-0 lg:pb-0 lg:h-[17vh] lg:px-12'}`}  style={{

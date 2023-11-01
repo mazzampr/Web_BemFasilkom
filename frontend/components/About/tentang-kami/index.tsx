@@ -4,7 +4,7 @@ import Jaring from '../../Assets/Jaring'
 import ButtonOutline from '../../Assets/ButtonOutline'
 export default function index() {
   return (
-    <section className='h-fit lg:h-screen box-border flex flex-col lg:gap-20 pl-0 lg:pl-[2.5rem] mt-[13vh]'>
+    <section className='h-fit lg:h-screen box-border flex flex-col lg:gap-20 pl-0 lg:pl-[2.5rem] mt-[13vh] '>
         <div className='m-auto w-fit text-center'>
             <h3 className='text-2xl lg:text-3xl font-bold submenu w-fit'>Tentang Kami</h3>
             <h4 className='text-lg lg:text-2xl tracking-wide font-black text-outline'>Kabinet Aerial</h4>

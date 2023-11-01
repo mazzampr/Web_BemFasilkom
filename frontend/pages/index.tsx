@@ -22,7 +22,7 @@ const Index : NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
   dispatch(setStatePageVisit({page:'Homepage'}))
 
   return (
-      <section className='w-screen box-border'>
+      <section className='w-screen box-border min-w-[360px]'>
           <section className='px-10'> 
               <Jumbotron namaKabinet={namaKabinet} />
               <Sambutan />

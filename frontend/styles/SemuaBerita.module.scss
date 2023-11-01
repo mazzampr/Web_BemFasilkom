@@ -3,15 +3,29 @@ $main_color: #ef4f01;
 .container {
   justify-items: center;
   width: 100%;
+  min-width: 360px;
+
   max-width: 960px;
   margin: 0 auto;
   padding-top: 100px;
 }
 
+.textberita {
+  font-size: 22px;
+  text-align: center;
+  font-weight: 600;
+  background: -webkit-linear-gradient(45deg,#FA6D01,#FAAA01 );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .berita_list_container {
-  width: 100%;
+  width: fit-content;
+  max-width: fit-content;
   display: grid;
   grid-template-columns: 100%;
+  margin: 0 auto;
+
 
   @media screen and (min-width: 640px) {
     grid-template-columns: repeat(2, 1fr);
@@ -35,12 +49,20 @@ $main_color: #ef4f01;
   width: 100%;
   overflow: hidden;
   padding: 20px 12px;
-  border: 1px solid rgba(0, 0, 0, 0.3);
+  border: 2px solid #FEB076;
+  
   box-sizing: border-box;
   margin: 20px;
   border-radius: 8px;
   max-width: 280px;
   height: 350px;
+  transition: all 0.5s ease-in-out;
+  
+  &:hover{
+    border: none;
+    transform: translateY(-10px);
+    background-color: rgba($color: #FEAB6C, $alpha: 0.25);
+  }
 }
 
 .news_thumbnail {
@@ -48,7 +70,6 @@ $main_color: #ef4f01;
   height: 50%;
   overflow: hidden;
   margin-bottom: 10px;
-
   img {
     display: block;
     height: 100%;
@@ -58,14 +79,15 @@ $main_color: #ef4f01;
 }
 
 .news_title {
-  color: #000;
-  font-size: 1rem;
+  color: #094379;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 6px 0;
   // margin-bottom: ;
 }
 
 .news_date {
-  font-size: 0.7rem;
-  margin-bottom: 10px;
+  font-size: 12px;
   color: #555;
 }
 
@@ -169,20 +191,53 @@ $main_color: #ef4f01;
   }
 }
 
+@keyframes upDown {
+  0%,100%{
+    transform: rotate(90deg) translateX(0px);
+  }50%{
+    transform: rotate(90deg) translateX(-2px);
+  }
+  
+}
+
 .news_load_more {
   display: block;
-  background-color: $main_color;
-  border: none;
+ 
+  background-image: linear-gradient(45deg,#FA6D01,#FAAA01 );
   width: fit-content;
-  padding: 10px 30px;
-  color: #fff;
+  
+  
+  color: black;
   border-radius: 8px;
   font-size: 0.8rem;
   margin: 30px auto;
   transition: 0.2s all;
-
+  padding: 2px;
+  transition: all 0.5s ease-in-out;
   &:active {
     transform: scale(0.95);
     transition: 0.2s all;
   }
+  &:hover{
+   transform: translate(-2px, -2px);
+   box-shadow: 1px 1px 4px gray;
+    
+    p{
+      background-color: transparent;
+    }
+    img{
+      animation: upDown 0.8s linear infinite;
+    }
+  }
+  p{
+    font-size: 16px;
+    width: 100%; 
+    height: 100%;
+    background-color: white;
+    padding: 10px 30px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+  }
+
+ 
 }
