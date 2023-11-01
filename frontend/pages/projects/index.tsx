@@ -11,9 +11,15 @@ import Link from "next/link";
 import { useDarkNavLinks } from "../../hooks/useDarkNavLinks";
 import * as dateFns from "date-fns";
 import { DocumentHead } from "../../components/DocumentHead";
+import { useDispatch } from 'react-redux'
+import { setStatePageVisit } from '../../store/pageVisitSlices'
+
+
 
 const Projects: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
   (props) => {
+    const dispatch = useDispatch()
+    dispatch(setStatePageVisit({page:'Projects'}))
     const { listProjects, ProjectsCount } = props;
     const paginationStart = useRef(listProjects.length);
     const [ProjectsList, setProjectsList] = useState(listProjects);

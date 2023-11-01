@@ -72,11 +72,17 @@ interface linkClickedSliceType{
     value:string
   }
 }
+interface pageVisitSliceType{
+  pageVisitSlice:{
+    value:string
+  }
+}
 export const Navbar = () => {
   const dispatch = useDispatch()
   const navbarShow = useSelector((state:navbarSliceType) => state.navbarSlice.value)
   const linkClicked = useSelector((state:linkClickedSliceType) => state.linkClickedSlice.value)
-  console.log(linkClicked)
+  const pageVisit = useSelector((state:pageVisitSliceType) => state.pageVisitSlice.value)
+  console.log(pageVisit)
 
   const [scrollY, setScrollY] = useState(0);
   const [submenuVisible, setSubmenuVisible] = useState(new Array(navLinks.length).fill(false));
@@ -96,6 +102,7 @@ export const Navbar = () => {
 
     window.addEventListener("scroll", handleScroll);
     console.log(scrollY)
+    
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
@@ -109,55 +116,72 @@ export const Navbar = () => {
     <Headroom className="fixed z-[99] " style={{
       transition: 'all 1s ease-in-out'
     }}>
-      <header className={`flex items-center justify-between lg:justify-evenly w-[100vw] ${scrollY>0?'bg-[#FFD7B7]':'bg-transparent'} h-[13vh]`}  style={{
+      <header className={`flex items-center justify-between lg:justify-evenly w-[100vw]  ${scrollY>0 && pageVisit!='Bisnis-Mitra' ?'bg-[#FFD7B7]': scrollY>0 && pageVisit==='Bisnis-Mitra'?'bg-orange-500' : 'bg-transparent'} ${pageVisit!='Bisnis-Mitra' ? 'h-[13vh]' : 'pb-2 pt-2 lg:pt-0 lg:pb-0 lg:h-[17vh] lg:px-12'}`}  style={{
       transition: 'all 1s ease-in-out'
-    }}  >
+    }}>
           <section className='flex w-[60%] lg:w-[20%]'>
               <Link href="/">
                   <a onClick={()=>dispatch(setStateLink({link:'Home'}))} className="flex items-center ">
                     <Image
-                        src={`/logo/kabinetArial.svg`}
+                        src={`${pageVisit==='Bisnis-Mitra' ? '/logo/kabinetAerialWhite.svg' : '/logo/kabinetArial.svg'}`}
                         alt="Logo BEM Fasilkom UPN 'Veteran' Jawa Timur"
                         className={styles.logo_navbar}
-                        width={50}
-                        height={40}
+                        width={pageVisit==='Bisnis-Mitra' ? 60: 50}
+                        height={pageVisit==='Bisnis-Mitra' ? 60: 40}
                     />
                     <div className="text-left flex flex-col justify-center">
-                      <h5 className=" font-semibold text-xs sm:text-sm tracking-wide">BEM FASILKOM 2023</h5>
-                      <span className=" font-extralight text-xs tracking-wide">{'UPN "VETERAN" Jawa Timur'}</span>
+                      {pageVisit==='Bisnis-Mitra'?
+                      (
+                        <h5 className='text-white font-semibold lg:text-base text-sm tracking-wide'>Bismit Aerial.</h5>
+                      ) :
+                      (
+                        <>
+                          <h5 className=" font-semibold text-xs sm:text-sm tracking-wide">BEM FASILKOM 2023</h5>
+                          <span className=" font-extralight text-xs tracking-wide">{'UPN "VETERAN" Jawa Timur'}</span>
+                        </>
+                      )
+                      }
                     </div>
                   </a>
               </Link>
           </section>
-          <nav className={`bg-white lg:bg-transparent justify-evenly text-2xl px-5 lg:px-0 lg:text-base w-screen absolute ${navbarShow ?'top-[13vh]':'-top-[100vh]'} duration-500 -ml-2 md:w-full lg:ml-0 lg:static flex flex-col gap-1 lg:flex-row lg:w-[70%] h-screen z-100 lg:z-0 max-h-screen lg:max-h-none lg:h-fit box-content mx-5`}>
-            <section className="flex flex-col lg:flex-row justify-around w-fit max-h-[80%] lg:max-h-none lg:w-[70%] h-[60%] lg:h-fit ">
-              {navLinks.map((menu:any,i:number) => menu.links? (
-                <section key={`menu-${i}`} className="group relative z-[100] cursor-pointer box-border h-fit" onClick={() => toggleSubmenu(i)} >
-                  <div className="group-hover:border-b-2 border-b-black flex justify-between w-fit lg:px-3">
-                      <p className={`${linkClicked===menu.text?'text-typedBlue font-bold':'text-black'}`}>{menu.text}</p>
-                      <Image className='group-hover:rotate-180 transition-transform duration-400' src={'/icons/caret.svg'} width={10} height={10} alt="Profile"></Image>
-                  </div>
-                  <ul className={`mt-2 lg:mt-0 ${submenuVisible[i] ? "block" : "hidden"} lg:block lg:absolute group lg:invisible lg:group-hover:visible w-[200px] lg:shadow lg:shadow-slate-400 bg-white  overflow-y-auto  min-h-[fit] max-h-[6rem] rounded-md`}>
-                  {menu.links.map((subMenu:NavLink,subIndex:number)=>(
-                    <li key={`submenu-${subIndex}`} className="lg:invisible lg:group-hover:visible w-full flex flex-col gap-3 lg:gap-0">
-                      <Link href={subMenu.link}>
-                        <a onClick={()=>handleClickedNavbar(menu.text)} className={`px-[.5rem] py-1 block lg:text-center h-full hover:bg-tangerine hover:text-typedBlue text-base lg:text-sm font-medium `}>{subMenu.text}</a>
-                      </Link>
-                    </li >
-                      ))}
-                  </ul>
-                
-                </section>
-              )
-              :(
-                <section key={`menu-${i}`}>
-                  <Link href={menu.link}><a onClick={()=>handleClickedNavbar(menu.text)} className={`${linkClicked===menu.text?'text-typedBlue font-bold':'text-black'} hover:border-b-2 border-b-black w-fit`}>{menu.text}</a></Link>
-                </section>
-              ))}
+          <nav className={`${pageVisit==='Bisnis-Mitra'? 'items-center': null} bg-white lg:bg-transparent justify-evenly text-2xl px-5 lg:px-0 lg:text-base w-screen absolute ${navbarShow ?'top-[13vh]':'-top-[100vh]'} duration-500 -ml-2 md:w-full lg:ml-0 lg:static flex flex-col gap-1 lg:gap-20 lg:flex-row lg:w-[70%] h-screen z-100 lg:z-0 max-h-screen lg:max-h-none lg:h-fit box-content mx-5`}>
+            <section className={`flex flex-col lg:flex-row justify-around ${pageVisit==='Bisnis-Mitra'? 'lg:px-16 items-center' : null } w-fit max-h-[80%] lg:max-h-none lg:w-[70%] h-[60%] lg:h-fit `}>
+              {pageVisit != 'Bisnis-Mitra'? 
+                navLinks.map((menu:any,i:number) => menu.links? (
+                  <section key={`menu-${i}`} className="group relative z-[100] cursor-pointer box-border h-fit" onClick={() => toggleSubmenu(i)} >
+                    <div className="lg:group-hover:border-b-2 border-b-black flex justify-between w-fit lg:px-3">
+                        <p className={`${linkClicked===menu.text?'text-typedBlue font-bold':'text-black'}`}>{menu.text}</p>
+                        <Image className='group-hover:rotate-180 transition-transform duration-400' src={'/icons/caret.svg'} width={10} height={10} alt="Profile"></Image>
+                    </div>
+                    <ul className={`mt-2 lg:mt-0 ${submenuVisible[i] ? "block" : "hidden"} lg:block lg:absolute group lg:invisible lg:group-hover:visible w-[200px] lg:shadow lg:shadow-slate-400 bg-white  overflow-y-auto  min-h-[fit] max-h-[6rem] rounded-md`}>
+                    {menu.links.map((subMenu:NavLink,subIndex:number)=>(
+                      <li key={`submenu-${subIndex}`} className="lg:invisible lg:group-hover:visible w-full flex flex-col gap-3 lg:gap-0 ">
+                        <Link href={subMenu.link}>
+                          <a onClick={()=>handleClickedNavbar(menu.text)} className={`px-[.5rem] py-1 block lg:text-center h-full hover:bg-tangerine hover:text-typedBlue text-base lg:text-sm font-medium `}>{subMenu.text}</a>
+                        </Link>
+                      </li >
+                        ))}
+                    </ul>
+                  
+                  </section>
+                )
+                :(
+                  <section key={`menu-${i}`}>
+                    <Link href={menu.link}><a onClick={()=>handleClickedNavbar(menu.text)} className={`${linkClicked===menu.text?'text-typedBlue font-bold':'text-black'} hover:border-b-2 border-b-black w-fit`}>{menu.text}</a></Link>
+                  </section>
+                ))
+              : (
+                <>
+                  <Link href={'#'}><a className={`text-white text-lg hover:text-xl hover:font-bold hover:duration-100 w-fit`}>Service</a></Link>
+                  <Link href={'#'}><a className={`text-white text-lg hover:text-xl hover:font-bold hover:duration-100 w-fit`}>Portofolio</a></Link>
+                  <Link href={'#'}><a className={`text-white text-lg hover:text-xl hover:font-bold hover:duration-100 w-fit`}>Testimonials</a></Link>
+                </>
+              )}
             </section>
-            <ButtonOutline content={'Event'} width={'6.3rem'}/>
+            <ButtonOutline content={`${pageVisit==='Bisnis-Mitra' ? 'Contact Us' : 'Event'}`} width={'6.3rem'} bismitMode={pageVisit==='Bisnis-Mitra' ? true : false}/>
           </nav>
-          <section className="w-[20%] lg:hidden flex justify-center md:pr-8 md:justify-end ">
+          <section className="w-[20%] lg:hidden flex justify-end pr-5 md:pr-8">
             <Hamburger />
           </section>
       </header>

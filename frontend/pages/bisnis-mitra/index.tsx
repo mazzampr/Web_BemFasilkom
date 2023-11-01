@@ -1,7 +1,384 @@
-import React from 'react'
+import React,{useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { setStatePageVisit } from '../../store/pageVisitSlices'
+import Particles from "react-tsparticles";
+import particlesConfig from '../../components/Assets/Particles'
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import Image from 'next/image'
+
+
 
 export default function Index() {
+	
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(setStatePageVisit({page:'Bisnis-Mitra'}))
+  })
+
+  const responsive = {
+	superLargeDesktop: {
+	  // the naming can be any, depends on you.
+	  breakpoint: { max: 4000, min: 3000 },
+	  items: 5
+	},
+	desktop: {
+	  breakpoint: { max: 3000, min: 1024 },
+	  items: 3
+	},
+	tablet: {
+	  breakpoint: { max: 1024, min: 464 },
+	  items: 2
+	},
+	mobile: {
+	  breakpoint: { max: 464, min: 0 },
+	  items: 1
+	}
+  };
   return (
-    <div>Index</div>
+    <>
+      <section className="relative h-[120vh] w-full border-box transition-all duration-500 object-fill bg-[length:100%_100%] bg-hero-pattern">
+        <Particles className='particles-js h-full w-full absolute' options={particlesConfig} />
+        <div className="header-4-1 absolute top-[20vh] z-100">
+          <div className='w-screen'>
+            <div className="mx-auto flex pt-12 pb-16 lg:pb-20 lg:px-24 md:px-16 sm:px-8 px-8 lg:flex-row flex-col">
+              <div
+                className="lg:flex-grow lg:w-1/2 flex flex-col lg:items-start lg:text-left mb-3 md:mb-12 lg:mb-0 items-center text-center">
+                <p className="mb-8 text-medium text-white">
+                  We can build a <span className="font-semibold">Website</span>
+                </p>
+                <h1 className="text-white sm:text-4xl lg:text-5xl text-2xl mb-8 font-semibold sm:leading-tight">
+                  Empower your business journey with us.
+                </h1>
+                <div
+                  className="inline-block items-center mx-auto lg:mx-0 lg:flex justify-center lg:mt-12 lg:space-x-12 md:space-x-2 sm:space-x-3 space-x-0">
+                  <button
+                    className="z-10 btn-fill bg-white inline-flex font-semibold text-orange-500 text-base py-4 px-6 rounded-xl mb-4 lg:mb-0 md:mb-0 focus:outline-none hover:shadow-lg">
+                    Get Started
+                  </button>
+                </div>
+              </div>
+              <div className="w-full lg:w-1/2 text-center lg:justify-end justify-center flex pr-0">
+                <img id="hero" className='w-[20em] h-[20em] lg:w-fit lg:h-fit'
+                  src="assets/image/il_jet.svg"
+                  alt="" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="h-full w-full border-box bg-white">
+
+		<div className="our-service">
+			<div className="container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
+				<div className="flex flex-col text-center w-full mb-12">
+					<h1 className="text-4xl font-semibold title-font mb-2.5 text-medium-black">
+						3 Keys Benefit
+					</h1>
+					<h2
+						className="text-base font-light title-font mx-12 lg:w-full md:w-full sm:w-3/6 sm:mx-auto text-medium-black">
+						You can easily manage your business with a powerful tools
+					</h2>
+				</div>
+
+				<div className="flex lg:flex-row flex-col -m-4">
+					<div className="px-14 md:px-0 lg:px-4 lg:w-1/3 md:w-1/3 sm:w-4/6 mx-auto">
+						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-4 pb-12 flex-col">
+							<div className="items-center text-center">
+								<div className="inline-flex items-center justify-center rounded-full mb-6">
+									<img src="http://api.elements.buildwithangga.com/storage/files/2/assets/Content/Content2/Content-2-2.png"
+										alt="" />
+								</div>
+							</div>
+							<div className="flex-grow">
+								<h4 className="font-medium text-center text-2xl mb-2.5 text-medium-black">
+									Easy to Operate
+								</h4>
+								<p className="leading-relaxed text-base text-center tracking-wide text-gray">
+									This can easily help you to <br /> grow up your business fast
+								</p>
+							</div>
+						</div>
+					</div>
+					<div className="px-14 md:px-0 lg:px-4 lg:w-1/3 md:w-1/3 sm:w-4/6 mx-auto">
+						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-12 flex-col">
+							<div className="items-center text-center">
+								<div className="inline-flex items-center justify-center rounded-full mb-6">
+									<img src="http://api.elements.buildwithangga.com/storage/files/2/assets/Content/Content2/Content-2-3.png"
+										alt="" />
+								</div>
+							</div>
+							<div className="flex-grow">
+								<h4 className="font-medium text-center text-2xl mb-2.5 text-medium-black">
+									Real-Time Analytic
+								</h4>
+								<p className="leading-relaxed text-base text-center tracking-wide text-gray">
+									With real-time analytics, you <br /> can check data in real time
+								</p>
+							</div>
+						</div>
+					</div>
+					<div className="px-14 md:px-0 lg:px-4 lg:w-1/3 md:w-1/3 sm:w-4/6 mx-auto">
+						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
+							<div className="items-center text-center">
+								<div className="inline-flex items-center justify-center rounded-full mb-6">
+									<img src="http://api.elements.buildwithangga.com/storage/files/2/assets/Content/Content2/Content-2-4.png"
+										alt="" />
+								</div>
+							</div>
+							<div className="flex-grow">
+								<h4 className="font-medium text-center text-2xl mb-2.5 text-medium-black">
+									Very Full Secured
+								</h4>
+								<p className="leading-relaxed text-base text-center tracking-wide text-gray">
+									With real-time analytics, we <br /> will guarantee your data
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			
+		</div>
+	</section>
+
+  <section className="h-full w-full border-box bg-white">
+		<div className="our-service">
+			<div className="container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
+				<div className="flex flex-col text-center w-full mb-12">
+					<h1 className="text-4xl font-semibold title-font mb-2.5 text-medium-black">
+						What We Can do
+					</h1>
+					<h2
+						className="text-base font-light title-font mx-12 lg:w-full md:w-full sm:w-3/6 sm:mx-auto text-gray-500">
+						Excepteur sint occaecat cupidatat non proident
+					</h2>
+				</div>
+
+				<div className="flex lg:flex-row flex-col m-4">
+					<div className="card px-4 md:px-4 lg:px-4 lg:w-1/4 md:w-1/4 my-4 md:my-0 mx-4">
+						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
+							<div className="items-center text-start">
+								<div className="inline-flex items-center justify-center rounded-full mb-6">
+									<img src="assets/image/icon_service.svg"
+										alt="" />
+								</div>
+							</div>
+							<div className="flex-grow">
+								<h4 className="font-medium text-start text-lg mb-2.5 text-medium-black">
+									Web Development 
+								</h4>
+								<p className="leading-relaxed tracking-wide text-sm text-start text-gray-500">
+									Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+								</p>
+							</div>
+						</div>
+            
+					</div>
+
+          <div className="card px-4 md:px-4 lg:px-4 lg:w-1/4 md:w-1/4 my-4 md:my-0 mx-4">
+						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
+							<div className="items-center text-start">
+								<div className="inline-flex items-center justify-center rounded-full mb-6">
+									<img src="assets/image/icon_service.svg"
+										alt="" />
+								</div>
+							</div>
+							<div className="flex-grow">
+								<h4 className="font-medium text-start text-lg mb-2.5 text-medium-black">
+									Web Development 
+								</h4>
+								<p className="leading-relaxed text-sm text-start tracking-wide text-gray-500">
+									Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+								</p>
+							</div>
+						</div>
+            
+					</div>
+
+          <div className="card px-4 md:px-4 lg:px-4 lg:w-1/4 md:w-1/4 my-4 md:my-0 mx-4">
+						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
+							<div className="items-center text-start">
+								<div className="inline-flex items-center justify-center rounded-full mb-6">
+									<img src="assets/image/icon_service.svg"
+										alt="" />
+								</div>
+							</div>
+							<div className="flex-grow">
+								<h4 className="font-medium text-start text-lg mb-2.5 text-medium-black">
+									Web Development 
+								</h4>
+								<p className="leading-relaxed text-sm text-start tracking-wide text-gray-500">
+									Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+								</p>
+							</div>
+						</div>
+            
+					</div>
+
+          <div className="card px-4 md:px-4 lg:px-4 lg:w-1/4 md:w-1/4 my-4 md:my-0 mx-4">
+						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
+							<div className="items-center text-start">
+								<div className="inline-flex items-center justify-center rounded-full mb-6">
+									<img src="assets/image/icon_service.svg"
+										alt="" />
+								</div>
+							</div>
+							<div className="flex-grow">
+								<h4 className="font-medium text-start text-lg mb-2.5 text-medium-black">
+									Web Development 
+								</h4>
+								<p className="leading-relaxed text-sm text-start tracking-wide text-gray-500">
+									Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+								</p>
+							</div>
+						</div>     
+					</div>
+        </div>
+      </div>
+		</div>
+	</section>
+  <section className="h-full w-full border-box bg-white">
+		<div className="our-service">
+			<div className="container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
+				<div className="flex flex-col text-center w-full mb-12">
+					<h1 className="text-4xl font-semibold title-font mb-2.5 text-medium-black">
+						Our Portofolio
+					</h1>
+					<h2
+						className="text-base font-light title-font mx-12 lg:w-full md:w-full sm:w-3/6 sm:mx-auto text-gray-500">
+						Excepteur sint occaecat cupidatat non proident
+					</h2>
+				</div>
+
+				<div className="flex lg:flex-row flex-col m-4">
+					<div className="card px-4 md:px-4 lg:px-4 lg:w-1/2 md:w-1/2 my-4 md:my-0 mx-4">
+						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
+							
+							<div className="flex-grow">
+								<h4 className="font-medium text-start text-lg mb-2.5 text-medium-black">
+									Doku App
+								</h4>
+								<p className="leading-relaxed tracking-wide text-sm text-start text-gray-500">
+									Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+								</p>
+							</div>
+              				<div className="items-center text-center">
+								<div className="inline-flex items-center justify-center rounded-full mb-6">
+									<img src="assets/image/porto-1.png"
+										alt="" />
+								</div>
+							</div>
+								<p className="text-sm text-end text-orange-500 hover:cursor-pointer">
+									View demo
+								</p>
+						</div>
+					</div>
+					<div className="card px-4 md:px-4 lg:px-4 lg:w-1/2 md:w-1/2 my-4 md:my-0 mx-4">
+						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
+							
+							<div className="flex-grow">
+								<h4 className="font-medium text-start text-lg mb-2.5 text-medium-black">
+									Doku App
+								</h4>
+								<p className="leading-relaxed tracking-wide text-sm text-start text-gray-500">
+									Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+								</p>
+							</div>
+              				<div className="items-center text-center">
+								<div className="inline-flex items-center justify-center rounded-full mb-6">
+									<img src="assets/image/porto-1.png"
+										alt="" />
+								</div>
+							</div>
+								<p className="text-sm text-end text-orange-500 hover:cursor-pointer">
+									View demo
+								</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+  <section className="h-full w-full border-box bg-white">
+		<div className="testimonials">
+			<div className="container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
+				<div className="flex flex-col text-center w-full mb-12">
+					<h1 className="text-4xl font-semibold title-font mb-2.5 text-medium-black">
+						Testimonials
+					</h1>
+					<h2
+						className="text-base font-light title-font mx-12 lg:w-full md:w-full sm:w-3/6 sm:mx-auto text-gray-500">
+						Excepteur sint occaecat cupidatat non proident
+					</h2>
+				</div>
+				<Carousel className='flex gap-4' responsive={responsive} autoPlay={true} autoPlaySpeed={3000} arrows={false} showDots={true} infinite={true} swipeable={true} dotListClass="custom-dot-list-style">
+						<div className="testimonial-content mr-7 py-4 px-9 h-[12rem] border-2 box-border border-orange-500 rounded-xl flex flex-col justify-evenly items-center gap-4">
+							<div className='h-[50%] flex items-center text-center flex-wrap'>
+								<p className="testimonial-text text-gray-800 text-[.8em]">Lorem ipsum dolor sifwfwffwqfqwfqfqfqwfqwqfqwfq t amet, consectetur adipiscing elit.</p>
+							</div>
+							<figure className='flex h-[40%] justify-center items-center gap-3 w-full'>
+								<div className=''>
+									<Image className='rounded-full overflow-hidden' src={'/cover.png'} width={60} height={60} alt='avatar'/>
+								</div>
+								<figcaption className='h-full flex flex-col justify-center text-center pb-3'>
+									<p className="testimonial-author text-black text-[.8em] font-bold">John Doe</p>
+									<p className="testimonial-author text-slate-500 text-[.8em] font-bold">Head of Marketing</p>
+								</figcaption>
+							</figure>
+						</div>
+						<div className="testimonial-content mr-7 py-4 px-9 h-[12rem] border-2 box-border border-orange-500 rounded-xl flex flex-col justify-evenly items-center gap-4">
+							<div className='h-[50%] flex items-center text-center flex-wrap'>
+								<p className="testimonial-text text-gray-800 text-[.8em]">Lorem ipsum dolor sifwfwffwqfqwfqfqfqwfqwqfqwfq t amet, consectetur adipiscing elit.</p>
+							</div>
+							<figure className='flex h-[40%] justify-center items-center gap-3 w-full'>
+								<div className=''>
+									<Image className='rounded-full overflow-hidden' src={'/cover.png'} width={60} height={60} alt='avatar'/>
+								</div>
+								<figcaption className='h-full flex flex-col justify-center text-center pb-3'>
+									<p className="testimonial-author text-black text-[.8em] font-bold">John Doe</p>
+									<p className="testimonial-author text-slate-500 text-[.8em] font-bold">Head of Marketing</p>
+								</figcaption>
+							</figure>
+						</div>
+						<div className="testimonial-content mr-7 py-4 px-9 h-[12rem] border-2 box-border border-orange-500 rounded-xl flex flex-col justify-evenly items-center gap-4">
+							<div className='h-[50%] flex items-center text-center flex-wrap'>
+								<p className="testimonial-text text-gray-800 text-[.8em]">Lorem ipsum dolor sifwfwffwqfqwfqfqfqwfqwqfqwfq t amet, consectetur adipiscing elit.</p>
+							</div>
+							<figure className='flex h-[40%] justify-center items-center gap-3 w-full'>
+								<div className=''>
+									<Image className='rounded-full overflow-hidden' src={'/cover.png'} width={60} height={60} alt='avatar'/>
+								</div>
+								<figcaption className='h-full flex flex-col justify-center text-center pb-3'>
+									<p className="testimonial-author text-black text-[.8em] font-bold">John Doe</p>
+									<p className="testimonial-author text-slate-500 text-[.8em] font-bold">Head of Marketing</p>
+								</figcaption>
+							</figure>
+						</div>
+						<div className="testimonial-content mr-7 py-4 px-9 h-[12rem] border-2 box-border border-orange-500 rounded-xl flex flex-col justify-evenly items-center gap-4">
+							<div className='h-[50%] flex items-center text-center flex-wrap'>
+								<p className="testimonial-text text-gray-800 text-[.8em]">Lorem ipsum dolor sifwfwffwqfqwfqfqfqwfqwqfqwfq t amet, consectetur adipiscing elit.</p>
+							</div>
+							<figure className='flex h-[40%] justify-center items-center gap-3 w-full'>
+								<div className=''>
+									<Image className='rounded-full overflow-hidden' src={'/cover.png'} width={60} height={60} alt='avatar'/>
+								</div>
+								<figcaption className='h-full flex flex-col justify-center text-center pb-3'>
+									<p className="testimonial-author text-black text-[.8em] font-bold">John Doe</p>
+									<p className="testimonial-author text-slate-500 text-[.8em] font-bold">Head of Marketing</p>
+								</figcaption>
+							</figure>
+						</div>
+				</Carousel>
+				
+      
+
+			</div>
+
+		
+		</div>
+	</section>
+  </>
   )
 }
