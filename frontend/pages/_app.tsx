@@ -8,6 +8,8 @@ import { Provider } from "next-auth/client";
 import { NavbarBackgroundContext } from "../contexts/navbar-background";
 import { useMemo, useState } from "react";
 import { Footer } from "../components/Footer";
+import { ThemeProvider } from "@material-tailwind/react";
+
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [navbarBackgroundColor, setNavbarBackgroundColor] = useState("#fff");
@@ -22,7 +24,7 @@ function MyApp({ Component, pageProps, router }: AppProps) {
         <NavbarBackgroundContext.Provider value={value}>
           <Navbar />
           <div id="root" className="page-content">
-            <Component {...pageProps} />
+              <Component {...pageProps} />
           </div>
           <div className="footer">
             <Footer />

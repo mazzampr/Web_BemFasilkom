@@ -11,10 +11,15 @@ import { API_URL } from "../../constants";
 import { useDarkNavLinks } from "../../hooks/useDarkNavLinks";
 import { DocumentHead } from "../../components/DocumentHead";
 import * as dateFns from "date-fns";
+import { useSelector, useDispatch } from 'react-redux'
+import { setStatePageVisit } from '../../store/pageVisitSlices'
+
 
 const ProjectsPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = (props) => {
+  const dispatch = useDispatch()
+  dispatch(setStatePageVisit({page:'Projects'}))
   const { errorCode, detailProjects } = props;
   useDarkNavLinks();
   if (errorCode || !detailProjects) {

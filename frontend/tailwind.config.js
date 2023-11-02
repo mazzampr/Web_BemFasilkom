@@ -1,4 +1,4 @@
-/** @type {import('tailwindcss').Config} */
+/** @type {import('tailwindcss').Config} **/
 const plugin = require('tailwindcss/plugin')
 
 module.exports = {
@@ -22,11 +22,17 @@ module.exports = {
         '45%': '45%',
         '55%': '55%'
       },
+      fontSize:{
+        "cust-size": '.9rem'
+      },
       backgroundImage: {
         'gradient-cust-orange1': "linear-gradient(97deg, #FA6D01 11.69%, #FAB401 118.46%)",
         'gradient-cust-orange2':'linear-gradient(to right, #FA6D01, #FA870199 60%)',
+        'hero-pattern': "url('/assets/image/bg-header.png')",
+        'footer-bismit': "url('/cover.png')"
       },
       colors: {
+        'footer-cover-transparent': 'rgba(250,109,1,0.8)',
         'tangerine': '#FA6D01',
         'typedBlue': '#094379',
         'pastel' : 'rgba(254, 171, 108, 0.25)',

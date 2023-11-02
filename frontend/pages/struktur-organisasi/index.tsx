@@ -7,7 +7,12 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import styles from '../../styles/Home.module.css'
 import Card from '../../components/strukturOrganisasi/cardAnggota'
 import Proker from '../../components/Assets/Proker'
+import {useDispatch } from 'react-redux'
+import { setStatePageVisit } from '../../store/pageVisitSlices'
+
 export default function Index() {
+    const dispatch = useDispatch()
+    dispatch(setStatePageVisit({page:'Struktur Organisasi'}))
     const slider= useRef(null);
     const [xPos , setXPos] = useState(0);
     // console.log(xPos)
@@ -81,9 +86,9 @@ export default function Index() {
                     <div className='flex flex-col items-center bg-[#EFEFEF] w-full h-fit px-3 py-10 pb-[7rem]'>
                         <TabPanel>
                             <h4 className='text-2xl text-center font-bold text-typedBlue mb-10'>Departemen Pengembangan Sumber Daya Mahasiswa</h4>
-                            <div className='flex flex-col min-[730px]:flex-row lg:flex-row gap-4 w-full justify-center items-center'>
-                                <Card />
-                                <Card />
+                            <div className='flex flex-col min-[550px]:flex-row min-[730px]:flex-row lg:h-[10%] lg:flex-row gap-4 w-full justify-center items-center'>
+                                <Card nama={'Muhammad Fauzan'}/>
+                                <Card nama={'Muhammad Fauzan Novriandy sdnsjdn'}/>
                             </div>
                             <div className='w-full h-fit flex flex-col lg:mt-10 lg:flex-row'>
                                 <div className='flex flex-col w-full h-fit items-center justify-center mt-10'>
@@ -114,8 +119,8 @@ export default function Index() {
                         <TabPanel>
                             <h4 className='text-2xl text-center font-bold text-typedBlue mb-10'>Departemen Pengembangan Sumber Daya Mahasiswa</h4>
                             <div className='flex flex-col min-[730px]:flex-row lg:flex-row gap-4 w-full justify-center items-center'>
-                                <Card />
-                                <Card />
+                                <Card nama={'Muhammad Fauzan'}/>
+                                <Card nama={'Muhammad Fauzan'}/>
                             </div>
                             <div className='w-full h-fit flex flex-col lg:mt-10 lg:flex-row'>
                                 <div className='flex flex-col w-full h-fit items-center justify-center mt-10'>
