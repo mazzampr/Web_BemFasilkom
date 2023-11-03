@@ -1,4 +1,4 @@
-import React, {useRef,useState} from 'react'
+import React, {useState} from 'react'
 import Image from 'next/image'
 import 'react-multi-carousel/lib/styles.css';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -18,7 +18,6 @@ const StrukturOrganisasi: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = (props) => {
     const {namaKabinet,logo,strukturOrganisasi,pengurus,prokers,tupoksis} =props
-    console.log(prokers)
 
 const groupingData = (key:string)=>{
     const keyData = pengurus
@@ -91,7 +90,7 @@ const groupedByAnggotaJurusan = (pengurus:Pengurus[], prokers:Prokers[], tupoksi
             jabatan: item.jabatan,
             jurusan: item.jurusan,
             angkatan: item.angkatan,
-            linkedin: item.instagram,
+            linkedin: item.linkedin,
             fotoUrl: item.foto.url,
             instagram: '',
             divisi: {
@@ -123,7 +122,6 @@ const groupedByAnggotaJurusan = (pengurus:Pengurus[], prokers:Prokers[], tupoksi
         divisi: groupingData('divisi'),
       
     })
-    console.log(groupedByAnggotaJurusan(pengurus,prokers,tupoksis))
     const dispatch = useDispatch()
     dispatch(setStatePageVisit({page:'Struktur Organisasi'}))
   return (

@@ -13,7 +13,7 @@ export default function cardAnggota({nama,jabatan,jurusan,linkedin,foto,angkatan
         <div className='flex flex-col flex-wrap w-full items-center gap-2'>
             <h4 className='nama flex items-center leading-6 text-base font-bold text-typedBlue text-center mb-4 h-[1rem] px-2'>{nama}</h4>
             <p className='text-[#6C6C6C]'>{jurusan} - {angkatan}</p>
-            <figure className='hover:scale-[1.1] transition-all hover:animate-bounce'>
+            <figure className='hover:scale-[1.1] transition-all hover:animate-bounce cursor-pointer'>
                 <a href={linkedin}>
                     <Image src={'/icons/vectorLinkedin.svg'} width={20} height={20} alt='Linkedin'/>
                 </a>

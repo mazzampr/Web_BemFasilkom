@@ -15,8 +15,6 @@ const TentangKami: NextPage<
 > = (props) => {
 
   const {namaKabinet,logo,aboutContent,visi, misi, filosofiLogo}= props
-  console.log('ewe paksa')
-  console.log(misi)
   return (
     <section className='px-10 relative'>
         <About namaKabinet={namaKabinet} logo={logo} content={
@@ -45,8 +43,6 @@ export const getServerSideProps: GetServerSideProps<ServerSideData> = async (
     const visi = await (await fetch(`${API_URL}/visi`)).json();
     const misi = await (await fetch(`${API_URL}/misis`)).json();
     const filosofiLogo = await (await fetch(`${API_URL}/filosofi-logo`)).json();
-    console.log('kontol')
-    console.log(misi)
     return{
       props:{
         namaKabinet:namaKabinet.nama,
