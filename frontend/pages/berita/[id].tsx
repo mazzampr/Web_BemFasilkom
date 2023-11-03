@@ -3,7 +3,7 @@ import {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
-import { DetailBerita } from "../../constants/types";
+import { Berita, DetailBerita } from "../../constants/types";
 import styles from "../../styles/NewsDetail.module.scss";
 import Error from "next/error";
 import ReactMarkdown from "react-markdown";
@@ -11,25 +11,12 @@ import { API_URL } from "../../constants";
 import { useDarkNavLinks } from "../../hooks/useDarkNavLinks";
 import { DocumentHead } from "../../components/DocumentHead";
 import * as dateFns from "date-fns";
-<<<<<<< HEAD
-import { useSelector, useDispatch } from 'react-redux'
-import { setStatePageVisit } from '../../store/pageVisitSlices'
-
-=======
 import Link from "next/link";
->>>>>>> dc0b10600a873bf4cfefbdcd0a08eefbfabc845d
 
 const NewsPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = (props) => {
-<<<<<<< HEAD
-  const dispatch = useDispatch()
-  dispatch(setStatePageVisit({page:'Berita'}))
-  
-  const { errorCode, detailBerita } = props;
-=======
   const { errorCode, detailBerita,listBerita } = props;
->>>>>>> dc0b10600a873bf4cfefbdcd0a08eefbfabc845d
   useDarkNavLinks();
   if (errorCode || !detailBerita) {
     return (
@@ -106,6 +93,7 @@ const NewsPage: NextPage<
 type ServerSideData = {
   errorCode: boolean | number;
   detailBerita: DetailBerita;
+  listBerita:Berita[]
 };
 
 type URLParams = { id: string };

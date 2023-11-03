@@ -1,49 +1,131 @@
-import React, {useEffect,useRef,useState} from 'react'
+import React, {useRef,useState} from 'react'
 import Image from 'next/image'
-import Carousel from 'react-multi-carousel'
 import 'react-multi-carousel/lib/styles.css';
-import Struktur from '../../components/Assets/StrukturOrganisasi'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import styles from '../../styles/Home.module.css'
 import Card from '../../components/strukturOrganisasi/cardAnggota'
 import Proker from '../../components/Assets/Proker'
 import {useDispatch } from 'react-redux'
 import { setStatePageVisit } from '../../store/pageVisitSlices'
+import {
+    GetServerSideProps,
+    InferGetServerSidePropsType,
+    NextPage,
+  } from "next";
+  import { API_URL } from "../../constants";
+import { Pengurus, Proker as Prokers, StrukturOrganisasiPage, Tupoksi } from '../../constants/types';
 
-export default function Index() {
+const StrukturOrganisasi: NextPage<
+  InferGetServerSidePropsType<typeof getServerSideProps>
+> = (props) => {
+    const {namaKabinet,logo,strukturOrganisasi,pengurus,prokers,tupoksis} =props
+    console.log(prokers)
+
+const groupingData = (key:string)=>{
+    const keyData = pengurus
+  .filter(item => item[key]) // Filter only items with "key" key
+  .map(item => item[key])   // Extract "key" objects
+  .reduce((acc, curr) => {
+    // Group by "nama" and accumulate in an array
+    const key = curr.nama;
+    if (!acc[key]) {
+      acc[key] = [];
+    }
+    acc[key].push(curr);
+    return acc;
+  }, {});
+
+// Convert grouped data to an array of objects
+const groupedKeyArray = Object.keys(keyData).map(nama => ({
+  nama,
+  items: keyData[nama],
+}));
+
+return groupedKeyArray
+
+}
+const groupedByAnggotaJurusan = (pengurus:Pengurus[], prokers:Prokers[], tupoksis:Tupoksi[]) => {
+    // Create a map to store the prokers grouped by divisi ID
+    const prokersByDivisi: { [divisiId: string]: Prokers[] } = {};
+    const tupoksisByDivisi : { [divisiId : string] :Tupoksi[]}={}
+  
+    // Group prokers by divisi ID
+    prokers.forEach((proker) => {
+      const divisiId = proker.divisi_pengurus;
+      if (!prokersByDivisi[divisiId]) {
+        prokersByDivisi[divisiId] = [];
+      }
+      prokersByDivisi[divisiId].push(proker);
+    });
+
+    tupoksis.forEach((tupoksi) => {
+      const divisiId = tupoksi.divisi_pengurus;
+      if (!tupoksisByDivisi[divisiId]) {
+        tupoksisByDivisi[divisiId] = [];
+      }
+      tupoksisByDivisi[divisiId].push(tupoksi);
+    });
+  
+    // Create an object to store the grouped data
+    const groupedData: {[divisiName : string ]:StrukturOrganisasiPage} = {};
+  
+    // Iterate through the data and group by "divisi.nama"
+    pengurus.forEach((item) => {
+      if (item.divisi && item.divisi.nama) {
+        const divisiName = item.divisi.nama;
+        if (!groupedData[divisiName]) {
+          // Initialize the group with divisi ID, nama, and prokers
+          groupedData[divisiName] = {
+            id: item.divisi.id, // Add divisi ID
+            divisi: divisiName,
+            members: [],
+            prokers: prokersByDivisi[item.divisi.id] || [], // Assign prokers based on divisi ID
+            tupoksis: tupoksisByDivisi[item.divisi.id] || [], // Assign prokers based on divisi ID
+          
+           };
+        }
+  
+        // Extract the desired fields and add to the group
+        groupedData[divisiName].members.push({
+            id: item.id,
+            nama: item.nama,
+            jabatan: item.jabatan,
+            jurusan: item.jurusan,
+            angkatan: item.angkatan,
+            linkedin: item.instagram,
+            fotoUrl: item.foto.url,
+            instagram: '',
+            divisi: {
+                id: '',
+                nama: ''
+            },
+            foto: {
+                height: 0,
+                width: 0,
+                url: ''
+            }
+        });
+      }
+    });
+  
+    // Convert the grouped data to an array
+    const groupedArray = Object.values(groupedData);
+  
+    return groupedArray;
+  };
+
+  
+   
+    const [data] = useState({
+        namaKabinet:namaKabinet,
+        logo:logo,
+        strukturOrganisasi:strukturOrganisasi,
+        pengurus:groupedByAnggotaJurusan(pengurus,prokers,tupoksis),
+        divisi: groupingData('divisi'),
+      
+    })
+    console.log(groupedByAnggotaJurusan(pengurus,prokers,tupoksis))
     const dispatch = useDispatch()
     dispatch(setStatePageVisit({page:'Struktur Organisasi'}))
-    const slider= useRef(null);
-    const [xPos , setXPos] = useState(0);
-    // console.log(xPos)
-    // useEffect(() => {
-    //     // You can access the window object inside the useEffect hook
-    //     let width = slider.current.offsetWidth;
-    //     console.log(width);
-    //   }, [slider.current.offsetWidth]);
-    console.log(xPos)
-    // const moveForward =()=>{
-    //     if(xPos === 0){
-    //         const newPosition = xPos - window.innerWidth;
-    //         setXPos(newPosition)
-    //     }
-    //     if(xPos > -(slider.current.offsetWidth)){
-    //         const newPosition = xPos - window.innerWidth;
-    //         setXPos(newPosition);
-    //         slider.current.style.translate=`${xPos}px 0`   
-    //         slider.current.style.transition='500ms'   
-    //     }
-    // }
-    // const moveBackward =()=>{
-    //     if(xPos < slider.current.offsetWidth){
-    //         const newPosition = xPos + window.innerWidth;
-    //         setXPos(newPosition);
-    //         slider.current.style.translate=`${xPos}px 0`   
-    //         slider.current.style.transition='500ms'   
-
-    //     }
-            
-    // }    
   return (
     <section className='mt-[13vh] py-3'>
         <section className='w-full h-fit'>
@@ -53,14 +135,14 @@ export default function Index() {
                 </div>
                 <div className='text-center'>
                     <h3 className='text-2xl lg:text-3xl font-bold submenu w-fit'>Struktur Organisasi</h3>
-                    <h4 className='text-lg lg:text-2xl tracking-wide font-black text-outline'>Kabinet Aerial</h4>
+                    <h4 className='text-lg lg:text-2xl tracking-wide font-black text-outline'>{data.namaKabinet}</h4>
                 </div>
                 <div className='flex justify-center h-[20vh] w- sm:h-[30vh] md:h-[7rem] md:relative md:top-10 lg:right-10'>
-                    <Image src='/logo/kabinetArial.svg' width={150} height={150} alt='Kabinet Aerial' />
+                    <Image src={`${API_URL}${data.logo}`} width={150} height={150} alt='Kabinet Aerial' />
                 </div>
             </section>
             <section className='relative flex justify-start lg:justify-center items-start flex-wrap px-3 md:px-7 w-full h-fit border-box '>
-                <Image src='/structure/strukturOrganisasi.svg' width={1000} height={500} alt='Struktur Organisasi' />
+                <Image src={`${API_URL}${data.strukturOrganisasi}`} width={1000} height={500} alt='Struktur Organisasi' />
                 <div className='absolute z-100 -bottom-20 lg:left-3'>
                     <Image src={'/vector/infinity.png'} width={150} height={150} alt='infinity'></Image>
                 </div>
@@ -74,144 +156,80 @@ export default function Index() {
             <div className='w-full h-fit overflow-hidden'>
                 <Tabs>
                     <TabList>
-                            <Tab>Title 1</Tab>
-                            <Tab>Title 2</Tab>
-                            <Tab>Title 3</Tab>
-                            <Tab>Title 4</Tab>
-                            <Tab>Title 4</Tab>
-                            <Tab>Title 4</Tab>
-                        {/* <div ref={slider} className='flex flex-row gap-4 w-full overflow-x-scroll'>
-                        </div> */}
+                            {data.pengurus.map((p,i)=>{
+                                return(
+                               <Tab key={i}>{p.divisi}</Tab>
+                                )
+                                
+                            })}
+                            
+                            
                     </TabList>
+
+                    
                     <div className='flex flex-col items-center bg-[#EFEFEF] w-full h-fit px-3 py-10 pb-[7rem]'>
-                        <TabPanel>
-                            <h4 className='text-2xl text-center font-bold text-typedBlue mb-10'>Departemen Pengembangan Sumber Daya Mahasiswa</h4>
+                    {data.pengurus.map((p ,i)=>{
+                        return(
+
+                    <TabPanel key={i}>
+                            <h4 className='text-2xl text-center font-bold text-typedBlue mb-10'>{p.divisi}</h4>
                             <div className='flex flex-col min-[550px]:flex-row min-[730px]:flex-row lg:h-[10%] lg:flex-row gap-4 w-full justify-center items-center'>
-                                <Card nama={'Muhammad Fauzan'}/>
-                                <Card nama={'Muhammad Fauzan Novriandy sdnsjdn'}/>
+                                                                {p.members.map(m=>{return(
+                                <Card key={m.id} nama={m.nama}
+                                angkatan={m.angkatan} 
+                                jabatan={m.jabatan.nama} 
+                                jurusan={m.jurusan.nama}
+                                foto={m.fotoUrl}
+                                linkedin={m.linkedin}/>
+                                )})}
+                               
+                                {/* <Card nama={'Muhammad Fauzan Novriandy sdnsjdn'}/> */}
                             </div>
+                          
                             <div className='w-full h-fit flex flex-col lg:mt-10 lg:flex-row'>
+                            {p.tupoksis.length?    
                                 <div className='flex flex-col w-full h-fit items-center justify-center mt-10'>
                                     <div className='w-full h-fit flex flex-col items-center gap-7'>
                                         <h6 className='text-2xl text-typedBlue font-bold'>Tupoksi</h6>
                                         <div className='px-5'>
                                             <ul className='list-disc'>
-                                                <li className='lg:text-sm'>Menjadi wadah bagi KM Fasilkom dalam mengembangkan Keterampilan dan pengetahuan dalam bidang penelitian dan pengembangan</li>
-                                                <li className='lg:text-sm'>Menjadi wadah bagi KM Fasilkom dalam mengembangkan Keterampilan dan pengetahuan dalam bidang penelitian dan pengembangan</li>
-                                                <li className='lg:text-sm'>Menjadi wadah bagi KM Fasilkom dalam mengembangkan Keterampilan dan pengetahuan dalam bidang penelitian dan pengembangan</li>
+                                                {p.tupoksis.map((t,i)=>
+                                                <li key={i} className='lg:text-sm'>{t.Tupoksi}</li>
+                                                )}
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
+                                :
+                                null
+                            }
+                               {p.prokers.length ? 
                                 <div className='flex flex-col w-full h-fit items-center justify-center mt-10'>
                                     <div className='w-full h-fit flex flex-col items-center gap-7'>
                                         <h6 className='text-2xl text-typedBlue font-bold'>Proker</h6>
                                         <div className='h-fit w-full flex justify-around gap-3 flex-wrap box-border'>
-                                            <Proker prokerName='Abdi Desa'/>
-                                            <Proker prokerName='Abdi Desa'/>
-                                            <Proker prokerName='Abdi Desa'/>
-                                            <Proker prokerName='Abdi Desa'/>
+                                        {prokers.map((prok) => {
+                                        if (prok.divisi_pengurus === p.id) {
+                                            return <Proker key={prok.id} prokerName={prok.nama} />;
+                                        } else {
+                                            return null;
+                                        }
+                                        })}
+                                           
+                                            
                                         </div>
                                     </div>
                                 </div>
+                              
+                                :
+                                null
+                                }
                             </div>
                         </TabPanel>
-                        <TabPanel>
-                            <h4 className='text-2xl text-center font-bold text-typedBlue mb-10'>Departemen Pengembangan Sumber Daya Mahasiswa</h4>
-                            <div className='flex flex-col min-[730px]:flex-row lg:flex-row gap-4 w-full justify-center items-center'>
-                                <Card nama={'Muhammad Fauzan'}/>
-                                <Card nama={'Muhammad Fauzan'}/>
-                            </div>
-                            <div className='w-full h-fit flex flex-col lg:mt-10 lg:flex-row'>
-                                <div className='flex flex-col w-full h-fit items-center justify-center mt-10'>
-                                    <div className='w-full h-fit flex flex-col items-center gap-7'>
-                                        <h6 className='text-2xl text-typedBlue font-bold'>Tupoksi</h6>
-                                        <div className='px-5'>
-                                            <ul className='list-disc'>
-                                                <li className='lg:text-sm'>Menjadi wadah bagi KM Fasilkom dalam mengembangkan Keterampilan dan pengetahuan dalam bidang penelitian dan pengembangan</li>
-                                                <li className='lg:text-sm'>Menjadi wadah bagi KM Fasilkom dalam mengembangkan Keterampilan dan pengetahuan dalam bidang penelitian dan pengembangan</li>
-                                                <li className='lg:text-sm'>Menjadi wadah bagi KM Fasilkom dalam mengembangkan Keterampilan dan pengetahuan dalam bidang penelitian dan pengembangan</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='flex flex-col w-full h-fit items-center justify-center mt-10'>
-                                    <div className='w-full h-fit flex flex-col items-center gap-7'>
-                                        <h6 className='text-2xl text-typedBlue font-bold'>Proker</h6>
-                                        <div className='h-fit w-full flex justify-around gap-3 flex-wrap box-border'>
-                                            <Proker prokerName='Abdi Desa'/>
-                                            <Proker prokerName='Abdi Desa'/>
-                                            <Proker prokerName='Abdi Desa'/>
-                                            <Proker prokerName='Abdi Desa'/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </TabPanel>
-                        <TabPanel>
-                            <h4 className='text-2xl text-center font-bold text-typedBlue mb-10'>Departemen Pengembangan Sumber Daya Mahasiswa</h4>
-                            <div className='flex flex-col min-[730px]:flex-row lg:flex-row gap-4 w-full justify-center items-center'>
-                                <Card />
-                                <Card />
-                            </div>
-                            <div className='w-full h-fit flex flex-col lg:mt-10 lg:flex-row'>
-                                <div className='flex flex-col w-full h-fit items-center justify-center mt-10'>
-                                    <div className='w-full h-fit flex flex-col items-center gap-7'>
-                                        <h6 className='text-2xl text-typedBlue font-bold'>Tupoksi</h6>
-                                        <div className='px-5'>
-                                            <ul className='list-disc'>
-                                                <li className='lg:text-sm'>Menjadi wadah bagi KM Fasilkom dalam mengembangkan Keterampilan dan pengetahuan dalam bidang penelitian dan pengembangan</li>
-                                                <li className='lg:text-sm'>Menjadi wadah bagi KM Fasilkom dalam mengembangkan Keterampilan dan pengetahuan dalam bidang penelitian dan pengembangan</li>
-                                                <li className='lg:text-sm'>Menjadi wadah bagi KM Fasilkom dalam mengembangkan Keterampilan dan pengetahuan dalam bidang penelitian dan pengembangan</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='flex flex-col w-full h-fit items-center justify-center mt-10'>
-                                    <div className='w-full h-fit flex flex-col items-center gap-7'>
-                                        <h6 className='text-2xl text-typedBlue font-bold'>Proker</h6>
-                                        <div className='h-fit w-full flex justify-around gap-3 flex-wrap box-border'>
-                                            <Proker prokerName='Abdi Desa'/>
-                                            <Proker prokerName='Abdi Desa'/>
-                                            <Proker prokerName='Abdi Desa'/>
-                                            <Proker prokerName='Abdi Desa'/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </TabPanel>
-                        <TabPanel>
-                            <h4 className='text-2xl text-center font-bold text-typedBlue mb-10'>Departemen Pengembangan Sumber Daya Mahasiswa</h4>
-                            <div className='flex flex-col min-[730px]:flex-row lg:flex-row gap-4 w-full justify-center items-center'>
-                                <Card />
-                                <Card />
-                            </div>
-                            <div className='w-full h-fit flex flex-col lg:mt-10 lg:flex-row'>
-                                <div className='flex flex-col w-full h-fit items-center justify-center mt-10'>
-                                    <div className='w-full h-fit flex flex-col items-center gap-7'>
-                                        <h6 className='text-2xl text-typedBlue font-bold'>Tupoksi</h6>
-                                        <div className='px-5'>
-                                            <ul className='list-disc'>
-                                                <li className='lg:text-sm'>Menjadi wadah bagi KM Fasilkom dalam mengembangkan Keterampilan dan pengetahuan dalam bidang penelitian dan pengembangan</li>
-                                                <li className='lg:text-sm'>Menjadi wadah bagi KM Fasilkom dalam mengembangkan Keterampilan dan pengetahuan dalam bidang penelitian dan pengembangan</li>
-                                                <li className='lg:text-sm'>Menjadi wadah bagi KM Fasilkom dalam mengembangkan Keterampilan dan pengetahuan dalam bidang penelitian dan pengembangan</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className='flex flex-col w-full h-fit items-center justify-center mt-10'>
-                                    <div className='w-full h-fit flex flex-col items-center gap-7'>
-                                        <h6 className='text-2xl text-typedBlue font-bold'>Proker</h6>
-                                        <div className='h-fit w-full flex justify-around gap-3 flex-wrap box-border'>
-                                            <Proker prokerName='Abdi Desa'/>
-                                            <Proker prokerName='Abdi Desa'/>
-                                            <Proker prokerName='Abdi Desa'/>
-                                            <Proker prokerName='Abdi Desa'/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </TabPanel>
+                        
+                        )
+                    })}
+                        
                     </div>
                 </Tabs>
             </div>
@@ -219,3 +237,37 @@ export default function Index() {
     </section>
   )
 }
+
+
+interface ServerSideData{
+    namaKabinet : string,
+    logo: string,
+    strukturOrganisasi:string,
+    pengurus:Pengurus[],
+    prokers:Prokers[],
+    tupoksis:Tupoksi[]
+    
+    
+}
+export const getServerSideProps: GetServerSideProps<ServerSideData> = async (
+  ) => {
+  const namaKabinet = await (await fetch(`${API_URL}/nama-kabinet`)).json();
+  const logo = await (await fetch(`${API_URL}/logo`)).json();
+  const strukturOrganisasi = await (await fetch(`${API_URL}/bagan`)).json();
+  const pengurus = await (await fetch(`${API_URL}/penguruses`)).json();
+  const prokers = await (await fetch(`${API_URL}/kategori-penguruses`)).json();
+
+  return{
+    props:{
+        namaKabinet:namaKabinet.nama,
+        logo:logo.logo.url,
+        strukturOrganisasi:strukturOrganisasi.bagan.url,
+        pengurus:pengurus,
+        prokers:prokers.filter((p:any)=>p.prokers.length ).map((m:any)=>m.prokers)[0],
+        tupoksis:prokers.filter((t:any)=>t.tupoksis.length ).map((m:any)=>m.tupoksis)[0]
+    }
+  }
+
+  }
+
+  export default StrukturOrganisasi;

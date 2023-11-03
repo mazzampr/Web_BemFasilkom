@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/bagan",
+      "handler": "bagan.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/bagan",
+      "handler": "bagan.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/bagan",
+      "handler": "bagan.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

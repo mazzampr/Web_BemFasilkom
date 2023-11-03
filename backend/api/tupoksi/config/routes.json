@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/tupoksis",
+      "handler": "tupoksi.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tupoksis/count",
+      "handler": "tupoksi.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/tupoksis/:id",
+      "handler": "tupoksi.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/tupoksis",
+      "handler": "tupoksi.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/tupoksis/:id",
+      "handler": "tupoksi.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/tupoksis/:id",
+      "handler": "tupoksi.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

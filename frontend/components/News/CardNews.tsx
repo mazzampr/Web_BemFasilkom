@@ -17,7 +17,7 @@ export default function CardNews({berita}:{berita:DetailBerita}) {
             <section className='flex justify-between items-center'>
               <div className='flex items-center gap-2'>
                 <Calendar />
-                <p className='text-xs'>{berita.created_at}</p>
+                <p className='text-xs'>{new Date(berita.created_at).toDateString()}</p>
               </div>
               <div className='flex items-center gap-2'>
                 <Avatar />
