@@ -2,6 +2,11 @@ export type StrapiImage = {
   height: number;
   width: number;
   url: string;
+  formats:{
+    thumbnail:{
+      url:string
+    }
+  }
 };
 
 type BeritaAuthor = {
@@ -69,14 +74,16 @@ export type DetailBerita = {
   created_at: string;
   category:string | any;
 };
-export type DetailProjects = {
+export type Event = {
   id: number;
-  judul: string;
-  cover: StrapiImage;
+  name: string;
+  event_image: StrapiImage;
   author: BeritaAuthor;
-  konten: string;
-  pratinjau: string;
+  deskripsi: string;
+  direct_link: string;
   created_at: string;
+  start_date:string;
+  end_date:string;
 };
 
 export type DivisiPengurus = {

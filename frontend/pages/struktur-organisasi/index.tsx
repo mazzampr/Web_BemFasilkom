@@ -98,9 +98,14 @@ const groupedByAnggotaJurusan = (pengurus:Pengurus[], prokers:Prokers[], tupoksi
                 nama: ''
             },
             foto: {
-                height: 0,
-                width: 0,
-                url: ''
+              height: 0,
+              width: 0,
+              url: '',
+              formats: {
+                thumbnail: {
+                  url: ''
+                }
+              }
             }
         });
       }
