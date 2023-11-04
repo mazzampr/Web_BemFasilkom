@@ -17,6 +17,10 @@
     },
     "tautan": {
       "type": "string"
+    },
+    "divisi_pengurus": {
+      "via": "prokers",
+      "model": "kategori-pengurus"
     }
   }
 }

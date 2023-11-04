@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "aboutContent",
+  "info": {
+    "name": "aboutContent"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "content": {
+      "type": "text",
+      "required": false
+    }
+  }
+}

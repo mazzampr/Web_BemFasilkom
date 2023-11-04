@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "divisi_pengurus",
+  "collectionName": "Tupoksi",
   "info": {
-    "name": "Divisi Pengurus",
+    "name": "Tupoksi",
     "description": ""
   },
   "options": {
@@ -12,17 +12,13 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "nama": {
+    "Tupoksi": {
       "type": "string",
       "required": true
     },
-    "prokers": {
-      "via": "divisi_pengurus",
-      "collection": "proker"
-    },
-    "tupoksis": {
-      "via": "divisi_pengurus",
-      "collection": "tupoksi"
+    "divisi_pengurus": {
+      "model": "kategori-pengurus",
+      "via": "tupoksis"
     }
   }
 }

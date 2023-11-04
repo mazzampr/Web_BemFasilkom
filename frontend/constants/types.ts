@@ -21,6 +21,16 @@ export type Proker = {
   tautan: string;
   created_at: string;
   updated_at: string;
+  divisi_pengurus:string;
+};
+
+export type Tupoksi = {
+  id: number;
+  Tupoksi: string;
+  tautan: string;
+  created_at: string;
+  updated_at: string;
+  divisi_pengurus:string;
 };
 
 export type Berita = {
@@ -30,6 +40,7 @@ export type Berita = {
   pratinjau: string;
   konten: string;
   created_at: string;
+  cover:StrapiImage;
 };
 
 export type Misi = {
@@ -56,6 +67,7 @@ export type DetailBerita = {
   konten: string;
   pratinjau: string;
   created_at: string;
+  category:string | any;
 };
 export type DetailProjects = {
   id: number;
@@ -68,6 +80,7 @@ export type DetailProjects = {
 };
 
 export type DivisiPengurus = {
+  id:string;
   nama: string;
 };
 
@@ -87,8 +100,9 @@ export type Pengurus = {
   instagram: string;
   divisi: DivisiPengurus;
   foto: StrapiImage;
-  jurusan: Jurusan;
+  jurusan: Jurusan ;
   jabatan: JabatanPengurus;
+  [key: string]: any;
 };
 
 export type HomepageContent = {
@@ -118,3 +132,11 @@ export type StatusAduan = {
   status: string;
   urutan: number;
 };
+
+export type StrukturOrganisasiPage={
+  id:string;
+  divisi:string;
+  members:Pengurus[];
+  prokers:Proker[];
+  tupoksis:Tupoksi[];
+}

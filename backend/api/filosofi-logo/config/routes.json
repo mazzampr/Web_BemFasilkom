@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/filosofi-logo",
+      "handler": "filosofi-logo.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/filosofi-logo",
+      "handler": "filosofi-logo.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/filosofi-logo",
+      "handler": "filosofi-logo.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
