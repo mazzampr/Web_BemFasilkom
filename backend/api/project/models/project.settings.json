@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "project",
+  "collectionName": "events",
   "info": {
-    "name": "project",
+    "name": "events",
     "description": ""
   },
   "options": {
@@ -17,30 +17,26 @@
       "required": true,
       "unique": false
     },
-    "user": {
-      "type": "string",
-      "required": true
-    },
     "deskripsi": {
       "type": "richtext",
       "required": true
     },
-    "registration_deadline": {
+    "start_date": {
       "type": "datetime",
       "required": true
     },
-    "project_deadline": {
+    "end_date": {
       "type": "datetime",
       "required": true,
       "unique": false
     },
-    "registration_link": {
+    "direct_link": {
       "type": "string",
       "required": true,
       "private": false,
       "unique": false
     },
-    "project_image": {
+    "event_image": {
       "model": "file",
       "via": "related",
       "allowedTypes": [
@@ -51,10 +47,9 @@
       "required": true,
       "pluginOptions": {}
     },
-    "users_permissions_user": {
-      "plugin": "users-permissions",
-      "model": "user",
-      "via": "project"
+    "admin_user": {
+      "plugin": "admin",
+      "model": "user"
     }
   }
 }
