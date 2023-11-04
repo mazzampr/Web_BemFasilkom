@@ -12,10 +12,14 @@ import { useRouter } from "next/router";
 import { Session } from "next-auth";
 import * as dateFns from "date-fns";
 import { DocumentHead } from "../components/DocumentHead";
+import { useSelector, useDispatch } from 'react-redux'
+import { setStatePageVisit } from '../store/pageVisitSlices'
 
 const StatusAduanPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = (props) => {
+  const dispatch = useDispatch()
+  dispatch(setStatePageVisit({page:'status-aduan'}))
   const { columns,session } = props;
   console.log(session)
   const router = useRouter()

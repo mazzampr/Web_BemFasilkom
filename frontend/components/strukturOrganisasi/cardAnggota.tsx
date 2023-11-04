@@ -5,7 +5,7 @@ export default function cardAnggota({nama}:{nama:string}) {
     <article className='card flex flex-col gap-7 lg:gap-6 rounded-md w-[80%] min-[550px]:w-[40%] min-[730px]:w-[40%] lg:h-[30%] lg:w-[250px] border-2 bg-pastel pb-4 box-border drop-shadow'>
         <div className='w-full h-[40%] flex flex-col flex-wrap gap-0 items-center'>
             <figure className='w-full h-full'>
-                <Image className='object-cover' src='/image/foto.png' width={400} height={400} alt='Card Image'/>
+                <Image className='object-cover rounded-t-xl' src='/image/foto.png' width={400} height={400} alt='Card Image'/>
             </figure>
             <figcaption className='text-typedBlue text-center lg:text-sm'>Kepala Departemen</figcaption>
         </div>

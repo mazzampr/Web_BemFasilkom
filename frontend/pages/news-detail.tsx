@@ -1,7 +1,13 @@
+import {useEffect} from 'react'
 import { NextPage } from "next";
 import styles from "../styles/NewsDetail.module.scss";
-
+import { useSelector, useDispatch } from 'react-redux'
+import { setStatePageVisit } from '../store/pageVisitSlices'
 const NewsItem: NextPage = () => {
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(setStatePageVisit({page:'berita-detail'}))
+  })
   return (
     <main className={styles.main}>
       <section className={styles["head-news"]}>

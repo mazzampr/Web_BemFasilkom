@@ -1,8 +1,9 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useRef} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { setStatePageVisit } from '../../store/pageVisitSlices'
 import Particles from "react-tsparticles";
 import particlesConfig from '../../components/Assets/Particles'
+import Typed from 'typed.js'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Image from 'next/image'
@@ -10,12 +11,30 @@ import Image from 'next/image'
 
 
 export default function Index() {
-	
-  const dispatch = useDispatch()
-  useEffect(()=>{
-    dispatch(setStatePageVisit({page:'Bisnis-Mitra'}))
-  })
+	const dispatch = useDispatch()
+	const typedRef = useRef(null) 
 
+	useEffect(() => {
+		dispatch(setStatePageVisit({page:'Bisnis-Mitra'}))
+        const typed = new Typed(typedRef.current, {
+          strings: ['Website','Android App','Desktop App','UI/UX'], // Strings to display
+          // Speed settings, try diffrent values untill you get good results
+          startDelay: 300,
+          typeSpeed: 100,
+          backSpeed: 100,
+          backDelay: 100,
+          smartBackspace: true,
+          loop: true,
+          showCursor: true,
+          cursorChar: "|"
+        });
+    
+        // Destropying
+        return () => {
+          typed.destroy();
+        };
+      }, [dispatch]);
+	
   const responsive = {
 	superLargeDesktop: {
 	  // the naming can be any, depends on you.
@@ -23,21 +42,21 @@ export default function Index() {
 	  items: 5
 	},
 	desktop: {
-	  breakpoint: { max: 3000, min: 1024 },
+	  breakpoint: { max: 3000, min: 1200 },
 	  items: 3
 	},
 	tablet: {
-	  breakpoint: { max: 1024, min: 464 },
+	  breakpoint: { max: 1200, min: 840 },
 	  items: 2
 	},
 	mobile: {
-	  breakpoint: { max: 464, min: 0 },
+	  breakpoint: { max: 840, min: 0 },
 	  items: 1
 	}
   };
   return (
     <>
-      <section className="relative h-[120vh] w-full border-box transition-all duration-500 object-fill bg-[length:100%_100%] bg-hero-pattern">
+      <section id='hero' className="relative h-[120vh] w-full border-box transition-all duration-500 object-fill bg-[length:100%_100%] bg-hero-pattern">
         <Particles className='particles-js h-full w-full absolute' options={particlesConfig} />
         <div className="header-4-1 absolute top-[20vh] z-100">
           <div className='w-screen'>
@@ -45,7 +64,7 @@ export default function Index() {
               <div
                 className="lg:flex-grow lg:w-1/2 flex flex-col lg:items-start lg:text-left mb-3 md:mb-12 lg:mb-0 items-center text-center">
                 <p className="mb-8 text-medium text-white">
-                  We can build a <span className="font-semibold">Website</span>
+                  We can build a <span  ref={typedRef} className="font-semibold"></span>
                 </p>
                 <h1 className="text-white sm:text-4xl lg:text-5xl text-2xl mb-8 font-semibold sm:leading-tight">
                   Empower your business journey with us.
@@ -67,7 +86,7 @@ export default function Index() {
           </div>
         </div>
       </section>
-      <section className="h-full w-full border-box bg-white">
+      <section id='service' className="h-full w-full border-box bg-white">
 
 		<div className="our-service">
 			<div className="container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
@@ -143,9 +162,9 @@ export default function Index() {
 		</div>
 	</section>
 
-  <section className="h-full w-full border-box bg-white">
+  <section className="h-full w-full border-box ">
 		<div className="our-service">
-			<div className="container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
+			<div className="container lg:px-20 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
 				<div className="flex flex-col text-center w-full mb-12">
 					<h1 className="text-4xl font-semibold title-font mb-2.5 text-medium-black">
 						What We Can do
@@ -156,8 +175,8 @@ export default function Index() {
 					</h2>
 				</div>
 
-				<div className="flex lg:flex-row flex-col m-4">
-					<div className="card px-4 md:px-4 lg:px-4 lg:w-1/4 md:w-1/4 my-4 md:my-0 mx-4">
+				<div className="flex w-full flex-wrap md:justify-between md:gap-5 md:flex-row box-border flex-col my-4">
+					<div className="card px-4 md:w-[47%] md:px-4 lg:px-4 xl:w-1/5 my-4 md:my-0 md:mx-0 mx-4">
 						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
 							<div className="items-center text-start">
 								<div className="inline-flex items-center justify-center rounded-full mb-6">
@@ -174,10 +193,8 @@ export default function Index() {
 								</p>
 							</div>
 						</div>
-            
 					</div>
-
-          <div className="card px-4 md:px-4 lg:px-4 lg:w-1/4 md:w-1/4 my-4 md:my-0 mx-4">
+					<div className="card px-4 md:px-4 lg:px-4 xl:w-1/5 md:w-[47%] my-4 md:my-0 md:mx-0 mx-4">
 						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
 							<div className="items-center text-start">
 								<div className="inline-flex items-center justify-center rounded-full mb-6">
@@ -196,8 +213,7 @@ export default function Index() {
 						</div>
             
 					</div>
-
-          <div className="card px-4 md:px-4 lg:px-4 lg:w-1/4 md:w-1/4 my-4 md:my-0 mx-4">
+					<div className="card px-4 md:px-4 lg:px-4 xl:w-1/5 md:w-[47%] my-4 md:my-0 md:mx-0 mx-4">
 						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
 							<div className="items-center text-start">
 								<div className="inline-flex items-center justify-center rounded-full mb-6">
@@ -216,8 +232,7 @@ export default function Index() {
 						</div>
             
 					</div>
-
-          <div className="card px-4 md:px-4 lg:px-4 lg:w-1/4 md:w-1/4 my-4 md:my-0 mx-4">
+					<div className="card px-4 md:px-4 lg:px-4 xl:w-1/5 md:w-[47%] my-4 md:my-0 md:mx-0 mx-4">
 						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
 							<div className="items-center text-start">
 								<div className="inline-flex items-center justify-center rounded-full mb-6">
@@ -233,13 +248,14 @@ export default function Index() {
 									Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
 								</p>
 							</div>
-						</div>     
+						</div>
+            
 					</div>
-        </div>
-      </div>
+				</div>
+			</div>
 		</div>
 	</section>
-  <section className="h-full w-full border-box bg-white">
+  <section id='portofolio' className="h-full w-full border-box bg-white">
 		<div className="our-service">
 			<div className="container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
 				<div className="flex flex-col text-center w-full mb-12">
@@ -252,10 +268,9 @@ export default function Index() {
 					</h2>
 				</div>
 
-				<div className="flex lg:flex-row flex-col m-4">
-					<div className="card px-4 md:px-4 lg:px-4 lg:w-1/2 md:w-1/2 my-4 md:my-0 mx-4">
+				<div className="flex lg:gap-10 md:flex-row flex-col justify-between flex-wrap box-content">
+					<div className="card px-4 md:px-4 lg:px-4 md:w-[47%] my-4">
 						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
-							
 							<div className="flex-grow">
 								<h4 className="font-medium text-start text-lg mb-2.5 text-medium-black">
 									Doku App
@@ -274,10 +289,9 @@ export default function Index() {
 									View demo
 								</p>
 						</div>
-					</div>
-					<div className="card px-4 md:px-4 lg:px-4 lg:w-1/2 md:w-1/2 my-4 md:my-0 mx-4">
+					</div>						
+					<div className="card px-4 md:px-4 lg:px-4 md:w-[47%] my-4">
 						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
-							
 							<div className="flex-grow">
 								<h4 className="font-medium text-start text-lg mb-2.5 text-medium-black">
 									Doku App
@@ -296,12 +310,54 @@ export default function Index() {
 									View demo
 								</p>
 						</div>
-					</div>
+					</div>						
+					<div className="card px-4 md:px-4 lg:px-4 md:w-[47%] my-4">
+						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
+							<div className="flex-grow">
+								<h4 className="font-medium text-start text-lg mb-2.5 text-medium-black">
+									Doku App
+								</h4>
+								<p className="leading-relaxed tracking-wide text-sm text-start text-gray-500">
+									Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+								</p>
+							</div>
+              				<div className="items-center text-center">
+								<div className="inline-flex items-center justify-center rounded-full mb-6">
+									<img src="assets/image/porto-1.png"
+										alt="" />
+								</div>
+							</div>
+								<p className="text-sm text-end text-orange-500 hover:cursor-pointer">
+									View demo
+								</p>
+						</div>
+					</div>						
+					<div className="card px-4 md:px-4 lg:px-4 md:w-[47%] my-4">
+						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
+							<div className="flex-grow">
+								<h4 className="font-medium text-start text-lg mb-2.5 text-medium-black">
+									Doku App
+								</h4>
+								<p className="leading-relaxed tracking-wide text-sm text-start text-gray-500">
+									Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.
+								</p>
+							</div>
+              				<div className="items-center text-center">
+								<div className="inline-flex items-center justify-center rounded-full mb-6">
+									<img src="assets/image/porto-1.png"
+										alt="" />
+								</div>
+							</div>
+								<p className="text-sm text-end text-orange-500 hover:cursor-pointer">
+									View demo
+								</p>
+						</div>
+					</div>						
 				</div>
 			</div>
 		</div>
 	</section>
-  <section className="h-full w-full border-box bg-white">
+  <section id='testimonials' className="h-full w-full border-box bg-white">
 		<div className="testimonials">
 			<div className="container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
 				<div className="flex flex-col text-center w-full mb-12">
@@ -313,8 +369,22 @@ export default function Index() {
 						Excepteur sint occaecat cupidatat non proident
 					</h2>
 				</div>
-				<Carousel className='flex gap-4' responsive={responsive} autoPlay={true} autoPlaySpeed={3000} arrows={false} showDots={true} infinite={true} swipeable={true} dotListClass="custom-dot-list-style">
-						<div className="testimonial-content mr-7 py-4 px-9 h-[12rem] border-2 box-border border-orange-500 rounded-xl flex flex-col justify-evenly items-center gap-4">
+				<Carousel className='flex gap-4' responsive={responsive} containerClass="carousel-container" itemClass="carousel-item-gap" autoPlay={true} autoPlaySpeed={3000} arrows={false} showDots={true} infinite={true} swipeable={true} dotListClass="custom-dot-list-style">
+						<div className="testimonial-content  py-4 px-9 h-[12rem] border-2 box-border border-orange-500 rounded-xl flex flex-col justify-evenly items-center gap-4">
+							<div className='h-[50%] flex items-center text-center'>
+								<p className="testimonial-text text-gray-800 text-[.8em]">Lorem ipsum dolor sifwfwffwqfqwfqfqfqwfqwqfqwfq t amet, consectetur adipiscing elit.</p>
+							</div>
+							<figure className='flex h-[40%] justify-center items-center gap-3 w-full'>
+								<div className=''>
+									<Image className='rounded-full overflow-hidden' src={'/cover.png'} width={60} height={60} alt='avatar'/>
+								</div>
+								<figcaption className='h-full flex flex-col justify-center text-center pb-3'>
+									<p className="testimonial-author text-black text-[.8em] font-bold">John Doe</p>
+									<p className="testimonial-author text-slate-500 text-[.8em] font-bold">Head of Marketing</p>
+								</figcaption>
+							</figure>
+						</div>
+						<div className="testimonial-content  py-4 px-9 h-[12rem] border-2 box-border border-orange-500 rounded-xl flex flex-col justify-evenly items-center gap-4">
 							<div className='h-[50%] flex items-center text-center flex-wrap'>
 								<p className="testimonial-text text-gray-800 text-[.8em]">Lorem ipsum dolor sifwfwffwqfqwfqfqfqwfqwqfqwfq t amet, consectetur adipiscing elit.</p>
 							</div>
@@ -328,7 +398,7 @@ export default function Index() {
 								</figcaption>
 							</figure>
 						</div>
-						<div className="testimonial-content mr-7 py-4 px-9 h-[12rem] border-2 box-border border-orange-500 rounded-xl flex flex-col justify-evenly items-center gap-4">
+						<div className="testimonial-content  py-4 px-9 h-[12rem] border-2 box-border border-orange-500 rounded-xl flex flex-col justify-evenly items-center gap-4">
 							<div className='h-[50%] flex items-center text-center flex-wrap'>
 								<p className="testimonial-text text-gray-800 text-[.8em]">Lorem ipsum dolor sifwfwffwqfqwfqfqfqwfqwqfqwfq t amet, consectetur adipiscing elit.</p>
 							</div>
@@ -342,21 +412,7 @@ export default function Index() {
 								</figcaption>
 							</figure>
 						</div>
-						<div className="testimonial-content mr-7 py-4 px-9 h-[12rem] border-2 box-border border-orange-500 rounded-xl flex flex-col justify-evenly items-center gap-4">
-							<div className='h-[50%] flex items-center text-center flex-wrap'>
-								<p className="testimonial-text text-gray-800 text-[.8em]">Lorem ipsum dolor sifwfwffwqfqwfqfqfqwfqwqfqwfq t amet, consectetur adipiscing elit.</p>
-							</div>
-							<figure className='flex h-[40%] justify-center items-center gap-3 w-full'>
-								<div className=''>
-									<Image className='rounded-full overflow-hidden' src={'/cover.png'} width={60} height={60} alt='avatar'/>
-								</div>
-								<figcaption className='h-full flex flex-col justify-center text-center pb-3'>
-									<p className="testimonial-author text-black text-[.8em] font-bold">John Doe</p>
-									<p className="testimonial-author text-slate-500 text-[.8em] font-bold">Head of Marketing</p>
-								</figcaption>
-							</figure>
-						</div>
-						<div className="testimonial-content mr-7 py-4 px-9 h-[12rem] border-2 box-border border-orange-500 rounded-xl flex flex-col justify-evenly items-center gap-4">
+						<div className="testimonial-content  py-4 px-9 h-[12rem] border-2 box-border border-orange-500 rounded-xl flex flex-col justify-evenly items-center gap-4">
 							<div className='h-[50%] flex items-center text-center flex-wrap'>
 								<p className="testimonial-text text-gray-800 text-[.8em]">Lorem ipsum dolor sifwfwffwqfqwfqfqfqwfqwqfqwfq t amet, consectetur adipiscing elit.</p>
 							</div>

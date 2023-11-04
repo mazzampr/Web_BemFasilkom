@@ -29,7 +29,7 @@ module.exports = {
         'gradient-cust-orange1': "linear-gradient(97deg, #FA6D01 11.69%, #FAB401 118.46%)",
         'gradient-cust-orange2':'linear-gradient(to right, #FA6D01, #FA870199 60%)',
         'hero-pattern': "url('/assets/image/bg-header.png')",
-        'footer-bismit': "url('/cover.png')"
+        'footer-bismit': "url('/image/meeting.jpg')"
       },
       colors: {
         'footer-cover-transparent': 'rgba(250,109,1,0.8)',

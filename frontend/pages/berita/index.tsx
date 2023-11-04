@@ -13,18 +13,32 @@ import * as dateFns from "date-fns";
 import { DocumentHead } from "../../components/DocumentHead";
 import { useSelector, useDispatch } from 'react-redux'
 import { setStatePageVisit } from '../../store/pageVisitSlices'
-
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger)
 
 const Berita: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
   (props) => {
     const dispatch = useDispatch()
-    dispatch(setStatePageVisit({page:'Berita'}))
+    const refSection = useRef<HTMLInputElement>(null)
     const { listBerita, beritaCount } = props;
     const paginationStart = useRef(listBerita.length);
     const [beritaList, setBeritaList] = useState(listBerita);
     const [isFetchingNewData, setIsFetchingNewData] = useState(false);
     useDarkNavLinks();
-
+    
+    useEffect(()=>{
+      dispatch(setStatePageVisit({page:'Berita'}))
+      const animation=gsap.fromTo(refSection.current,{ autoAlpha: 0, y: 400 },
+        { autoAlpha: 1, duration: 1, y: 0, ease: 'power3.out', animationDuration: 1 })
+      
+      ScrollTrigger.create({
+        animation: animation,
+        trigger: refSection.current,
+        start: 'top-=500px center',
+        end: 'bottom center',
+      })
+    },[dispatch])
     
 
     return (
@@ -34,11 +48,11 @@ const Berita: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
           <h1 className={styles.textberita}>Fasilkom News</h1>
           {beritaList.length > 0 ? (
             <>
-              <div className={styles.berita_list_container}>
+              <div ref={refSection} className={styles.berita_list_container}>
                 {beritaList.map((berita, idx) => {
                   return (
-                    <Link key={idx} href={`/berita/${berita.id}`}>
-                      <a className={styles.news_card}>
+                    <Link  key={idx} href={`/berita/${berita.id}`}>
+                      <a  className={styles.news_card}>
                         <div className={styles.news_thumbnail}>
                           <img src={berita.cover ? API_URL + berita.cover.url : 'placeholder_image_url'} alt="berita" />
                         </div>

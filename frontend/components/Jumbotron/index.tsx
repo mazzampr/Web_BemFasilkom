@@ -3,6 +3,7 @@ import Typed from 'typed.js'
 import Image from 'next/image'
 import Infinite from '../Assets/Infinite'
 import CurlyArrow from '../Assets/CurlyArrow'
+
 export default function Index({namaKabinet}:{namaKabinet:string}) {
     const ref = useRef(null)
     useEffect(() => {

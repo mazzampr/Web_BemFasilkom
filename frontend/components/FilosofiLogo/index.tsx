@@ -1,8 +1,28 @@
-import React from 'react'
+import React,{useRef,useLayoutEffect,useEffect} from 'react'
 import Image from 'next/image'
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger)
 export default function Index() {
+  const sectionRef = useRef<HTMLInputElement>(null);
+
+  useEffect(()=>{
+    const sectionAnimation= gsap.fromTo(sectionRef.current,{autoAlpha: 0, y: 200,scale:.6,animationDuration:2},{autoAlpha: 1, y: 0, ease: 'bounce.out',scale:1,animationDuration:2})
+
+    ScrollTrigger.create({
+      animation: sectionAnimation,
+      trigger: sectionRef.current,
+      start: 'top-=500 center',
+      end: 'bottom center',
+      markers: false,
+      onLeaveBack:()=>sectionAnimation.reverse(),
+
+    })
+  },[])
+
   return (
-    <section className='mt-[13vh] flex flex-col gap-10 h-fit w-full box-border '>
+    <section ref={sectionRef} className='mt-[13vh] flex flex-col gap-10 h-fit w-full box-border '>
         <section className='w-full text-center'>
             <h3 className='m-auto font-bold text-typedBlue text-3xl submenu w-fit after:-bottom-2 after:right-[calc(100%/5)] after:w-[115px]'>Filosofi Logo</h3>
         </section>

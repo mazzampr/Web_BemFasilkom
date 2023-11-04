@@ -14,7 +14,7 @@ export const Footer = () => {
     <footer className={`w-full ${pageVisit==='Bisnis-Mitra'? null: 'lg:px-10 lg:pt-16'}  flex flex-col justify-center bg-peach mt-[13vh]`}>
       {pageVisit==='Bisnis-Mitra' ? (
         <>
-          <section className="w-full h-full flex flex-col justify-between border-b-2 border-black bg-footer-bismit bg-cover bg-center	">
+          <section className="w-full h-full flex flex-col justify-between border-b-2 border-black bg-footer-bismit bg-cover bg-top">
             <section className=" w-full h-[60vh] bg-footer-cover-transparent flex justify-center items-center">
               <div className='flex flex-col items-center gap-5'>
                 <p className="text-white text-[1.2em] text-center">Grow Your Business Faster Than Ever Before</p>

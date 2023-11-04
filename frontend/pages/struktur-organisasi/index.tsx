@@ -12,38 +12,11 @@ import { setStatePageVisit } from '../../store/pageVisitSlices'
 
 export default function Index() {
     const dispatch = useDispatch()
-    dispatch(setStatePageVisit({page:'Struktur Organisasi'}))
-    const slider= useRef(null);
-    const [xPos , setXPos] = useState(0);
-    // console.log(xPos)
-    // useEffect(() => {
-    //     // You can access the window object inside the useEffect hook
-    //     let width = slider.current.offsetWidth;
-    //     console.log(width);
-    //   }, [slider.current.offsetWidth]);
-    console.log(xPos)
-    // const moveForward =()=>{
-    //     if(xPos === 0){
-    //         const newPosition = xPos - window.innerWidth;
-    //         setXPos(newPosition)
-    //     }
-    //     if(xPos > -(slider.current.offsetWidth)){
-    //         const newPosition = xPos - window.innerWidth;
-    //         setXPos(newPosition);
-    //         slider.current.style.translate=`${xPos}px 0`   
-    //         slider.current.style.transition='500ms'   
-    //     }
-    // }
-    // const moveBackward =()=>{
-    //     if(xPos < slider.current.offsetWidth){
-    //         const newPosition = xPos + window.innerWidth;
-    //         setXPos(newPosition);
-    //         slider.current.style.translate=`${xPos}px 0`   
-    //         slider.current.style.transition='500ms'   
-
-    //     }
-            
-    // }    
+    
+    useEffect(()=>{
+        dispatch(setStatePageVisit({page:'Struktur Organisasi'}))
+    },[])
+    
   return (
     <section className='mt-[13vh] py-3'>
         <section className='w-full h-fit'>

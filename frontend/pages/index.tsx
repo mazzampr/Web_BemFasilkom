@@ -1,5 +1,4 @@
-import React from 'react'
-import { Navbar } from '../components/Navbar'
+import React,{useRef,useEffect} from 'react'
 import About from '../components/About/home'
 import type {
     GetServerSideProps,
@@ -13,14 +12,28 @@ import News from '../components/News'
 import Jumbotron from '../components/Jumbotron'
 import Sambutan from '../components/Sambutan'
 import { DocumentHead } from '../components/DocumentHead'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setStatePageVisit } from '../store/pageVisitSlices'
 
 const Index : NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = (props) => {
-  const { HomepageContent, listBerita, namaKabinet} = props
   const dispatch = useDispatch()
-  dispatch(setStatePageVisit({page:'Homepage'}))
-
+  const useRefScroll:any = useRef()
+  const { HomepageContent, listBerita, namaKabinet} = props
+  useEffect(()=>{
+    dispatch(setStatePageVisit({page:'Homepage'}))
+  },[dispatch])
+//   useLayoutEffect(() => {
+//     let scroll: any = null;
+//     import("locomotive-scroll").then((locomotiveModule) => {
+//         scroll = new locomotiveModule.default({
+//           el: useRefScroll.current,
+//           smooth: true,
+//             resetNativeScroll: true
+//         });
+//       });
+//       return () => scroll? scroll.destroy():null
+// },[]);
+  
   return (
       <section className='w-screen box-border min-w-[360px]'>
           <section className='px-10'> 

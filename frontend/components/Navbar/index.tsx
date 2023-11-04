@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { createAction } from '@reduxjs/toolkit';
 import Link from "next/link";
 import Image from 'next/image'
 import styles from "./styles.module.scss";
@@ -21,6 +22,8 @@ interface profileLinks {
   }[];
 }
 
+export const setStateNavbarFalse = createAction<boolean>('navbar/setStateNavbarFalse');
+
 const navLinks: (NavLink | profileLinks)[] = [
   {
     text: "Profile",
@@ -30,12 +33,8 @@ const navLinks: (NavLink | profileLinks)[] = [
         link: "/struktur-organisasi",
       },
       {
-        text: 'Kabinet',
-        link: '/kabinet'
-      },
-      {
         text: 'Tentang Kami',
-        link: 'tentang-kami'
+        link: '/tentang-kami'
       }
     ],
   },
@@ -55,10 +54,6 @@ const navLinks: (NavLink | profileLinks)[] = [
         link:'/bisnis-mitra'
       }
     ],
-  },
-  {
-    text: "Projects",
-    link: "/projects",
   },
 ];
 
@@ -82,9 +77,9 @@ export const Navbar = () => {
   const navbarShow = useSelector((state:navbarSliceType) => state.navbarSlice.value)
   const linkClicked = useSelector((state:linkClickedSliceType) => state.linkClickedSlice.value)
   const pageVisit = useSelector((state:pageVisitSliceType) => state.pageVisitSlice.value)
-  console.log(pageVisit)
 
   const [scrollY, setScrollY] = useState(0);
+  const [logoClicked,setLogoClicked] = useState(false)
   const [submenuVisible, setSubmenuVisible] = useState(new Array(navLinks.length).fill(false));
 
   const toggleSubmenu = (index:number) => {
@@ -101,7 +96,6 @@ export const Navbar = () => {
     handleScroll();
 
     window.addEventListener("scroll", handleScroll);
-    console.log(scrollY)
     
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -109,11 +103,11 @@ export const Navbar = () => {
   }, []);
   
   const handleClickedNavbar=(link:string)=>{
-    dispatch(setStateNavbar())
+    dispatch(setStateNavbar({link}))
     dispatch(setStateLink({link}))
   }
   return (
-    <Headroom className="fixed z-[99] min-w-[100%]   " style={{
+    <Headroom className="fixed z-[99] min-w-[100%]" style={{
       transition: 'all 1s ease-in-out'
     }}>
       <header className={`flex items-center justify-between lg:justify-evenly w-[100vw]  ${scrollY>0 && pageVisit!='Bisnis-Mitra' ?'bg-[#FFD7B7]': scrollY>0 && pageVisit==='Bisnis-Mitra'?'bg-orange-500' : 'bg-transparent'} ${pageVisit!='Bisnis-Mitra' ? 'h-[13vh]' : 'pb-2 pt-2 lg:pt-0 lg:pb-0 lg:h-[17vh] lg:px-12'}`}  style={{
@@ -121,7 +115,7 @@ export const Navbar = () => {
     }}>
           <section className='flex w-[60%] lg:w-[20%]'>
               <Link href="/">
-                  <a onClick={()=>dispatch(setStateLink({link:'Home'}))} className="flex items-center ">
+                  <a onClick={()=>navbarShow?setLogoClicked(true):setLogoClicked(false)} className="flex items-center ">
                     <Image
                         src={`${pageVisit==='Bisnis-Mitra' ? '/logo/kabinetAerialWhite.svg' : '/logo/kabinetArial.svg'}`}
                         alt="Logo BEM Fasilkom UPN 'Veteran' Jawa Timur"
@@ -145,8 +139,8 @@ export const Navbar = () => {
                   </a>
               </Link>
           </section>
-          <nav className={`${pageVisit==='Bisnis-Mitra'? 'items-center': null} bg-white lg:bg-transparent justify-evenly text-2xl px-5 lg:px-0 lg:text-base w-screen absolute ${navbarShow ?'top-[13vh]':'-top-[100vh]'} duration-500 -ml-2 md:w-full lg:ml-0 lg:static flex flex-col gap-1 lg:gap-20 lg:flex-row lg:w-[70%] h-screen z-100 lg:z-0 max-h-screen lg:max-h-none lg:h-fit box-content mx-5`}>
-            <section className={`flex flex-col lg:flex-row justify-around ${pageVisit==='Bisnis-Mitra'? 'lg:px-16 items-center' : null } w-fit max-h-[80%] lg:max-h-none lg:w-[70%] h-[60%] lg:h-fit `}>
+          <nav className={`${pageVisit==='Bisnis-Mitra'? 'lg:items-center': null} bg-white lg:bg-transparent lg:justify-evenly text-2xl px-5 lg:px-0 lg:text-base w-screen absolute ${navbarShow?'top-[13vh]':'-top-[130vh]'} duration-500 -ml-2 md:w-full lg:ml-0 lg:static flex flex-col py-10 lg:py-0 gap-10 lg:gap-20 lg:flex-row lg:w-[70%] h-screen z-100 lg:z-0 max-h-screen lg:max-h-none lg:h-fit box-content mx-5`}>
+            <section className={`flex flex-col lg:flex-row justify-around  ${pageVisit==='Bisnis-Mitra'? 'lg:px-16 lg:items-center' : null } w-fit max-h-[80%] lg:max-h-none lg:w-[70%] h-[60%] lg:h-fit `}>
               {pageVisit != 'Bisnis-Mitra'? 
                 navLinks.map((menu:any,i:number) => menu.links? (
                   <section key={`menu-${i}`} className="group relative z-[100] cursor-pointer box-border h-fit" onClick={() => toggleSubmenu(i)} >
@@ -154,7 +148,7 @@ export const Navbar = () => {
                         <p className={`${linkClicked===menu.text?'text-typedBlue font-bold':'text-black'}`}>{menu.text}</p>
                         <Image className='group-hover:rotate-180 transition-transform duration-400' src={'/icons/caret.svg'} width={10} height={10} alt="Profile"></Image>
                     </div>
-                    <ul className={`mt-2 lg:mt-0 ${submenuVisible[i] ? "block" : "hidden"} lg:block lg:absolute group lg:invisible lg:group-hover:visible w-[200px] lg:shadow lg:shadow-slate-400 bg-white  overflow-y-auto  min-h-[fit] max-h-[6rem] rounded-md`}>
+                    <ul className={`mt-2 lg:mt-0 ${submenuVisible[i] ? "flex flex-col gap-4 h-fit py-2" : "hidden"} lg:py-0 lg:block lg:absolute group lg:invisible lg:group-hover:visible w-[200px] lg:shadow lg:shadow-slate-400 bg-white  overflow-y-auto  min-h-[fit] max-h-[8rem] rounded-md`}>
                     {menu.links.map((subMenu:NavLink,subIndex:number)=>(
                       <li key={`submenu-${subIndex}`} className="lg:invisible lg:group-hover:visible w-full flex flex-col gap-3 lg:gap-0 ">
                         <Link href={subMenu.link}>
@@ -173,9 +167,9 @@ export const Navbar = () => {
                 ))
               : (
                 <>
-                  <Link href={'#'}><a className={`text-white text-lg hover:text-xl hover:font-bold hover:duration-100 w-fit`}>Service</a></Link>
-                  <Link href={'#'}><a className={`text-white text-lg hover:text-xl hover:font-bold hover:duration-100 w-fit`}>Portofolio</a></Link>
-                  <Link href={'#'}><a className={`text-white text-lg hover:text-xl hover:font-bold hover:duration-100 w-fit`}>Testimonials</a></Link>
+                  <Link href={'#service'}><a onClick={()=>handleClickedNavbar('Service')} className={`text-black lg:text-white text-lg hover:text-xl hover:font-bold hover:duration-100 w-fit`}>Service</a></Link>
+                  <Link href={'#portofolio'}><a onClick={()=>handleClickedNavbar('Portofolio')} className={`text-black lg:text-white text-lg hover:text-xl hover:font-bold hover:duration-100 w-fit`}>Portofolio</a></Link>
+                  <Link href={'#testimonials'}><a onClick={()=>handleClickedNavbar('Testimonials')} className={`text-black lg:text-white text-lg hover:text-xl hover:font-bold hover:duration-100 w-fit`}>Testimonials</a></Link>
                 </>
               )}
             </section>

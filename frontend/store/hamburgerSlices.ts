@@ -6,8 +6,8 @@ export const navbarSlice = createSlice({
     value: false,
   },
   reducers: {
-    setStateNavbar: (state) => {
-      state.value = !state.value
+    setStateNavbar: (state, { payload }) => {
+      state.value = payload === 'Homepage' ? state.value : !state.value
     },
   },
 })

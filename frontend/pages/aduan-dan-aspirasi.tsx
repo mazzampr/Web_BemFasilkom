@@ -3,7 +3,7 @@ import {
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useState, useEffect } from "react";
 import styles from "../styles/AduanDanAspirasi.module.scss";
 import { signIn, signOut } from "next-auth/client";
 import { API_URL } from "../constants";
@@ -14,29 +14,35 @@ import { getSession } from "next-auth/client";
 import { Session } from "next-auth";
 import Link from "next/link";
 import { Jurusan } from "../constants/types";
-
+import { useDispatch } from 'react-redux'
+import { setStatePageVisit } from '../store/pageVisitSlices'
 const AduanDanAspirasi: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = (props) => {
+  const dispatch = useDispatch()
+  
   const { session, listJurusan } = props;
   useDarkNavLinks();
   const kodeJurusanFromNpm = session?.user?.email?.slice(2, 5) ?? "";
   const selectedJurusanFromKode =
-    kodeJurusanFromNpm === "081"
-      ? "1"
-      : kodeJurusanFromNpm === "082"
-      ? "2"
-      : kodeJurusanFromNpm === "083"
-      ? "3"
-      : "";
-
+  kodeJurusanFromNpm === "081"
+  ? "1"
+  : kodeJurusanFromNpm === "082"
+  ? "2"
+  : kodeJurusanFromNpm === "083"
+  ? "3"
+  : "";
+  
   const [nama, setNama] = useState(session?.user?.name ?? "");
   const [email, setEmail] = useState(session?.user?.email ?? "");
   const [pesan, setPesan] = useState("");
   const [jurusan, setJurusan] = useState(selectedJurusanFromKode);
   const [tipeMasukan, setTipeMasukan] = useState<"Aduan" | "Aspirasi">("Aduan");
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  
+  useEffect(()=>{
+    dispatch(setStatePageVisit({page:'aduan-dan-aspirasi'}))
+  },[dispatch])
   const submitHandler: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     setIsSubmitting(true);

@@ -1,9 +1,50 @@
-import React from 'react'
+"use client"
+import React,{useLayoutEffect,useRef,useEffect} from 'react'
 import Image from 'next/image'
+import { useDispatch } from 'react-redux'
+import { setStatePageVisit } from '../../store/pageVisitSlices'
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger)
 export default function Index() {
+    const dispatch = useDispatch()
+    dispatch(setStatePageVisit({page:'Visi-Misi'}))
+
+    const visiSectionRef = useRef<HTMLInputElement>(null);
+    const misiSectionRef = useRef<HTMLInputElement>(null);
+
+    useEffect(()=>{
+        const animation={
+            visi: gsap.fromTo(visiSectionRef.current,{autoAlpha:0,x:-100},{autoAlpha:1,x:0}),
+            misi: gsap.fromTo(misiSectionRef.current,{autoAlpha:0,x:100},{autoAlpha:1,x:0}),
+        }
+
+        ScrollTrigger.create({
+            animation: animation.visi,
+            trigger: visiSectionRef.current,
+            start: 'top-=200px center',
+            end: '400px 40%',
+            markers: false,
+            onLeave:()=>animation.visi.reverse(),
+            onLeaveBack:()=>animation.visi.reverse(),
+            onEnterBack:()=>animation.visi.play(),
+        })
+        ScrollTrigger.create({
+            animation: animation.misi,
+            trigger: misiSectionRef.current,
+            start: 'top-=200px center',
+            end: '400px 40%',
+            markers: false,
+            onLeave:()=>animation.misi.reverse(),
+            onLeaveBack:()=>animation.misi.reverse(),
+            onEnterBack:()=>animation.misi.play(),
+        })
+
+    },[])
+    
   return (
     <section className='flex flex-col justify-center gap-10 lg:gap-16 h-fit md:px-8 lg:h-[100vh] lg:w-full box-border'>
-        <article className='flex flex-col md:flex-row items-center gap-10'>
+        <article ref={visiSectionRef} className='flex flex-col md:flex-row items-center gap-10'>
             <figure className='sm:flex sm:justify-center md:w-[25%] md:h-fit '>
                 <Image src='/icons/visi.png' width={150} height={150} alt='Visi'/>
             </figure>
@@ -12,7 +53,7 @@ export default function Index() {
                 <p className='text-justify lg:tracking-wide lg:leading-7'>{'Mewujudkan BEM Fakultas Ilmu Komputer yang Inovatif dan kolaboratif dengan civitas akademika dan organisasi mahasiswa di UPN "Veteran" Jawa Timur terutama di lingkungan Fakultas Ilmu Komputer yang berlandaskan Tri Dharm Perguruan Tinggi'}</p>
             </section>
         </article>
-        <article className='flex flex-col md:flex-row-reverse  items-center gap-10'>
+        <article ref={misiSectionRef} className='flex flex-col md:flex-row-reverse  items-center gap-10'>
             <figure className='sm:flex sm:justify-center md:w-[25%] md:h-fit'>
                 <Image src='/icons/misi.png' width={150} height={150} alt='Visi'/>
             </figure>
