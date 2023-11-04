@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useRef} from 'react'
 import Image from 'next/image'
 import 'react-multi-carousel/lib/styles.css';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
@@ -11,8 +11,11 @@ import {
     InferGetServerSidePropsType,
     NextPage,
   } from "next";
-  import { API_URL } from "../../constants";
+import { API_URL } from "../../constants";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 import { Pengurus, Proker as Prokers, StrukturOrganisasiPage, Tupoksi } from '../../constants/types';
+gsap.registerPlugin(ScrollTrigger)
 
 const StrukturOrganisasi: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -123,16 +126,35 @@ const groupedByAnggotaJurusan = (pengurus:Pengurus[], prokers:Prokers[], tupoksi
       
     })
     const dispatch = useDispatch()
+    const refStruktur = useRef<HTMLInputElement>(null)
+    const refImage = useRef<HTMLInputElement>(null)
     
+
+    const tabClicked =()=>{
+        gsap.fromTo(refImage.current,{autoAlpha:0,y:200,scale:.5},
+            {autoAlpha:1,y:0,scale:1,ease:'power3.out',animationDuration:1})
+    }
     useEffect(()=>{
         dispatch(setStatePageVisit({page:'Struktur Organisasi'}))
-    },[])
+        const animation = {
+            strukturOrganisasi: gsap.fromTo(refStruktur.current,{autoAlpha:0,y:200,scale:.5},
+                {autoAlpha:1,y:0,scale:1,ease:'power3.out',animationDuration:1}),
+        }
+
+        ScrollTrigger.create({
+            animation:animation.strukturOrganisasi,
+            trigger:refStruktur.current,
+            start:'top-=300px center',
+            end:'bottom center',
+            markers:false
+        })
+    },[dispatch])
     
   return (
     <section className='mt-[13vh] py-3'>
         <section className='w-full h-fit'>
             <section className='px-10 flex flex-col items-center justify-center md:flex-row md:justify-between w-full h-fit gap-5'>
-                <div className='hidden md:block md:relative w-[8rem] h-[8rem] md:top-10  animate-spin-cust '>
+                <div  className='hidden md:block md:relative w-[8rem] h-[8rem] md:top-10  animate-spin-cust '>
                     <Image src='/vector/vector.svg' width={200} height={200} alt='Kabinet Aerial'/>
                 </div>
                 <div className='text-center'>
@@ -143,8 +165,8 @@ const groupedByAnggotaJurusan = (pengurus:Pengurus[], prokers:Prokers[], tupoksi
                     <Image src={`${API_URL}${data.logo}`} width={150} height={150} alt='Kabinet Aerial' />
                 </div>
             </section>
-            <section className='relative flex justify-start lg:justify-center items-start flex-wrap px-3 md:px-7 w-full h-fit border-box '>
-                <Image src={`${API_URL}${data.strukturOrganisasi}`} width={1000} height={500} alt='Struktur Organisasi' />
+            <section ref={refStruktur} className='relative flex justify-start lg:justify-center items-start flex-wrap px-3 md:px-7 w-full h-fit border-box '>
+                <Image  src={`${API_URL}${data.strukturOrganisasi}`} width={1000} height={500} alt='Struktur Organisasi' />
                 <div className='absolute z-100 -bottom-20 lg:left-3'>
                     <Image src={'/vector/infinity.png'} width={150} height={150} alt='infinity'></Image>
                 </div>
@@ -160,7 +182,7 @@ const groupedByAnggotaJurusan = (pengurus:Pengurus[], prokers:Prokers[], tupoksi
                     <TabList>
                             {data.pengurus.map((p,i)=>{
                                 return(
-                               <Tab key={i}>{p.divisi}</Tab>
+                               <Tab onClick={()=>setTimeout(()=>tabClicked(),10)} key={i}>{p.divisi}</Tab>
                                 )
                                 
                             })}
@@ -175,7 +197,7 @@ const groupedByAnggotaJurusan = (pengurus:Pengurus[], prokers:Prokers[], tupoksi
 
                     <TabPanel key={i}>
                             <h4 className='text-2xl text-center font-bold text-typedBlue mb-10'>{p.divisi}</h4>
-                            <div className='flex flex-col min-[550px]:flex-row min-[730px]:flex-row lg:h-[10%] lg:flex-row gap-4 w-full justify-center items-center'>
+                            <div ref={refImage} className='flex flex-col min-[550px]:flex-row min-[730px]:flex-row lg:h-[10%] lg:flex-row gap-4 w-full justify-center items-center'>
                                                                 {p.members.map(m=>{return(
                                 <Card key={m.id} nama={m.nama}
                                 angkatan={m.angkatan} 
