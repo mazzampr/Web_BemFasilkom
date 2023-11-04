@@ -7,13 +7,18 @@ import Typed from 'typed.js'
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Image from 'next/image'
-
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+gsap.registerPlugin(ScrollTrigger)
 
 
 export default function Index() {
 	const dispatch = useDispatch()
 	const typedRef = useRef(null) 
-
+	const refService = useRef<HTMLDivElement>(null)
+	const refBenefit = useRef<HTMLDivElement>(null)
+	const refPortofolio = useRef<HTMLDivElement>(null)
+	const refTestimonials = useRef<HTMLDivElement>(null)
 	useEffect(() => {
 		dispatch(setStatePageVisit({page:'Bisnis-Mitra'}))
         const typed = new Typed(typedRef.current, {
@@ -54,6 +59,54 @@ export default function Index() {
 	  items: 1
 	}
   };
+
+  useEffect(()=>{
+    const animation ={
+      service: gsap.fromTo(refService.current,{autoAlpha:0,x:200},{autoAlpha:1,x:0}),
+	  benefit:gsap.fromTo(refBenefit.current,{autoAlpha:0,x:-200},{autoAlpha:1,x:0}),
+      portofolio:gsap.fromTo(refPortofolio.current,{autoAlpha:0,y:200},{autoAlpha:1,y:0,ease:'power3.out'}),
+	  testimonials:gsap.fromTo(refTestimonials.current,{autoAlpha:0,y:200},{autoAlpha:1,y:0,ease:'power3.out'})
+    }
+
+    ScrollTrigger.create({
+      animation: animation.service,
+      trigger: '.scroll-trigger',
+      start: 'top center',
+      end: 'bottom 30%',
+      markers: false,
+      onLeaveBack:()=>animation.service.reverse(),
+	  onLeave:()=>gsap.to(refService.current,{autoAlpha:0,x:-200}),
+	  onEnterBack:()=>gsap.to(refService.current,{autoAlpha:1,x:0})
+    })
+    ScrollTrigger.create({
+      animation: animation.benefit,
+      trigger: '.scroll-trigger-benefit',
+      start: 'top center',
+      end: 'bottom 30%',
+      markers: false,
+      onLeaveBack:()=>animation.benefit.reverse(),
+	  onLeave:()=>gsap.to(refBenefit.current,{autoAlpha:0,x:200}),
+	  onEnterBack:()=>gsap.to(refBenefit.current,{autoAlpha:1,x:0})
+    })
+    ScrollTrigger.create({
+      animation: animation.portofolio,
+      trigger: '.scroll-trigger-portofolio',
+      start: 'top center',
+      end: 'bottom 30%',
+      markers: false,
+      onLeaveBack:()=>animation.portofolio.reverse(),
+	  onLeave:()=>gsap.to(refPortofolio.current,{autoAlpha:0,y:-200,animationDuration:2}),
+	  onEnterBack:()=>gsap.to(refPortofolio.current,{autoAlpha:1,y:0,ease:'power3.out',animationDuration:2})
+    })
+    ScrollTrigger.create({
+      animation: animation.testimonials,
+      trigger: '.scroll-trigger-testimonials',
+      start: 'top center',
+      end: 'bottom 30%',
+      markers: false,
+      onLeaveBack:()=>animation.testimonials.reverse(),
+    })
+  },[])
   return (
     <>
       <section id='hero' className="relative h-[120vh] w-full border-box transition-all duration-500 object-fill bg-[length:100%_100%] bg-hero-pattern">
@@ -89,7 +142,7 @@ export default function Index() {
       <section id='service' className="h-full w-full border-box bg-white">
 
 		<div className="our-service">
-			<div className="container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
+			<div className="scroll-trigger-benefit container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
 				<div className="flex flex-col text-center w-full mb-12">
 					<h1 className="text-4xl font-semibold title-font mb-2.5 text-medium-black">
 						3 Keys Benefit
@@ -100,7 +153,7 @@ export default function Index() {
 					</h2>
 				</div>
 
-				<div className="flex lg:flex-row flex-col -m-4">
+				<div ref={refBenefit} className="flex lg:flex-row flex-col -m-4">
 					<div className="px-14 md:px-0 lg:px-4 lg:w-1/3 md:w-1/3 sm:w-4/6 mx-auto">
 						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-4 pb-12 flex-col">
 							<div className="items-center text-center">
@@ -163,7 +216,7 @@ export default function Index() {
 	</section>
 
   <section className="h-full w-full border-box ">
-		<div className="our-service">
+		<div className="scroll-trigger our-service">
 			<div className="container lg:px-20 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
 				<div className="flex flex-col text-center w-full mb-12">
 					<h1 className="text-4xl font-semibold title-font mb-2.5 text-medium-black">
@@ -175,7 +228,7 @@ export default function Index() {
 					</h2>
 				</div>
 
-				<div className="flex w-full flex-wrap md:justify-between md:gap-5 md:flex-row box-border flex-col my-4">
+				<div ref={refService} className="flex w-full flex-wrap md:justify-between md:gap-5 md:flex-row box-border flex-col my-4">
 					<div className="card px-4 md:w-[47%] md:px-4 lg:px-4 xl:w-1/5 my-4 md:my-0 md:mx-0 mx-4">
 						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
 							<div className="items-center text-start">
@@ -257,7 +310,7 @@ export default function Index() {
 	</section>
   <section id='portofolio' className="h-full w-full border-box bg-white">
 		<div className="our-service">
-			<div className="container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
+			<div className="scroll-trigger-portofolio container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
 				<div className="flex flex-col text-center w-full mb-12">
 					<h1 className="text-4xl font-semibold title-font mb-2.5 text-medium-black">
 						Our Portofolio
@@ -268,7 +321,7 @@ export default function Index() {
 					</h2>
 				</div>
 
-				<div className="flex lg:gap-10 md:flex-row flex-col justify-between flex-wrap box-content">
+				<div ref={refPortofolio} className="flex lg:gap-10 md:flex-row flex-col justify-between flex-wrap box-content">
 					<div className="card px-4 md:px-4 lg:px-4 md:w-[47%] my-4">
 						<div className="flex rounded-lg h-full lg:pt-8 lg:pb-8 md:pt-8 md:pb-8 pt-12 pb-6 flex-col">
 							<div className="flex-grow">
@@ -357,8 +410,8 @@ export default function Index() {
 			</div>
 		</div>
 	</section>
-  <section id='testimonials' className="h-full w-full border-box bg-white">
-		<div className="testimonials">
+  <section id='testimonials' className="scroll-trigger-testimonials h-full w-full border-box bg-white">
+		<div ref={refTestimonials} className="testimonials">
 			<div className="container lg:px-32 md:px-8 sm:px-12 px-5 pt-20 pb-12 mx-auto">
 				<div className="flex flex-col text-center w-full mb-12">
 					<h1 className="text-4xl font-semibold title-font mb-2.5 text-medium-black">

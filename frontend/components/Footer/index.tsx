@@ -1,3 +1,4 @@
+import {useRef,useEffect} from 'react'
 import Image from 'next/image'
 import { useSelector } from 'react-redux'
 import Link from 'next/link'
@@ -19,7 +20,7 @@ export const Footer = () => {
               <div className='flex flex-col items-center gap-5'>
                 <p className="text-white text-[1.2em] text-center">Grow Your Business Faster Than Ever Before</p>
                 <Link href="#">
-                  <a className='w-fit bg-white text-sky-500 py-3 px-6 rounded-xl'>Contact Us</a>
+                  <a className='hover:scale-[1.1] duration-300 w-fit bg-white text-sky-500 py-3 px-6 rounded-xl'>Contact Us</a>
                 </Link>
               </div>
             </section>

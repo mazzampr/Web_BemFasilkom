@@ -160,6 +160,11 @@ html.has-scroll-dragging {
   [data-scroll-direction="horizontal"] .c-scrollbar_thumb {
     right: auto;
     bottom: 0; }
+.react-tabs__tab:focus{
+  box-shadow: none;
+  border-color: none ;
+  border-bottom: 2px solid orange;
+}
 @media screen and (max-width: 768px) {
   .react-tabs__tab-list{
     display: flex;

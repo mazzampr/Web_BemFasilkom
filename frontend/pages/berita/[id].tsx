@@ -11,7 +11,10 @@ import { API_URL } from "../../constants";
 import { useDarkNavLinks } from "../../hooks/useDarkNavLinks";
 import { DocumentHead } from "../../components/DocumentHead";
 import * as dateFns from "date-fns";
+<<<<<<< HEAD
 
+=======
+>>>>>>> 26df2fa28de39d64b4846f8c6e8c2f2bd2e55aea
 import { useSelector, useDispatch } from 'react-redux'
 import { setStatePageVisit } from '../../store/pageVisitSlices'
 import Link from "next/link";
@@ -20,12 +23,18 @@ import Link from "next/link";
 const NewsPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = (props) => {
+<<<<<<< HEAD
 
   const dispatch = useDispatch()
   dispatch(setStatePageVisit({page:'Berita'}))
   
   const { errorCode, detailBerita, listBerita } = props;
 
+=======
+  const dispatch = useDispatch()
+  dispatch(setStatePageVisit({page:'Berita'}))
+  const { errorCode, detailBerita,listBerita } = props;
+>>>>>>> 26df2fa28de39d64b4846f8c6e8c2f2bd2e55aea
   useDarkNavLinks();
   if (errorCode || !detailBerita) {
     return (
