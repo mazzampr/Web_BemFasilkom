@@ -115,7 +115,7 @@ export const Navbar = () => {
     }}>
           <section className='flex w-[60%] lg:w-[20%]'>
               <Link href="/">
-                  <a onClick={()=>navbarShow?setLogoClicked(true):setLogoClicked(false)} className="flex items-center ">
+                  <a onClick={()=>handleClickedNavbar('Homepage')} className="flex items-center ">
                     <Image
                         src={`${pageVisit==='Bisnis-Mitra' ? '/logo/kabinetAerialWhite.svg' : '/logo/kabinetArial.svg'}`}
                         alt="Logo BEM Fasilkom UPN 'Veteran' Jawa Timur"
