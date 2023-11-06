@@ -65,7 +65,7 @@ export default function Index() {
     const animation ={
       service: gsap.fromTo(refService.current,{autoAlpha:0,x:200},{autoAlpha:1,x:0}),
 	  benefit:gsap.fromTo(refBenefit.current,{autoAlpha:0,x:-200},{autoAlpha:1,x:0}),
-      portofolio:gsap.fromTo(refPortofolio.current,{autoAlpha:0,y:200},{autoAlpha:1,y:0,ease:'power3.out'}),
+      portofolio:gsap.fromTo(refPortofolio.current,{autoAlpha:0,y:100},{autoAlpha:1,y:0,ease:'power3.out'}),
 	  testimonials:gsap.fromTo(refTestimonials.current,{autoAlpha:0,y:200},{autoAlpha:1,y:0,ease:'power3.out'})
     }
 
@@ -94,7 +94,7 @@ export default function Index() {
       trigger: '.scroll-trigger-portofolio',
       start: 'top center',
       end: 'bottom+=100px top',
-      markers: true,
+      markers: false,
       onLeaveBack:()=>animation.portofolio.reverse(),
 	  onLeave:()=>gsap.to(refPortofolio.current,{autoAlpha:0,y:-200}),
 	  onEnterBack:()=>gsap.to(refPortofolio.current,{autoAlpha:1,y:0,ease:'power3.out'})

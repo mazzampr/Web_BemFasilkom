@@ -40,7 +40,7 @@ export default function Index({listBerita}: {listBerita: DetailBerita[]}) {
           : null}
         </article>
         <div className='w-fit m-auto my-5'>
-          <ButtonOutline content='Lihat Selengkapnya' />
+          <ButtonOutline content='Lihat Selengkapnya' link='/berita'/>
         </div>
     </section>
   )

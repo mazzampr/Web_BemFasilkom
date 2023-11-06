@@ -62,7 +62,7 @@ export default function Index({HomepageContent}: {HomepageContent: HomepageConte
                     </p>
                 </article>
                 <section className='w-fit mt-10 lg:mt-0 m-auto lg:m-0'>
-                    <ButtonOutline content={'Lihat Selengkapnya'}/>
+                    <ButtonOutline content={'Lihat Selengkapnya'} link={'/tentang-kami'}/>
                 </section>
             </article>
             <aside className=' relative mt-[8rem] lg:mt-0 lg:-top-[4rem] w-full h-fit lg:h-fit lg:w-[40%] flex justify-center lg:justify-end'>
