@@ -20,7 +20,6 @@ const StatusAduanPage: NextPage<
   const dispatch = useDispatch()
   dispatch(setStatePageVisit({page:'status-aduan'}))
   const { columns,session } = props;
-  console.log(session)
   const router = useRouter()
   const [status,setStatus]= useState(0)
   useEffect(()=>{
@@ -184,7 +183,6 @@ type ServerSideData = {
 export const getServerSideProps: GetServerSideProps<ServerSideData> =
   async (context) => {
     const session = await getSession(context);
-    console.log('session = ',session)
     let listStatusAduan = (await (
       await fetch(`${API_URL}/status-aduans`)
     ).json()) as StatusAduan[];

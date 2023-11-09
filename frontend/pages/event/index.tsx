@@ -9,7 +9,6 @@ import { Event } from "../../constants/types";
 import { API_URL } from "../../constants";
 import Link from "next/link";
 import Image from 'next/image'
-import { useDarkNavLinks } from "../../hooks/useDarkNavLinks";
 import * as dateFns from "date-fns";
 import { DocumentHead } from "../../components/DocumentHead";
 import { useDispatch } from 'react-redux'
@@ -130,10 +129,6 @@ export const getServerSideProps: GetServerSideProps<ServerSideData> =
       ).json(),
       await (await fetch(`${API_URL}/projects/count`)).json(),
     ]);
-
-    // di api projects sama dengan event
-
-    console.log(EventsList)
 
     return {
       props: {

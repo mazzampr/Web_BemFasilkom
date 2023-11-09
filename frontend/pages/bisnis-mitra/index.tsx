@@ -48,7 +48,6 @@ InferGetServerSidePropsType<typeof getServerSideProps>
 			  }
 			}
 		  })
-		  console.log(fixedName);
 		} else {
 		  fixedName=nama
 		}

@@ -8,10 +8,9 @@ import styles from "../../styles/NewsDetail.module.scss";
 import Error from "next/error";
 import ReactMarkdown from "react-markdown";
 import { API_URL } from "../../constants";
-import { useDarkNavLinks } from "../../hooks/useDarkNavLinks";
 import { DocumentHead } from "../../components/DocumentHead";
 import * as dateFns from "date-fns";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setStatePageVisit } from '../../store/pageVisitSlices'
 import Link from "next/link";
 import { useEffect } from "react";
@@ -26,7 +25,6 @@ const NewsPage: NextPage<
   },[dispatch])
   
   const { errorCode, detailBerita,listBerita } = props;
-  useDarkNavLinks();
   if (errorCode || !detailBerita) {
     return (
       <Error
@@ -123,7 +121,6 @@ export const getServerSideProps: GetServerSideProps<ServerSideData, URLParams> =
 
     const errorCode = res.ok ? false : res.status;
     const detailBerita = res.status === 404 ? null : await res.json();
-    console.log(beritaList);
     return {
       props: {
         errorCode,
