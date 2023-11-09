@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { Session } from "next-auth";
 import * as dateFns from "date-fns";
 import { DocumentHead } from "../components/DocumentHead";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setStatePageVisit } from '../store/pageVisitSlices'
 const StatusAduanPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
@@ -20,7 +20,6 @@ const StatusAduanPage: NextPage<
   const dispatch = useDispatch()
   dispatch(setStatePageVisit({page:'status-aduan'}))
   const { columns,session } = props;
-  console.log(session)
   const router = useRouter()
   const [status,setStatus]= useState(0)
   const [allAduans,setAllAduans]= useState(columns)
@@ -230,7 +229,6 @@ type ServerSideData = {
 export const getServerSideProps: GetServerSideProps<ServerSideData> =
   async (context) => {
     const session = await getSession(context);
-    console.log('session = ',session)
     let listStatusAduan = (await (
       await fetch(`${API_URL}/status-aduans`)
     ).json()) as StatusAduan[];

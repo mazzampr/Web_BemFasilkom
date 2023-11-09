@@ -23,16 +23,16 @@ export default function Index({listBerita}: {listBerita: DetailBerita[]}) {
     trigger: '.container-trigger',
     start: 'bottom center',
     end: 'bottom 40%',
-    markers: true,
+    markers: false,
     onEnterBack: ()=> animation.secHide.reverse(),
     onLeaveBack:()=>animation.secEnter.reverse(),
 })
 },[])
 
   return (
-    <section className='container-trigger mt-[13vh] w-full h-fit lg:h-fit box-border '>
+    <section className='container-trigger mt-[13vh] w-full h-fit lg:h-fit box-border flex flex-col items-center '>
         <h3 className="text-center m-auto font-bold text-typedBlue text-3xl submenu w-fit after:-bottom-2 after:right-[calc(100%/4)] after:w-[115px]">Fasilkom News</h3>
-        <article ref={sectionRef} className='flex flex-row flex-wrap gap-2 justify-around lg:flex-row lg:ml-0 lg:items-center w-full h-fit mt-[2rem] mb-5 lg:h-[80%] lg:mb-0'>
+        <article ref={sectionRef} className='flex flex-row flex-wrap gap-5 lg:gap-4 justify-around md:justify-between min-[1100px]:justify-around lg:flex-row lg:ml-0 lg:items-center w-full lg:w-fit min-[1350px]:w-[80%] h-fit mt-[2rem] mb-5 lg:h-[80%] lg:mb-0'>
           {listBerita.length > 0? 
             listBerita.map((berita, index) => (
               <CardNews key={index} berita={berita}/>
@@ -40,7 +40,7 @@ export default function Index({listBerita}: {listBerita: DetailBerita[]}) {
           : null}
         </article>
         <div className='w-fit m-auto my-5'>
-          <ButtonOutline content='Lihat Selengkapnya' />
+          <ButtonOutline content='Lihat Selengkapnya' link='/berita'/>
         </div>
     </section>
   )

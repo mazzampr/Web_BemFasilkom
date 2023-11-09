@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/categories-projects",
+      "handler": "categories-project.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/categories-projects/count",
+      "handler": "categories-project.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/categories-projects/:id",
+      "handler": "categories-project.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/categories-projects",
+      "handler": "categories-project.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/categories-projects/:id",
+      "handler": "categories-project.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/categories-projects/:id",
+      "handler": "categories-project.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

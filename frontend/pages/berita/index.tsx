@@ -8,10 +8,9 @@ import styles from "../../styles/SemuaBerita.module.scss";
 import { DetailBerita } from "../../constants/types";
 import { API_URL } from "../../constants";
 import Link from "next/link";
-import { useDarkNavLinks } from "../../hooks/useDarkNavLinks";
 import * as dateFns from "date-fns";
 import { DocumentHead } from "../../components/DocumentHead";
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { setStatePageVisit } from '../../store/pageVisitSlices'
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
@@ -25,7 +24,6 @@ const Berita: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
     const paginationStart = useRef(listBerita.length);
     const [beritaList, setBeritaList] = useState(listBerita);
     const [isFetchingNewData, setIsFetchingNewData] = useState(false);
-    useDarkNavLinks();
     
     useEffect(()=>{
       dispatch(setStatePageVisit({page:'Berita'}))
@@ -97,13 +95,9 @@ const Berita: NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
                    })
                    .then((newNews) => {
                      setBeritaList( [...beritaList, ...newNews]);
-                     console.log('aaaaaa')
-                    console.log(beritaList)
-                    console.log([...beritaList, ...newNews])
                      setIsFetchingNewData(false);
                    })
                    .catch((error) => {
-                     console.error('Error fetching data:', error);
                      setIsFetchingNewData(false);
                    });
                }}

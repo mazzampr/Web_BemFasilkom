@@ -8,35 +8,48 @@ import styles from "../../styles/NewsDetail.module.scss";
 import Error from "next/error";
 import ReactMarkdown from "react-markdown";
 import { API_URL } from "../../constants";
-import { useDarkNavLinks } from "../../hooks/useDarkNavLinks";
 import { DocumentHead } from "../../components/DocumentHead";
 import * as dateFns from "date-fns";
+<<<<<<< HEAD
 import {  useDispatch } from 'react-redux'
+=======
+import { useDispatch } from 'react-redux'
+>>>>>>> 83e19eaf3249f0a89adf9e1e6cc755e1e4d37d55
 import { setStatePageVisit } from '../../store/pageVisitSlices'
 import Link from "next/link";
+import { useEffect } from "react";
 
 
 const NewsPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = (props) => {
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83e19eaf3249f0a89adf9e1e6cc755e1e4d37d55
   const dispatch = useDispatch()
-  dispatch(setStatePageVisit({page:'Berita'}))
+  useEffect(()=>{
+    dispatch(setStatePageVisit({page:'Berita'}))
+  },[dispatch])
   
+<<<<<<< HEAD
   const { errorCode, detailBerita, listBerita } = props;
 
   useDarkNavLinks();
+=======
+  const { errorCode, detailBerita,listBerita } = props;
+>>>>>>> 83e19eaf3249f0a89adf9e1e6cc755e1e4d37d55
   if (errorCode || !detailBerita) {
     return (
       <Error
-        statusCode={errorCode as number}
-        title="Tidak dapat menemukan berita"
+      statusCode={errorCode as number}
+      title="Tidak dapat menemukan berita"
       />
-    );
-  }
-
-  return (
-    <>
+      );
+    }
+    
+    return (
+      <>
       <DocumentHead pageTitle="Berita" />
       <main className={styles.main}>
         <div className="w-fit h-fit flex flex-col  lg:flex-row mt-3">
@@ -79,7 +92,7 @@ const NewsPage: NextPage<
             
               <>
               <Link key={i}   href={`/berita/${article.id}`} passHref>
-               <article className="flex    w-[100%] mx-auto mt-3 h-fit cursor-pointer ">
+               <article className="flex w-[100%] mx-auto mt-3 h-fit cursor-pointer ">
           <img className="h-[65px] w-[65px] md:h-[120px] object-fit md:w-[120px] lg:w-[65px] lg:h-[65px]  bg-slate-100 rounded-[10px] mr-3 " src={`${API_URL}${article.cover.url}`} alt="" />
           <h2 className="text-[0.9rem] sm:text-[1.1rem]  md:text-[1.65em] lg:text-[14px] mt-1">{article.judul}</h2>
           </article>
@@ -122,7 +135,6 @@ export const getServerSideProps: GetServerSideProps<ServerSideData, URLParams> =
 
     const errorCode = res.ok ? false : res.status;
     const detailBerita = res.status === 404 ? null : await res.json();
-    console.log(beritaList);
     return {
       props: {
         errorCode,

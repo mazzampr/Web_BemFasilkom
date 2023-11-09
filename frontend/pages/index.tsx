@@ -9,6 +9,7 @@ import { DetailBerita } from "../constants/types";
 import {  HomepageContent } from "../constants/types";
 import { API_URL } from "../constants";
 import News from '../components/News'
+import { Pengurus } from '../constants/types';
 import Jumbotron from '../components/Jumbotron'
 import Sambutan from '../components/Sambutan'
 import { DocumentHead } from '../components/DocumentHead'
@@ -17,8 +18,11 @@ import { setStatePageVisit } from '../store/pageVisitSlices'
 
 const Index : NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> = (props) => {
   const dispatch = useDispatch()
-  const useRefScroll:any = useRef()
-  const { HomepageContent, listBerita, namaKabinet} = props
+  const { HomepageContent, listBerita, namaKabinet,sambutan,pengurus} = props
+  const BPH= {
+    ketuaUmum : pengurus.filter(person => person.jabatan.nama === 'Ketua Umum')[0],
+    sekretarisUmum :pengurus.filter(person => person.jabatan.nama === 'Sekretaris Umum')[0]
+  }
   useEffect(()=>{
     dispatch(setStatePageVisit({page:'Homepage'}))
   },[dispatch])
@@ -35,20 +39,25 @@ const Index : NextPage<InferGetServerSidePropsType<typeof getServerSideProps>> =
 // },[]);
   
   return (
+    <>
+      <DocumentHead pageTitle="Homepage" />
       <section className='w-screen box-border min-w-[360px]'>
           <section className='px-10'> 
               <Jumbotron namaKabinet={namaKabinet} />
-              <Sambutan />
+              <Sambutan content={sambutan} BPH={BPH}/>
               <About HomepageContent={HomepageContent} />
               <News listBerita={listBerita}/>
           </section>
       </section>
+    </>
   )
 }
 type ServerSideData = {
     HomepageContent:  HomepageContent,
     listBerita: DetailBerita[],
-    namaKabinet:string
+    namaKabinet:string,
+    sambutan:string,
+    pengurus:Pengurus[],
   };
 
 export const getServerSideProps: GetServerSideProps<ServerSideData> =
@@ -63,15 +72,20 @@ export const getServerSideProps: GetServerSideProps<ServerSideData> =
     // ]);
     const homepageContent = await (await fetch(`${API_URL}/homepage`)).json()
     const kabinet = await (await fetch(`${API_URL}/nama-kabinet`)).json()
+    const sambutan = await (await fetch(`${API_URL}/sambutan`)).json()
     const beritaList = await (await fetch(`${API_URL}/beritas?_sort=created_at:DESC&_start=0&_limit=3`)).json()
+    const pengurus = await (await fetch(`${API_URL}/penguruses`)).json();
+
 
     const {nama:namaKabinet} = kabinet
-
+    const sambutanContent = sambutan.content
     return {
       props: {
         HomepageContent:homepageContent,
         listBerita: beritaList,
-        namaKabinet
+        namaKabinet,
+        sambutan: sambutanContent,
+        pengurus
       },
     };
   };
