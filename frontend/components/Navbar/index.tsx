@@ -197,7 +197,7 @@ export const Navbar = () => {
                 </>
               )}
             </section>
-            <ButtonOutline content={`${pageVisit==='Bisnis-Mitra' ? 'Contact Us' : 'Event'}`} link={`${pageVisit==='Bisnis-Mitra' ? '/contact-us' : '/event'}`} width={'6.3rem'} bismitMode={pageVisit==='Bisnis-Mitra' ? true : false}/>
+            <ButtonOutline content={`${pageVisit==='Bisnis-Mitra' ? 'Contact Us' : 'Event'}`} link={`${pageVisit==='Bisnis-Mitra' ? 'https://bit.ly/contact-bismit' : '/event'}`} width={'6.3rem'} bismitMode={pageVisit==='Bisnis-Mitra' ? true : false}/>
           </nav>
           <section className="w-[20%] lg:hidden flex justify-end pr-5 md:pr-8">
             <Hamburger />

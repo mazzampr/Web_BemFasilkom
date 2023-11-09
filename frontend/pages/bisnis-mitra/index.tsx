@@ -58,7 +58,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>
 	useEffect(() => {
 		dispatch(setStatePageVisit({page:'Bisnis-Mitra'}))
         const typed = new Typed(typedRef.current, {
-          strings: ['Website','Android App','Desktop App','UI/UX'], // Strings to display
+          strings: categoriesProject.map((item) => item.categories), // Strings to display
           // Speed settings, try diffrent values untill you get good results
           startDelay: 300,
           typeSpeed: 100,
@@ -158,10 +158,10 @@ InferGetServerSidePropsType<typeof getServerSideProps>
                 </h1>
                 <div
                   className="inline-block items-center mx-auto lg:mx-0 lg:flex justify-center lg:mt-12 lg:space-x-12 md:space-x-2 sm:space-x-3 space-x-0">
-                  <button
-                    className="z-10 btn-fill bg-white inline-flex font-semibold text-orange-500 text-base py-4 px-6 rounded-xl mb-4 lg:mb-0 md:mb-0 focus:outline-none hover:shadow-lg">
+                  <a
+                     href={'https://bit.ly/contact-bismit'} className="z-10 btn-fill bg-white inline-flex font-semibold text-orange-500 text-base py-4 px-6 rounded-xl mb-4 lg:mb-0 md:mb-0 focus:outline-none hover:shadow-lg">
                     Get Started
-                  </button>
+                  </a>
                 </div>
               </div>
               <div className="w-full lg:w-1/2 text-center lg:justify-end justify-center flex pr-0">
@@ -183,7 +183,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>
 					</h1>
 					<h2
 						className="text-base font-light title-font mx-12 lg:w-full md:w-full sm:w-3/6 sm:mx-auto text-medium-black">
-						You can easily manage your business with a powerful tools
+						Benefit yang anda dapatkan dari layanan kami
 					</h2>
 				</div>
 
@@ -256,11 +256,7 @@ InferGetServerSidePropsType<typeof getServerSideProps>
 					<h1 className="text-4xl font-semibold title-font mb-2.5 text-medium-black">
 						What We Can do
 					</h1>
-					<h2
-						className="text-base font-light title-font mx-12 lg:w-full md:w-full sm:w-3/6 sm:mx-auto text-gray-500">
-						Excepteur sint occaecat cupidatat non proident
-					</h2>
-				</div>
+				</div>	
 
 				<div ref={refService} className="flex w-full flex-wrap md:justify-between md:gap-5 md:flex-row box-border flex-col my-4">
 					{categoriesProject.length>0? categoriesProject.map((project,index)=>(
@@ -299,10 +295,6 @@ InferGetServerSidePropsType<typeof getServerSideProps>
 						<h1 className="text-4xl font-semibold title-font mb-2.5 text-medium-black">
 							Our Portofolio
 						</h1>
-						<h2
-							className="text-base font-light title-font mx-12 lg:w-full md:w-full sm:w-3/6 sm:mx-auto text-gray-500">
-							Excepteur sint occaecat cupidatat non proident
-						</h2>
 					</div>
 						<Tabs >
 							<div className='w-full h-fit overflow-hidden text-center'>
@@ -337,8 +329,8 @@ InferGetServerSidePropsType<typeof getServerSideProps>
 																		</div>
 																		<div className="items-center text-center">
 																			<div className="inline-flex items-center justify-center rounded-full mb-6">
-																				<img src={`${API_URL}${portofolio.gambar.url}`}
-																					alt={portofolio.judul_project} />
+																				<Image src={`${API_URL}${portofolio.gambar.url}`}
+																					alt={portofolio.judul_project} width={portofolio.gambar.width} height={portofolio.gambar.height} />
 																			</div>
 																		</div>
 																			<a href={portofolio.url} className="text-sm text-end text-orange-500 hover:cursor-pointer">
@@ -372,8 +364,8 @@ InferGetServerSidePropsType<typeof getServerSideProps>
 						Testimonials
 					</h1>
 					<h2
-						className="text-base font-light title-font mx-12 lg:w-full md:w-full sm:w-3/6 sm:mx-auto text-gray-500">
-						Excepteur sint occaecat cupidatat non proident
+						className="text-base font-light title-font mx-12 lg:w-full md:w-full sm:w-3/6 sm:mx-auto text-medium-black">
+						Apa kata mereka terkait layanan kami
 					</h2>
 				</div>
 				<Carousel className='flex gap-4' responsive={responsive} containerClass="carousel-container" itemClass="carousel-item-gap" autoPlay={true} autoPlaySpeed={3000} arrows={false} showDots={true} infinite={true} swipeable={true} dotListClass="custom-dot-list-style">

@@ -63,7 +63,9 @@ export type Portofolios={
     categories: string
   },
   gambar:{
-    url:string
+    url:string,
+    width:number,
+    height:number,
   }
 }
 export type Testimonials={
