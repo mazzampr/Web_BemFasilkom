@@ -80,7 +80,7 @@ const NewsPage: NextPage<
             
               <>
               <Link key={i}   href={`/berita/${article.id}`} passHref>
-               <article className="flex    w-[100%] mx-auto mt-3 h-fit cursor-pointer ">
+               <article className="flex w-[100%] mx-auto mt-3 h-fit cursor-pointer ">
           <img className="h-[65px] w-[65px] md:h-[120px] object-fit md:w-[120px] lg:w-[65px] lg:h-[65px]  bg-slate-100 rounded-[10px] mr-3 " src={`${API_URL}${article.cover.url}`} alt="" />
           <h2 className="text-[0.9rem] sm:text-[1.1rem]  md:text-[1.65em] lg:text-[14px] mt-1">{article.judul}</h2>
           </article>

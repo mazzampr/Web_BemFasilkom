@@ -205,7 +205,7 @@ const groupedByAnggotaJurusan = (pengurus:Pengurus[], prokers:Prokers[], tupoksi
 
                         <TabPanel key={i}>
                                 <h4 className='text-2xl text-center font-bold text-typedBlue mb-10'>{p.divisi}</h4>
-                                <div ref={refImage} className='flex flex-col min-[550px]:flex-row min-[730px]:flex-row lg:h-[10%] lg:flex-row gap-4 w-full justify-center items-center'>
+                                <div ref={refImage} className='flex flex-col  min-[730px]:flex-row lg:h-[10%] lg:flex-row gap-4 w-full justify-center items-center'>
                                                                     {p.members.map(m=>{return(
                                     <Card key={m.id} nama={m.nama}
                                     angkatan={m.angkatan} 

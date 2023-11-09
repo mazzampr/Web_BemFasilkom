@@ -47,6 +47,34 @@ export type Berita = {
   created_at: string;
   cover:StrapiImage;
 };
+export type CategoriesProjects={
+  categories:string,
+  desc:string,
+  portofolios:{
+    id:number,
+    judul_project:string,
+  }[]
+}
+export type Portofolios={
+  judul_project:string,
+  desc:string,
+  url:string,
+  categories_project:{
+    categories: string
+  },
+  gambar:{
+    url:string
+  }
+}
+export type Testimonials={
+  name: string,
+  job:string,
+  desc:string,
+  gambar:{
+    url:string
+  }
+}
+
 
 export type Misi = {
   deskripsi: string;

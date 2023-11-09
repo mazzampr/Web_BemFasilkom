@@ -1,0 +1,41 @@
+{
+  "kind": "collectionType",
+  "collectionName": "portofolios",
+  "info": {
+    "name": "Portofolio",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "judul_project": {
+      "type": "string"
+    },
+    "desc": {
+      "type": "richtext"
+    },
+    "gambar": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "url": {
+      "type": "string"
+    },
+    "categories_project": {
+      "via": "portofolios",
+      "model": "categories-project"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/sambutan",
+      "handler": "sambutan.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/sambutan",
+      "handler": "sambutan.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/sambutan",
+      "handler": "sambutan.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
