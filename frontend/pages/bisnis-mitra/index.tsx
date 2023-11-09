@@ -328,8 +328,12 @@ InferGetServerSidePropsType<typeof getServerSideProps>
 																		</div>
 																		<div className="items-center text-center">
 																			<div className="inline-flex items-center justify-center rounded-full mb-6">
+																				{portofolio.gambar?(
 																				<Image src={`${API_URL}${portofolio.gambar.url}`}
 																					alt={portofolio.judul_project} width={portofolio.gambar.width} height={portofolio.gambar.height} />
+																					):(
+																						<p>There is no picture</p>
+																					)}
 																			</div>
 																		</div>
 																			<a href={portofolio.url} className="text-sm text-end text-orange-500 hover:cursor-pointer">
@@ -377,8 +381,12 @@ InferGetServerSidePropsType<typeof getServerSideProps>
 							</div>
 							<figure className='flex h-[30%] justify-center items-center gap-3 w-full'>
 								<div className=' w-[30%] flex justify-center'>
+									{testimoni.gambar ? (
 									<Image className='rounded-full overflow-hidden' src={`${API_URL}${testimoni.gambar.url}`} width={60} height={60} alt='Avatar'/>
-								</div>
+									):(
+										<p>There is no pictures</p>
+									)}
+									</div>
 								<figcaption className='w-[70%] h-full flex flex-col items-start justify-center pb-3'>
 									<p className="testimonial-author text-black text-[.8em] font-bold">{nameHandler(testimoni.name)}</p>
 									<p className="testimonial-author text-slate-500 text-[.8em] font-bold">{testimoni.job}</p>
