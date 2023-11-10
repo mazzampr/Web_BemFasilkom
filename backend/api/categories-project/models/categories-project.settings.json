@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categories_projects",
+  "info": {
+    "name": "categories_project",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "categories": {
+      "type": "string"
+    },
+    "portofolios": {
+      "via": "categories_project",
+      "collection": "portofolio"
+    },
+    "desc": {
+      "type": "richtext"
+    }
+  }
+}

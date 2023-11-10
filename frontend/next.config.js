@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   images: {
-    domains: ["localhost", "web-bem-testing.herokuapp.com"],
+    domains: ["localhost", "admincpanel.bemfasilkomupnjatim.com"],
   },
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: false,
   },
 };

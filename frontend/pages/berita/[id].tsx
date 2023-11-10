@@ -8,34 +8,40 @@ import styles from "../../styles/NewsDetail.module.scss";
 import Error from "next/error";
 import ReactMarkdown from "react-markdown";
 import { API_URL } from "../../constants";
-import { useDarkNavLinks } from "../../hooks/useDarkNavLinks";
 import { DocumentHead } from "../../components/DocumentHead";
 import * as dateFns from "date-fns";
-
-import { useSelector, useDispatch } from 'react-redux'
+import {  useDispatch } from 'react-redux'
 import { setStatePageVisit } from '../../store/pageVisitSlices'
 import Link from "next/link";
+import { useEffect } from "react";
+
 
 
 const NewsPage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = (props) => {
-  const dispatch = useDispatch()
-  dispatch(setStatePageVisit({page:'Berita'}))
-  const { errorCode, detailBerita,listBerita } = props;
 
-  useDarkNavLinks();
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(setStatePageVisit({page:'Berita'}))
+  },[dispatch])
+  
+  // const { errorCode, detailBerita, listBerita } = props;
+
+  // useDarkNavLinks();
+
+  const { errorCode, detailBerita,listBerita } = props;
   if (errorCode || !detailBerita) {
     return (
       <Error
-        statusCode={errorCode as number}
-        title="Tidak dapat menemukan berita"
+      statusCode={errorCode as number}
+      title="Tidak dapat menemukan berita"
       />
-    );
-  }
-
-  return (
-    <>
+      );
+    }
+    
+    return (
+      <>
       <DocumentHead pageTitle="Berita" />
       <main className={styles.main}>
         <div className="w-fit h-fit flex flex-col  lg:flex-row mt-3">
@@ -77,8 +83,8 @@ const NewsPage: NextPage<
           {listBerita.map((article, i)  => (
             
               <>
-              <Link key={i}   href={`/berita/${article.id}`} passHref>
-               <article className="flex    w-[100%] mx-auto mt-3 h-fit cursor-pointer ">
+              <Link key={i} href={`/berita/${article.id}`} passHref>
+               <article className="flex w-[100%] mx-auto mt-3 h-fit cursor-pointer ">
           <img className="h-[65px] w-[65px] md:h-[120px] object-fit md:w-[120px] lg:w-[65px] lg:h-[65px]  bg-slate-100 rounded-[10px] mr-3 " src={`${API_URL}${article.cover.url}`} alt="" />
           <h2 className="text-[0.9rem] sm:text-[1.1rem]  md:text-[1.65em] lg:text-[14px] mt-1">{article.judul}</h2>
           </article>
@@ -103,33 +109,77 @@ type ServerSideData = {
   listBerita:Berita[]
 };
 
-type URLParams = { id: string };
+// type URLParams = { id: string };
 
-export const getServerSideProps: GetServerSideProps<ServerSideData, URLParams> =
+// export const getStaticPaths = (async () => {
+//   return {
+//     paths: [
+//       {
+//         params: {
+//           id: 'next.js',
+//         },
+//       }, // See the "paths" section below
+//     ],
+//     fallback: true, // false or "blocking"
+//   }
+// }) 
+
+export async function getServerSidePaths() {
+  const res = await fetch(`${API_URL}/beritas`);
+  const beritas = await res.json()
+  console.log('ini')
+  console.log(beritas)
+  const paths = beritas.map((berita: any) => {
+    return{
+      params:{
+        id:`${berita.id}`,
+      }
+    }
+  });
+  return{
+    paths,
+    fallback: false
+  }
+}
+
+export const getServerSideProps: GetServerSideProps<ServerSideData> =
   async (context) => {
-    const res = await fetch(`${API_URL}/beritas/${context.params?.id}`);
-    // const res1 = await fetch(`${API_URL}/beritas/${context.params?.id}`);
-    const [beritaList, beritaCount] = await Promise.all([
-      await (
-        await fetch(
-          `${API_URL}/beritas?_sort=created_at:DESC&_start=0&_limit=6`
-        )
-      ).json(),
-      await (await fetch(`${API_URL}/beritas/count`)).json(),
-    ]);
+    try {
+      console.log('ini id')
+      const res = await fetch(`${API_URL}/beritas/${context.params?.id}`);
+      // const [beritaList, beritaCount] = await Promise.all([
+      //   await (
+      //     await fetch(
+      //       `${API_URL}/beritas?_sort=created_at:DESC&_start=0&_limit=6`
+      //     )
+      //   ).json(),
+      //   await (await fetch(`${API_URL}/beritas/count`)).json(),
+      // ]);
+      const beritaList = await (await fetch(`${API_URL}/beritas?_sort=created_at:DESC&_start=0&_limit=3`)).json();
+      const beritaCount = await (await fetch(`${API_URL}/beritas/count`)).json();
 
+      const errorCode = res.ok ? false : res.status;
+      const detailBerita = res.status === 404 ? null : await res.json();
 
-    const errorCode = res.ok ? false : res.status;
-    const detailBerita = res.status === 404 ? null : await res.json();
-    console.log(beritaList);
-    return {
-      props: {
-        errorCode,
-        detailBerita,
-        listBerita: beritaList,
+      return {
+        props: {
+          errorCode,
+          detailBerita,
+          listBerita: beritaList,
+        },
+      };
+    } catch (error) {
+      console.error("Error in getServerSideProps:", error);
 
-      },
-    };
+      return {
+        props: {
+          errorCode: 500, // Internal Server Error
+          detailBerita: null,
+          listBerita: [],
+        },
+      };
+    }
   };
+
 
 export default NewsPage;
