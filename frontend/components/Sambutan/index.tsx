@@ -77,14 +77,14 @@ export default function Index({content,BPH}:{content:string,BPH:any}) {
         <section ref={boxRef} data-scroll-section className='flex h-full lg:max-w-[283px] lg:w-[30%]  '>
             <section className='mt-8 w-full lg:mt-0 lg:w-fit h-full flex lg:flex-col lg:items-center justify-between'>
                 <figure className='w-[40%] h-[40%] lg:w-fit lg:h-fit flex flex-col items-center lg:mb-10'>
-                    <Image className='rounded-full overflow-hidden bg-cover ' src={`${API_URL}${ketuaUmum.foto.url}`} width={200} height={200} alt='avatar'/>
+                    <Image className='rounded-full overflow-hidden bg-cover object-cover ' src={`${API_URL}${ketuaUmum.foto.url}`} width={200} height={200} alt='avatar'/>
                     <figcaption className='text-center mt-2'>
                         <p className='text-xs min-[357px]:text-sm  lg:text-xl'>{ketuaUmum.nama}</p>
                         <p className='text-xs lg:text-xl font-bold text-typedBlue'>{ketuaUmum.jabatan.nama}</p>
                     </figcaption>
                 </figure>
                 <figure className='w-[40%] h-[40%] lg:w-fit lg:h-fit flex flex-col items-center'>
-                    <Image className='rounded-full overflow-hiddenbg-cover mb-1' src={`${API_URL}${sekretarisUmum.foto.url}`} width={200} height={200} alt='avatar'/>
+                    <Image className='rounded-full overflow-hidden bg-cover mb-1 object-cover ' src={`${API_URL}${sekretarisUmum.foto.url}`} width={200} height={200} alt='avatar'/>
                     <figcaption className='text-center mt-2'>
                         <p className='text-xs min-[357px]:text-sm lg:text-xl'>{sekretarisUmum.nama}</p>
                         <p className='text-xs lg:text-xl font-bold text-typedBlue'>{sekretarisUmum.jabatan.nama}</p>

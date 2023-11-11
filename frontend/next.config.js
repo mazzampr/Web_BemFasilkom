@@ -2,8 +2,15 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["localhost", "web-bem-testing.herokuapp.com"],
-  },
+    remotePatterns: [
+        {
+            protocol: 'https',
+            hostname: '**',
+            port: '',
+            pathname: '**',
+        },
+    ],
+},
   typescript: {
     ignoreBuildErrors: true,
   },

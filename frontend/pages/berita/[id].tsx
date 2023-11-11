@@ -108,7 +108,6 @@ type URLParams = { id: string };
 export const getServerSideProps: GetServerSideProps<ServerSideData, URLParams> =
   async (context) => {
     const res = await fetch(`${API_URL}/beritas/${context.params?.id}`);
-    // const res1 = await fetch(`${API_URL}/beritas/${context.params?.id}`);
     const [beritaList, beritaCount] = await Promise.all([
       await (
         await fetch(
