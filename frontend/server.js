@@ -1,10 +1,10 @@
 const { createServer } = require('http')
 const { parse } = require('url')
 const next = require('next')
-
-const dev = process.env.NODE_ENV !== 'production'
+require('dotenv').config()
+const dev = process.env.NODE_ENV === 'production'
 const hostname = process.env.HOST || 'bemfasilkomupnjatim.com'
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 80
 
 const app = next({ dev, hostname, port })
 const handle = app.getRequestHandler()
