@@ -10,4 +10,12 @@ module.exports = {
   eslint: {
     ignoreDuringBuilds: false,
   },
+  async rewrites() {
+    return [
+      {
+        source: '/berita/:id',
+        destination: '/berita/[id]',
+      },
+    ];
+  },
 };

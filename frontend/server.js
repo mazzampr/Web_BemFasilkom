@@ -3,7 +3,7 @@ const { parse } = require('url')
 const next = require('next')
 
 const dev = process.env.NODE_ENV !== 'production'
-const hostname = process.env.HOST || 'bemfasilkomupnjatim.com'
+const hostname = process.env.HOST || 'bebrand.space'
 const port = process.env.PORT || 8080
 
 const app = next({ dev, hostname, port })
@@ -19,6 +19,11 @@ app.prepare().then(() => {
         await app.render(req, res, '/a', query)
       } else if (pathname === '/b') {
         await app.render(req, res, '/b', query)
+      } 
+      else if (pathname.startsWith('/berita/')) {
+        // Use the page inside the 'pages' directory for dynamic routes
+        const dynamicPage = '/berita/[id]';
+        await app.render(req, res, dynamicPage, query);
       } else {
         await handle(req, res, parsedUrl)
       }

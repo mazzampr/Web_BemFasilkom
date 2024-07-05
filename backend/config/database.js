@@ -22,8 +22,8 @@ module.exports = ({ env }) => ({
         client: "mysql",
         host: env('DATABASE_HOST', 'localhost'),
         port: env('DATABASE_PORT', 3306),
-        database: env('DATABASE_NAME', 'db_bem'),
-        username: env('DATABASE_USERNAME', 'root'),
+        database: env('DATABASE_NAME', 'forge'),
+        username: env('DATABASE_USERNAME', 'forge'),
         password: env('DATABASE_PASSWORD', ''),
       },
       options: {

@@ -27,7 +27,7 @@
     },
     "end_date": {
       "type": "datetime",
-      "required": true,
+      "required": false,
       "unique": false
     },
     "direct_link": {
